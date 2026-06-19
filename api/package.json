@@ -1,11 +1,10 @@
 {
   "name": "viva-tracking-proxy",
   "version": "1.0.0",
-  "description": "Backend proxy Express.js pour le tracking Viva E-Market — interroge DHL/FedEx APIs et agrège les données de suivi.",
+  "description": "Backend proxy Express.js pour le tracking Viva E-Market",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.21.0",

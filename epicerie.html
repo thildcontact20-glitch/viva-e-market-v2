@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Épicerie — VIVA E-MARKET</title>
+<meta name="description" content="Épicerie fine VIVA E-MARKET — Viva Rice, Sunstar Rice, Head Chef Ketchup. Qualité premium pour les marchés africains.">
+<link rel="icon" type="image/png" href="logo/logo.png">
+<link rel="apple-touch-icon" href="logo/logo.png">
+<meta property="og:image" content="logo/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ═══════════════════════════════════════════
+   CSS VARIABLES
+   ═══════════════════════════════════════════ */
+:root {
+  --gold: #D4AF37;
+  --gold-light: #F0D060;
+  --gold-dark: #B8942E;
+  --gold-glow: rgba(212, 175, 55, 0.3);
+  --gold-subtle: rgba(212, 175, 55, 0.08);
+  --font-display: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+  --nav-height: 72px;
+  --section-gap: 80px;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-card: #1A1A1A;
+  --bg-card-hover: #222222;
+  --text-primary: #F0EDE8;
+  --text-secondary: #A0988A;
+  --text-muted: #6B6360;
+  --border-light: rgba(212, 175, 55, 0.12);
+  --nav-bg: rgba(10, 10, 10, 0.85);
+  --shadow-card: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+[data-theme="light"] {
+  --bg-primary: #F8F6F2;
+  --bg-secondary: #EFECE6;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FAFAFA;
+  --text-primary: #1A1814;
+  --text-secondary: #5C5548;
+  --text-muted: #9C948C;
+  --border-light: rgba(212, 175, 55, 0.15);
+  --nav-bg: rgba(248, 246, 242, 0.9);
+  --shadow-card: 0 20px 60px rgba(0,0,0,0.08);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--gold) var(--bg-primary); }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.4s, color 0.4s;
+  padding-top: var(--nav-height);
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+a { color: var(--gold); text-decoration: none; transition: color 0.3s; }
+a:hover { color: var(--gold-light); }
+::selection { background: var(--gold); color: #000; }
+
+/* ═══════════════════════════════════════════
+   NAVIGATION (Injected by nav.js)
+   ═══════════════════════════════════════════ */
+.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s, background 0.4s;
+}
+.site-nav.scrolled { border-bottom-color: var(--border-light); }
+.nav-inner {
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-left { display: flex; align-items: center; gap: 10px; }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo .diamond {
+  width: 10px; height: 10px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  display: inline-block;
+  transition: transform 0.6s;
+}
+.nav-logo:hover .diamond { transform: rotate(135deg) scale(1.2); }
+.nav-logo-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-links a {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--gold);
+  background: var(--gold-subtle);
+}
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+.theme-toggle:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════
+   PAGE HERO
+   ═══════════════════════════════════════════ */
+.page-hero {
+  text-align: center;
+  padding: 100px 24px 60px;
+  position: relative;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+.page-hero h1 {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--gold);
+  text-shadow: 0 0 40px var(--gold-glow), 0 0 80px rgba(212, 175, 55, 0.15);
+}
+.page-hero p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+.page-hero .hero-icon {
+  font-size: 3rem;
+  color: var(--gold);
+  margin-bottom: 24px;
+  opacity: 0.7;
+}
+
+/* ═══════════════════════════════════════════
+   FILTER BAR
+   ═══════════════════════════════════════════ */
+.filter-bar {
+  max-width: 1280px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.filter-btn {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 24px;
+  border-radius: 50px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════
+   PRODUCTS GRID
+   ═══════════════════════════════════════════ */
+.products-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* ─── Section Divider ─── */
+.section-divider {
+  grid-column: 1 / -1;
+  padding: 32px 0 16px;
+  margin-bottom: 8px;
+  position: relative;
+}
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.section-divider h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--gold);
+  text-align: center;
+  background: var(--bg-primary);
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.section-divider .subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  margin-top: 4px;
+}
+
+/* ─── Product Card ─── */
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s;
+  cursor: pointer;
+  position: relative;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 30px var(--gold-glow);
+  background: var(--bg-card-hover);
+}
+.product-badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  z-index: 5;
+  padding: 5px 14px;
+  background: var(--gold);
+  color: #000;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+}
+.product-image {
+  width: 100%;
+  height: 220px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--bg-secondary);
+  transition: transform 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-card:hover .product-image { transform: scale(1.03); }
+.product-image-placeholder {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+}
+.product-image-placeholder i {
+  font-size: 4rem;
+  color: var(--gold);
+  opacity: 0.4;
+  transition: all 0.4s;
+}
+.product-card:hover .product-image-placeholder i {
+  opacity: 0.9;
+  transform: scale(1.1);
+}
+.product-body {
+  padding: 20px;
+}
+.product-body .product-brand {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.product-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.product-body p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.product-body .product-origin {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+.product-body .product-origin i {
+  margin-right: 4px;
+  color: var(--gold);
+  font-size: 0.7rem;
+}
+.product-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.product-footer .product-price {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+.product-footer .product-format {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════
+   MODAL
+   ═══════════════════════════════════════════ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  animation: modalFadeIn 0.3s;
+}
+.modal-overlay.active { display: flex; }
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal {
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+  animation: modalSlideIn 0.3s;
+  position: relative;
+}
+@keyframes modalSlideIn {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  z-index: 10;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background: rgba(10,10,10,0.7);
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+.modal-close:hover {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+}
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.modal-img {
+  min-height: 350px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--bg-primary);
+  border-radius: 20px 0 0 20px;
+}
+.modal-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+}
+.modal-img-placeholder i {
+  font-size: 5rem;
+  color: var(--text-muted);
+  opacity: 0.3;
+}
+.modal-info {
+  padding: 32px;
+}
+.modal-brand {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold);
+  font-weight: 600;
+}
+.modal-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 8px 0 16px;
+  line-height: 1.2;
+}
+.modal-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.modal-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.modal-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.modal-detail i {
+  width: 20px;
+  color: var(--gold);
+  font-size: 0.8rem;
+}
+.modal-detail strong { color: var(--text-primary); }
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.modal-tag {
+  padding: 4px 14px;
+  border-radius: 50px;
+  border: 1px solid var(--border-light);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+}
+.modal-price {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.modal-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--gold);
+  color: #000;
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.modal-contact-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER (Injected by nav.js)
+   ═══════════════════════════════════════════ */
+footer {
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-light);
+  padding: 80px 24px 30px;
+  position: relative;
+  z-index: 1;
+  transition: background 0.4s;
+}
+.footer-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 60px;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.footer-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 360px;
+}
+.footer-title {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-contact {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.footer-contact i { color: var(--gold); width: 16px; }
+.footer-bottom {
+  max-width: 1280px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-bottom span {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.footer-socials { display: flex; gap: 12px; }
+.footer-socials a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all 0.3s;
+  font-size: 0.85rem;
+}
+.footer-socials a:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .modal-body { grid-template-columns: 1fr; }
+  .modal-img {
+    min-height: 280px;
+    border-radius: 20px 20px 0 0;
+  }
+}
+@media (max-width: 900px) {
+  .hamburger { display: block; }
+  .nav-links {
+    position: fixed;
+    top: 0; right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--bg-card);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 100px 32px 40px;
+    gap: 8px;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.3);
+    border-left: 1px solid var(--border-light);
+  }
+  .nav-links.open { right: 0; }
+  .nav-links a {
+    font-size: 0.85rem;
+    width: 100%;
+    padding: 14px 16px;
+  }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+
+@media (max-width: 600px) {
+  .page-hero { padding: 80px 24px 40px; }
+  .page-hero h1 { font-size: 2rem; }
+  .products-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ PAGE HERO ═══ -->
+<section class="page-hero">
+  <div class="hero-icon"><i class="fas fa-seedling"></i></div>
+  <h1>Épicerie</h1>
+  <p>Produits alimentaires premium soigneusement sélectionnés pour les marchés africains. Qualité internationale, distribution locale.</p>
+</section>
+
+<!-- ═══ FILTER BAR ═══ -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">Tous</button>
+  <button class="filter-btn" data-filter="rice">Riz</button>
+  <button class="filter-btn" data-filter="conserve">Conserves</button>
+  <button class="filter-btn" data-filter="tomato">Tomates</button>
+  <button class="filter-btn" data-filter="dairy">Produits Laitiers</button>
+  <button class="filter-btn" data-filter="pasta">Pâtes</button>
+  <button class="filter-btn" data-filter="drinks">Boissons</button>
+  <button class="filter-btn" data-filter="sauce">Sauces & Condiments</button>
+</div>
+
+<!-- ═══ PRODUCTS ═══ -->
+<section class="products-section">
+  <div class="products-grid" id="productGrid">
+    <!-- RENDERED BY JAVASCRIPT -->
+  </div>
+</section>
+
+<!-- ═══ MODAL ═══ -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+    <div class="modal-body" id="modalBody">
+      <div class="modal-img modal-img-placeholder" id="modalImg">
+        <i class="fas fa-box-open"></i>
+      </div>
+      <div class="modal-info" id="modalInfo">
+        <div class="modal-brand" id="modalBrand"></div>
+        <h2 class="modal-name" id="modalName"></h2>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-details" id="modalDetails"></div>
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-footer">
+          <div class="modal-price" id="modalPrice"></div>
+          <a class="modal-contact-btn" href="index.html#contact">
+            <i class="fab fa-whatsapp"></i> Commander
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script src="js/nav.js"></script>
+<script src="js/admin-bridge.js"></script>
+<script>
+// ══════════════════════════════════════════════════════════════
+// PRODUCT DATA
+// ══════════════════════════════════════════════════════════════
+const products = [
+  // ─── RIZ ───
+  {
+    id: 'viva-rice',
+    name: 'Viva Rice',
+    brand: 'Viva',
+    category: 'rice',
+    description: 'Riz long grain de haute qualité, parfumé et savoureux. Idéal pour les plats africains et internationaux. Conditionné pour la distribution B2B.',
+    origin: 'Importation Premium',
+    format: 'Disponible en plusieurs formats',
+    price: 'Sur demande',
+    features: ['Riz Long Grain', 'Qualité Premium', 'Distribution B2B'],
+    image: '/images/products/viva-rice-duo.jpg',
+    tag: 'Premium'
+  },
+  {
+    id: 'sunstar-rice',
+    name: 'Sunstar Rice',
+    brand: 'Sunstar',
+    category: 'rice',
+    description: 'Riz parfumé de qualité supérieure, grain long et fin. Un produit incontournable pour les marchés ouest-africains. Excellent rapport qualité-prix.',
+    origin: 'Importation Premium',
+    format: 'Disponible en plusieurs formats',
+    price: 'Sur demande',
+    features: ['Riz Parfumé', 'Grain Long & Fin', 'Qualité Supérieure'],
+    image: '/images/products/sunstar-rice-premium.jpg',
+    tag: 'Populaire'
+  },
+
+  // ─── CONSERVE — Head Chef ───
+  {
+    id: 'head-chef-petits-pois',
+    name: 'Head Chef Petits Pois Fins',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'conserve',
+    description: 'Petits pois fins de qualité supérieure, soigneusement sélectionnés pour leur tendreté et leur saveur délicate. Idéaux pour accompagner vos plats.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Conserve',
+    price: 'Sur demande',
+    features: ['Petits Pois Fins', 'Dadson\'s UK', 'Qualité Supérieure'],
+    image: '/images/products/dadsons_grocery/head-chef-petits-pois.jpg',
+    tag: 'Dadson\'s UK'
+  },
+  {
+    id: 'head-chef-macedoine',
+    name: 'Head Chef Mixed Vegetables Macedoine',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'conserve',
+    description: 'Macédoine de légumes variés de qualité premium. Mélange équilibré de légumes soigneusement sélectionnés, prêts à l\'emploi.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Conserve',
+    price: 'Sur demande',
+    features: ['Macédoine de Légumes', 'Dadson\'s UK', 'Prêt à l\'emploi'],
+    image: '/images/products/dadsons_grocery/head-chef-vegetables-lineup.jpg',
+    tag: 'Dadson\'s UK'
+  },
+  {
+    id: 'head-chef-sardines',
+    name: 'Head Chef Sardines in Vegetable Oil',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'conserve',
+    description: 'Sardines de qualité supérieure à l\'huile végétale. Riches en protéines et en oméga-3, sélectionnées pour leur goût authentique.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Conserve',
+    price: 'Sur demande',
+    features: ['Sardines à l\'Huile', 'Dadson\'s UK', 'Riche en Oméga-3'],
+    image: '/images/products/dadsons_grocery/head-chef-sardines-case.jpg',
+    tag: 'Dadson\'s UK'
+  },
+
+  // ─── TOMATO — Head Chef ───
+  {
+    id: 'head-chef-chopped-tomatoes',
+    name: 'Head Chef Chopped Tomatoes',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'tomato',
+    description: 'Tomates concassées de qualité professionnelle. Préparées à partir de tomates mûres sélectionnées, idéales pour les sauces et la cuisine méditerranéenne.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Conserve',
+    price: 'Sur demande',
+    features: ['Tomates Concassées', 'Dadson\'s UK', 'Qualité Pro'],
+    image: '/images/products/dadsons_grocery/head-chef-tomatoes.jpg',
+    tag: 'Dadson\'s UK'
+  },
+  {
+    id: 'head-chef-peeled-tomatoes',
+    name: 'Head Chef Peeled Tomatoes',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'tomato',
+    description: 'Tomates pelées entières de première qualité. Sélectionnées pour leur saveur riche et leur texture ferme. Parfaites pour les plats mijotés.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Conserve',
+    price: 'Sur demande',
+    features: ['Tomates Pelées', 'Dadson\'s UK', 'Texture Ferme'],
+    image: '/images/products/dadsons_grocery/head-chef-tomatoes.jpg',
+    tag: 'Dadson\'s UK'
+  },
+  {
+    id: 'head-chef-passata',
+    name: 'Head Chef Passata',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'tomato',
+    description: 'Passata de tomates fine et lisse, idéale pour les sauces, soupes et pizzas. Filtrée pour une texture veloutée sans pépins.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Bouteille / Conserve',
+    price: 'Sur demande',
+    features: ['Passata Fine', 'Dadson\'s UK', 'Texture Veloutée'],
+    image: '/images/products/dadsons_grocery/head-chef-tomatoes.jpg',
+    tag: 'Dadson\'s UK'
+  },
+  {
+    id: 'head-chef-tomato-ketchup',
+    name: 'Head Chef Tomato Ketchup',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'tomato',
+    description: 'Ketchup tomate concentré de qualité professionnelle. Texture riche et saveur équilibrée. Parfait pour la restauration et la distribution alimentaire.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Bouteille',
+    price: 'Sur demande',
+    features: ['Ketchup Tomate', 'Dadson\'s UK', 'Qualité Pro'],
+    image: '/images/products/dadsons_grocery/head-chef-tomatoes.jpg',
+    tag: 'Dadson\'s UK'
+  },
+
+  // ─── DAIRY — Head Chef ───
+  {
+    id: 'head-chef-evaporated-milk',
+    name: 'Head Chef Evaporated Milk',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'dairy',
+    description: 'Lait évaporé onctueux de qualité supérieure. Idéal pour les desserts, sauces et préparations culinaires. Texture riche et crémeuse.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Conserve',
+    price: 'Sur demande',
+    features: ['Lait Évaporé', 'Dadson\'s UK', 'Texture Crémeuse'],
+    image: '/images/products/dadsons_grocery/head-chef-evaporated-milk.jpg',
+    tag: 'Dadson\'s UK'
+  },
+  {
+    id: 'head-chef-condensed-milk',
+    name: 'Head Chef Sweetened Condensed Milk',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'dairy',
+    description: 'Lait concentré sucré premium. Richesse et onctuosité exceptionnelles pour vos desserts, pâtisseries et boissons. Indispensable en cuisine.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Conserve',
+    price: 'Sur demande',
+    features: ['Lait Concentré Sucré', 'Dadson\'s UK', 'Qualité Dessert'],
+    image: '/images/products/dadsons_grocery/head-chef-condensed-milk.jpg',
+    tag: 'Dadson\'s UK'
+  },
+
+  // ─── PASTA — Head Chef ───
+  {
+    id: 'head-chef-spaghetti',
+    name: 'Head Chef Spaghetti',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'pasta',
+    description: 'Spaghetti de qualité supérieure, fabriqués à partir de blé dur sélectionné. Cuisson parfaite pour une texture al dente.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Paquet',
+    price: 'Sur demande',
+    features: ['Spaghetti Blé Dur', 'Dadson\'s UK', 'Cuisson Al Dente'],
+    image: '/images/products/dadsons_grocery/head-chef-spaghetti.jpg',
+    tag: 'Dadson\'s UK'
+  },
+  {
+    id: 'head-chef-fusilli',
+    name: 'Head Chef Fusilli',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'pasta',
+    description: 'Fusilli torsadés de qualité premium. Leur forme spiralée retient parfaitement les sauces pour des plats savoureux.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Paquet',
+    price: 'Sur demande',
+    features: ['Fusilli Premium', 'Dadson\'s UK', 'Tient les Sauces'],
+    image: '/images/products/dadsons_grocery/head-chef-pasta-salad.jpg',
+    tag: 'Dadson\'s UK'
+  },
+  {
+    id: 'head-chef-jumbo-shells',
+    name: 'Head Chef Jumbo Shells',
+    brand: 'Head Chef — Dadson\'s UK',
+    category: 'pasta',
+    description: 'Coquilles géantes (Jumbo Shells) de qualité supérieure. Idéales pour les plats farcis et les gratins. Présentation généreuse.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Paquet',
+    price: 'Sur demande',
+    features: ['Coquilles Géantes', 'Dadson\'s UK', 'Idéal Farcis'],
+    image: '/images/products/dadsons_grocery/head-chef-pasta-shells.jpg',
+    tag: 'Dadson\'s UK'
+  },
+
+  // ─── DRINKS ───
+  {
+    id: 'lucky-777-malta',
+    name: 'Lucky 777 Malta Non-Alcoholic Malt Drink',
+    brand: 'Lucky 777',
+    category: 'drinks',
+    description: 'Boisson maltée non-alcoolique rafraîchissante. Saveur unique et riche en vitamines. La boisson préférée des familles.',
+    origin: 'Malte',
+    format: 'Canette',
+    price: 'Sur demande',
+    features: ['Boisson Maltée', 'Non-Alcoolique', 'Lucky 777'],
+    image: '/images/products/dadsons_grocery/lucky-777-malta.jpg',
+    tag: 'Nouveau'
+  },
+
+  // ─── SAUCES & CONDIMENTS ───
+  {
+    id: 'head-chef-ketchup',
+    name: 'Head Chef Ketchup',
+    brand: 'Head Chef',
+    category: 'sauce',
+    description: 'Sauce tomate concentrée de qualité professionnelle. Texture riche et saveur équilibrée. Parfait pour la restauration et la distribution alimentaire.',
+    origin: 'Royaume-Uni — Dadson\'s UK',
+    format: 'Bouteille',
+    price: 'Sur demande',
+    features: ['Ketchup Concentré', 'Qualité Pro', 'Dadson\'s UK'],
+    tag: 'Best-seller'
+  }
+];
+
+// ══════════════════════════════════════════════════════════════
+// ADMIN BRIDGE
+// ══════════════════════════════════════════════════════════════
+if (window.__adminBridge) {
+  window.__adminBridge.patchProducts(products, 'epicerie');
+}
+
+// ══════════════════════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ══════════════════════════════════════════════════════════════
+
+function getProductImage(p) {
+  if (p.image) return p.image;
+  return null;
+}
+
+function renderProducts(filter) {
+  const grid = document.getElementById('productGrid');
+  if (!grid) return;
+
+  let filtered = products;
+  if (filter && filter !== 'all') {
+    filtered = products.filter(p => p.category === filter);
+  }
+
+  // Group by category
+  const groups = {};
+  const categoryNames = {
+    rice: { label: '🍚 Riz', subtitle: 'Riz long grain de qualité supérieure' },
+    conserve: { label: '🥫 Conserves — Head Chef', subtitle: 'Dadson\'s UK · Petits pois, légumes, sardines' },
+    tomato: { label: '🍅 Tomates — Head Chef', subtitle: 'Dadson\'s UK · Tomates concassées, pelées, passata, ketchup' },
+    dairy: { label: '🥛 Produits Laitiers — Head Chef', subtitle: 'Dadson\'s UK · Lait évaporé, lait concentré sucré' },
+    pasta: { label: '🍝 Pâtes — Head Chef', subtitle: 'Dadson\'s UK · Spaghetti, fusilli, coquilles géantes' },
+    drinks: { label: '🥤 Boissons', subtitle: 'Lucky 777 Malta · Boisson maltée non-alcoolique' },
+    sauce: { label: '🧂 Sauces & Condiments', subtitle: 'Head Chef Ketchup · Qualité professionnelle' }
+  };
+
+  filtered.forEach(p => {
+    if (!groups[p.category]) groups[p.category] = [];
+    groups[p.category].push(p);
+  });
+
+  let html = '';
+
+  if (filter && filter !== 'all') {
+    const cat = filter;
+    const info = categoryNames[cat];
+    if (info) {
+      html += '<div class="section-divider"><h2>' + info.label + '</h2><div class="subtitle">' + info.subtitle + '</div></div>';
+    }
+    if (groups[cat]) {
+      groups[cat].forEach(p => { html += renderCard(p); });
+    }
+  } else {
+    const order = ['rice', 'conserve', 'tomato', 'dairy', 'pasta', 'drinks', 'sauce'];
+    order.forEach(cat => {
+      if (!groups[cat] || groups[cat].length === 0) return;
+      const info = categoryNames[cat];
+      if (info) {
+        html += '<div class="section-divider"><h2>' + info.label + '</h2><div class="subtitle">' + info.subtitle + '</div></div>';
+      }
+      groups[cat].forEach(p => { html += renderCard(p); });
+    });
+  }
+
+  grid.innerHTML = html;
+}
+
+function renderCard(p) {
+  const img = p.image
+    ? 'style="background-image:url(\'' + p.image + '\')"'
+    : '';
+  const imgClass = p.image ? 'product-image' : 'product-image product-image-placeholder';
+  const imgContent = p.image ? '' : '<i class="fas fa-seedling"></i>';
+
+  const badge = p.tag ? '<div class="product-badge">' + p.tag + '</div>' : '';
+  const priceDisplay = p.price || 'Sur demande';
+
+  return '<div class="product-card" onclick="openModal(\'' + p.id + '\')">'
+    + badge
+    + '<div class="' + imgClass + '" ' + img + '>' + imgContent + '</div>'
+    + '<div class="product-body">'
+    + '<div class="product-brand">' + p.brand + '</div>'
+    + '<h3>' + p.name + '</h3>'
+    + '<p>' + p.description + '</p>'
+    + '<div class="product-origin"><i class="fas fa-globe-africa"></i> ' + p.origin + '</div>'
+    + '</div>'
+    + '<div class="product-footer">'
+    + '<span class="product-price">' + priceDisplay + '</span>'
+    + '<span class="product-format">' + p.format + '</span>'
+    + '</div>'
+    + '</div>';
+}
+
+// ══════════════════════════════════════════════════════════════
+// MODAL
+// ══════════════════════════════════════════════════════════════
+
+function openModal(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+
+  const modal = document.getElementById('productModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  document.getElementById('modalBrand').textContent = p.brand;
+  document.getElementById('modalName').textContent = p.name;
+  document.getElementById('modalDesc').textContent = p.description;
+
+  // Details
+  const details = document.getElementById('modalDetails');
+  details.innerHTML = ''
+    + '<div class="modal-detail"><i class="fas fa-map-marker-alt"></i> <strong>Origine :</strong> ' + p.origin + '</div>'
+    + '<div class="modal-detail"><i class="fas fa-box"></i> <strong>Format :</strong> ' + p.format + '</div>'
+    + '<div class="modal-detail"><i class="fas fa-tag"></i> <strong>Marque :</strong> ' + p.brand + '</div>';
+
+  // Tags
+  const tagsEl = document.getElementById('modalTags');
+  let tagsHtml = p.features.map(function(f) {
+    return '<span class="modal-tag">' + f + '</span>';
+  }).join('');
+  if (p.tag) {
+    tagsHtml += '<span class="modal-tag" style="border-color:var(--gold);color:var(--gold);">' + p.tag + '</span>';
+  }
+  tagsEl.innerHTML = tagsHtml;
+
+  // Price
+  document.getElementById('modalPrice').textContent = p.price || 'Sur demande';
+
+  // Image
+  const imgEl = document.getElementById('modalImg');
+  if (p.image) {
+    imgEl.className = 'modal-img';
+    imgEl.style.backgroundImage = "url('" + p.image + "')";
+    imgEl.innerHTML = '';
+  } else {
+    imgEl.className = 'modal-img modal-img-placeholder';
+    imgEl.style.backgroundImage = '';
+    imgEl.innerHTML = '<i class="fas fa-box-open"></i>';
+  }
+}
+
+function closeModal() {
+  document.getElementById('productModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// ══════════════════════════════════════════════════════════════
+// EVENT LISTENERS
+// ══════════════════════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderProducts('all');
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(function(b) {
+        b.classList.remove('active');
+      });
+      this.classList.add('active');
+      renderProducts(this.getAttribute('data-filter'));
+    });
+  });
+
+  // Modal close
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('productModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+});
+</script>
+</body>
+</html>

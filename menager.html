@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produits Ménagers — VIVA E-MARKET</title>
+<meta name="description" content="Produits ménagers VIVA E-MARKET — Kali Cock Safety Matches. Qualité premium pour les marchés africains.">
+<link rel="icon" type="image/png" href="logo/logo.png">
+<link rel="apple-touch-icon" href="logo/logo.png">
+<meta property="og:image" content="logo/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ═══════════════════════════════════════════
+   CSS VARIABLES
+   ═══════════════════════════════════════════ */
+:root {
+  --gold: #D4AF37;
+  --gold-light: #F0D060;
+  --gold-dark: #B8942E;
+  --gold-glow: rgba(212, 175, 55, 0.3);
+  --gold-subtle: rgba(212, 175, 55, 0.08);
+  --font-display: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+  --nav-height: 72px;
+  --section-gap: 80px;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-card: #1A1A1A;
+  --bg-card-hover: #222222;
+  --text-primary: #F0EDE8;
+  --text-secondary: #A0988A;
+  --text-muted: #6B6360;
+  --border-light: rgba(212, 175, 55, 0.12);
+  --nav-bg: rgba(10, 10, 10, 0.85);
+  --shadow-card: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+[data-theme="light"] {
+  --bg-primary: #F8F6F2;
+  --bg-secondary: #EFECE6;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FAFAFA;
+  --text-primary: #1A1814;
+  --text-secondary: #5C5548;
+  --text-muted: #9C948C;
+  --border-light: rgba(212, 175, 55, 0.15);
+  --nav-bg: rgba(248, 246, 242, 0.9);
+  --shadow-card: 0 20px 60px rgba(0,0,0,0.08);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--gold) var(--bg-primary); }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.4s, color 0.4s;
+  padding-top: var(--nav-height);
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+a { color: var(--gold); text-decoration: none; transition: color 0.3s; }
+a:hover { color: var(--gold-light); }
+::selection { background: var(--gold); color: #000; }
+
+/* ═══════════════════════════════════════════
+   NAVIGATION (Injected by nav.js)
+   ═══════════════════════════════════════════ */
+.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s, background 0.4s;
+}
+.site-nav.scrolled { border-bottom-color: var(--border-light); }
+.nav-inner {
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-left { display: flex; align-items: center; gap: 10px; }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo .diamond {
+  width: 10px; height: 10px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  display: inline-block;
+  transition: transform 0.6s;
+}
+.nav-logo:hover .diamond { transform: rotate(135deg) scale(1.2); }
+.nav-logo-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-links a {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--gold);
+  background: var(--gold-subtle);
+}
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+.theme-toggle:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════
+   PAGE HERO
+   ═══════════════════════════════════════════ */
+.page-hero {
+  text-align: center;
+  padding: 100px 24px 60px;
+  position: relative;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+.page-hero h1 {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--gold);
+  text-shadow: 0 0 40px var(--gold-glow), 0 0 80px rgba(212, 175, 55, 0.15);
+}
+.page-hero p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+.page-hero .hero-icon {
+  font-size: 3rem;
+  color: var(--gold);
+  margin-bottom: 24px;
+  opacity: 0.7;
+}
+
+/* ═══════════════════════════════════════════
+   PRODUCTS GRID
+   ═══════════════════════════════════════════ */
+.products-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 32px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s;
+  cursor: pointer;
+  position: relative;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 30px var(--gold-glow);
+  background: var(--bg-card-hover);
+}
+.product-image {
+  width: 100%;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+  position: relative;
+}
+.product-image i {
+  font-size: 5rem;
+  color: var(--gold);
+  opacity: 0.5;
+  transition: all 0.4s;
+}
+.product-card:hover .product-image i {
+  opacity: 0.9;
+  transform: scale(1.1);
+}
+.product-image .product-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--gold);
+  color: #000;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.product-body {
+  padding: 24px;
+}
+.product-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.product-body .product-type {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.product-body p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.product-body .product-specs {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.product-body .product-specs .spec {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  background: var(--gold-subtle);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+}
+.product-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.product-footer .origin {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.product-footer .origin i {
+  margin-right: 4px;
+  color: var(--gold);
+}
+.product-footer .btn-detail {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold);
+  font-weight: 600;
+  transition: all 0.3s;
+}
+.product-footer .btn-detail:hover {
+  color: var(--gold-light);
+}
+
+/* ═══════════════════════════════════════════
+   FEATURES ROW
+   ═══════════════════════════════════════════ */
+.features-row {
+  max-width: 900px;
+  margin: -20px auto 60px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.feature-item {
+  text-align: center;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+.feature-item:hover {
+  border-color: var(--gold);
+  background: var(--bg-card-hover);
+}
+.feature-item i {
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.feature-item span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER (Injected by nav.js)
+   ═══════════════════════════════════════════ */
+footer {
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-light);
+  padding: 80px 24px 30px;
+  position: relative;
+  z-index: 1;
+  transition: background 0.4s;
+}
+.footer-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 60px;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.footer-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 360px;
+}
+.footer-title {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-contact {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.footer-contact i { color: var(--gold); width: 16px; }
+.footer-bottom {
+  max-width: 1280px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-bottom span {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.footer-socials { display: flex; gap: 12px; }
+.footer-socials a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all 0.3s;
+  font-size: 0.85rem;
+}
+.footer-socials a:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .hamburger { display: block; }
+  .nav-links {
+    position: fixed;
+    top: 0; right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--bg-card);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 100px 32px 40px;
+    gap: 8px;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.3);
+    border-left: 1px solid var(--border-light);
+  }
+  .nav-links.open { right: 0; }
+  .nav-links a {
+    font-size: 0.85rem;
+    width: 100%;
+    padding: 14px 16px;
+  }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+
+@media (max-width: 600px) {
+  .page-hero { padding: 80px 24px 40px; }
+  .page-hero h1 { font-size: 2rem; }
+  .products-grid { grid-template-columns: 1fr; }
+  .features-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ PAGE HERO ═══ -->
+<section class="page-hero">
+  <div class="hero-icon"><i class="fas fa-soap"></i></div>
+  <h1>Produits Ménagers</h1>
+  <p>Articles ménagers et d'entretien de qualité supérieure pour la distribution B2B en Afrique.</p>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<div class="features-row">
+  <div class="feature-item">
+    <i class="fas fa-certificate"></i>
+    <span>Qualité Certifiée</span>
+  </div>
+  <div class="feature-item">
+    <i class="fas fa-truck"></i>
+    <span>Livraison B2B</span>
+  </div>
+  <div class="feature-item">
+    <i class="fas fa-handshake"></i>
+    <span>Partenaire Agréé</span>
+  </div>
+</div>
+
+<!-- ═══ PRODUCTS ═══ -->
+<section class="products-section">
+  <div class="products-grid" id="productGrid">
+
+    <!-- Kali Cock Safety Matches -->
+    <div class="product-card">
+      <div class="product-image">
+        <div class="product-badge">Premium</div>
+        <i class="fas fa-fire"></i>
+      </div>
+      <div class="product-body">
+        <div class="product-type">Allumettes de Sûreté</div>
+        <h3>Kali Cock Safety Matches</h3>
+        <p>Allumettes de sûreté de haute qualité, conditionnées en boîtes robustes. Allumage fiable et constant. Idéales pour la distribution de gros et la revente en Afrique.</p>
+        <div class="product-specs">
+          <span class="spec">Boîte de 50</span>
+          <span class="spec">Carton de 100</span>
+          <span class="spec">Sécurité certifiée</span>
+          <span class="spec">AD Exim / Kaliwari</span>
+        </div>
+      </div>
+      <div class="product-footer">
+        <span class="origin"><i class="fas fa-globe-africa"></i> Importation Premium</span>
+        <a href="#" class="btn-detail">Détails <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script src="js/nav.js"></script>
+</body>
+</html>

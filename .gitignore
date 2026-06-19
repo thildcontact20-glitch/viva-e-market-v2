@@ -1,0 +1,8 @@
+node_modules/
+.vercel
+*.bak
+*.save_*
+render-create.json
+admin-backend/
+videos/
+trianon-price-list.txt

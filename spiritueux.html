@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spiritueux — VIVA E-MARKET</title>
+<meta name="description" content="Catalogue spiritueux VIVA E-MARKET. Johnnie Walker, Grant's, Baroneys Irish Cream, Nicolaus Vodka, whiskies d'exception. Distribution B2B Abidjan.">
+<link rel="icon" type="image/png" href="logo/logo.png">
+<link rel="apple-touch-icon" href="logo/logo.png">
+<meta property="og:image" content="logo/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ═══════════════════════════════════════════
+   CSS VARIABLES
+   ═══════════════════════════════════════════ */
+:root {
+  --gold: #D4AF37;
+  --gold-light: #F0D060;
+  --gold-dark: #B8942E;
+  --gold-glow: rgba(212, 175, 55, 0.3);
+  --gold-subtle: rgba(212, 175, 55, 0.08);
+  --font-display: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+  --nav-height: 72px;
+  --section-gap: 80px;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-card: #1A1A1A;
+  --bg-card-hover: #222222;
+  --text-primary: #F0EDE8;
+  --text-secondary: #A0988A;
+  --text-muted: #6B6360;
+  --border-light: rgba(212, 175, 55, 0.12);
+  --nav-bg: rgba(10, 10, 10, 0.85);
+  --shadow-card: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+[data-theme="light"] {
+  --bg-primary: #F8F6F2;
+  --bg-secondary: #EFECE6;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FAFAFA;
+  --text-primary: #1A1814;
+  --text-secondary: #5C5548;
+  --text-muted: #9C948C;
+  --border-light: rgba(212, 175, 55, 0.15);
+  --nav-bg: rgba(248, 246, 242, 0.9);
+  --shadow-card: 0 20px 60px rgba(0,0,0,0.08);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--gold) var(--bg-primary); }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.4s, color 0.4s;
+  padding-top: var(--nav-height);
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+a { color: var(--gold); text-decoration: none; transition: color 0.3s; }
+a:hover { color: var(--gold-light); }
+::selection { background: var(--gold); color: #000; }
+
+/* ═══════════════════════════════════════════
+   NAVIGATION (Injected by nav.js)
+   ═══════════════════════════════════════════ */
+.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s, background 0.4s;
+}
+.site-nav.scrolled { border-bottom-color: var(--border-light); }
+.nav-inner {
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-left { display: flex; align-items: center; gap: 10px; }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo .diamond {
+  width: 10px; height: 10px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  display: inline-block;
+  transition: transform 0.6s;
+}
+.nav-logo:hover .diamond { transform: rotate(135deg) scale(1.2); }
+.nav-logo-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-links a {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--gold);
+  background: var(--gold-subtle);
+}
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+.theme-toggle:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════
+   PAGE HERO
+   ═══════════════════════════════════════════ */
+.page-hero {
+  text-align: center;
+  padding: 100px 24px 60px;
+  position: relative;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+.page-hero h1 {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--gold);
+  text-shadow: 0 0 40px var(--gold-glow), 0 0 80px rgba(212, 175, 55, 0.15);
+}
+.page-hero p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+.page-hero .hero-icon {
+  font-size: 3rem;
+  color: var(--gold);
+  margin-bottom: 24px;
+  opacity: 0.7;
+}
+
+/* ═══════════════════════════════════════════
+   FILTER BAR
+   ═══════════════════════════════════════════ */
+.filter-bar {
+  max-width: 1280px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.filter-btn {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 24px;
+  border-radius: 50px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════
+   PRODUCTS GRID
+   ═══════════════════════════════════════════ */
+.products-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* ─── Section Divider ─── */
+.section-divider {
+  grid-column: 1 / -1;
+  padding: 32px 0 16px;
+  margin-bottom: 8px;
+  position: relative;
+}
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.section-divider h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--gold);
+  text-align: center;
+  background: var(--bg-primary);
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.section-divider .subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  margin-top: 4px;
+}
+
+/* ─── Product Card ─── */
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s;
+  cursor: pointer;
+  position: relative;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 30px var(--gold-glow);
+  background: var(--bg-card-hover);
+}
+.product-badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  z-index: 5;
+  padding: 5px 14px;
+  background: var(--gold);
+  color: #000;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+}
+.product-image {
+  width: 100%;
+  height: 220px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--bg-secondary);
+  transition: transform 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-card:hover .product-image { transform: scale(1.03); }
+.product-image-placeholder {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+}
+.product-image-placeholder i {
+  font-size: 4rem;
+  color: var(--gold);
+  opacity: 0.4;
+  transition: all 0.4s;
+}
+.product-card:hover .product-image-placeholder i {
+  opacity: 0.9;
+  transform: scale(1.1);
+}
+.product-body {
+  padding: 20px;
+}
+.product-body .product-brand {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.product-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.product-body p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.product-body .product-origin {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+.product-body .product-origin i {
+  margin-right: 4px;
+  color: var(--gold);
+  font-size: 0.7rem;
+}
+.product-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.product-footer .product-price {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+.product-footer .product-format {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════
+   MODAL
+   ═══════════════════════════════════════════ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  animation: modalFadeIn 0.3s;
+}
+.modal-overlay.active { display: flex; }
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal {
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+  animation: modalSlideIn 0.3s;
+  position: relative;
+}
+@keyframes modalSlideIn {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  z-index: 10;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background: rgba(10,10,10,0.7);
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+.modal-close:hover {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+}
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.modal-img {
+  min-height: 350px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--bg-primary);
+  border-radius: 20px 0 0 20px;
+}
+.modal-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+}
+.modal-img-placeholder i {
+  font-size: 5rem;
+  color: var(--text-muted);
+  opacity: 0.3;
+}
+.modal-info {
+  padding: 32px;
+}
+.modal-brand {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold);
+  font-weight: 600;
+}
+.modal-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 8px 0 16px;
+  line-height: 1.2;
+}
+.modal-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.modal-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.modal-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.modal-detail i {
+  width: 20px;
+  color: var(--gold);
+  font-size: 0.8rem;
+}
+.modal-detail strong { color: var(--text-primary); }
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.modal-tag {
+  padding: 4px 14px;
+  border-radius: 50px;
+  border: 1px solid var(--border-light);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+}
+.modal-price {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.modal-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--gold);
+  color: #000;
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.modal-contact-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER (Injected by nav.js)
+   ═══════════════════════════════════════════ */
+footer {
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-light);
+  padding: 80px 24px 30px;
+  position: relative;
+  z-index: 1;
+  transition: background 0.4s;
+}
+.footer-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 60px;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.footer-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 360px;
+}
+.footer-title {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-contact {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.footer-contact i { color: var(--gold); width: 16px; }
+.footer-bottom {
+  max-width: 1280px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-bottom span {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.footer-socials { display: flex; gap: 12px; }
+.footer-socials a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all 0.3s;
+  font-size: 0.85rem;
+}
+.footer-socials a:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .modal-body { grid-template-columns: 1fr; }
+  .modal-img {
+    min-height: 280px;
+    border-radius: 20px 20px 0 0;
+  }
+}
+@media (max-width: 900px) {
+  .hamburger { display: block; }
+  .nav-links {
+    position: fixed;
+    top: 0; right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--bg-card);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 100px 32px 40px;
+    gap: 8px;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.3);
+    border-left: 1px solid var(--border-light);
+  }
+  .nav-links.open { right: 0; }
+  .nav-links a {
+    font-size: 0.85rem;
+    width: 100%;
+    padding: 14px 16px;
+  }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+@media (max-width: 600px) {
+  .page-hero { padding: 80px 24px 40px; }
+  .page-hero h1 { font-size: 2rem; }
+  .products-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ PAGE HERO ═══ -->
+<section class="page-hero">
+  <div class="hero-icon"><i class="fas fa-wine-glass-alt"></i></div>
+  <h1>Notre Sélection de Spiritueux</h1>
+  <p>Whisky d'Écosse, vodka de Slovaquie, liqueur d'Irlande — une sélection premium pour les connaisseurs. Distribution B2B depuis Abidjan.</p>
+</section>
+
+<!-- ═══ FILTER BAR ═══ -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">Tous</button>
+  <button class="filter-btn" data-filter="jw">Johnnie Walker</button>
+  <button class="filter-btn" data-filter="grants">Grant's</button>
+  <button class="filter-btn" data-filter="irish">Baroneys Irish Cream</button>
+  <button class="filter-btn" data-filter="vodka">Nicolaus Vodka</button>
+  <button class="filter-btn" data-filter="whisky">Whiskies Divers</button>
+</div>
+
+<!-- ═══ PRODUCTS ═══ -->
+<section class="products-section">
+  <div class="products-grid" id="productGrid">
+    <!-- RENDERED BY JAVASCRIPT -->
+  </div>
+</section>
+
+<!-- ═══ MODAL ═══ -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+    <div class="modal-body" id="modalBody">
+      <div class="modal-img modal-img-placeholder" id="modalImg">
+        <i class="fas fa-wine-glass-alt"></i>
+      </div>
+      <div class="modal-info" id="modalInfo">
+        <div class="modal-brand" id="modalBrand"></div>
+        <h2 class="modal-name" id="modalName"></h2>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-details" id="modalDetails"></div>
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-footer">
+          <div class="modal-price" id="modalPrice"></div>
+          <a class="modal-contact-btn" href="index.html#contact">
+            <i class="fab fa-whatsapp"></i> Commander
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script src="js/nav.js"></script>
+<script src="js/admin-bridge.js"></script>
+<script>
+// ══════════════════════════════════════════════════════════════
+// SPIRITS PRODUCT DATA
+// ══════════════════════════════════════════════════════════════
+const spirits = [
+  // ─── JOHNNIE WALKER (Écosse) ───
+  {
+    id: 'jw-red-label',
+    name: 'Johnnie Walker Red Label',
+    brand: 'Johnnie Walker — Écosse',
+    region: 'jw',
+    description: 'Blended Scotch Whisky emblématique. Alliance parfaite de whiskies de grain et de malt légers. Notes de fruits frais, vanille et épices douces. Le Scotch vendu le plus largement dans le monde.',
+    origin: 'Kilmarnock, Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Blended Scotch Whisky', '40% vol', 'Emblématique'],
+    image: '/images/products/dadsons_spirits/jw-red-label-front.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+  {
+    id: 'jw-double-black',
+    name: 'Johnnie Walker Double Black',
+    brand: 'Johnnie Walker — Écosse',
+    region: 'jw',
+    description: 'Rich, intense et fumé. Une interprétation plus puissante du Black Label, vieilli dans des fûts de chêne profondément carbonisés. Notes de tourbe fumée, épices intenses et fruits noirs.',
+    origin: 'Kilmarnock, Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Rich & Intense', 'Fumé', 'Fûts Carbonisés'],
+    image: '/images/products/dadsons_spirits/jw-double-black-front.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+  {
+    id: 'jw-gold-label',
+    name: 'Johnnie Walker Gold Label Reserve',
+    brand: 'Johnnie Walker — Écosse',
+    region: 'jw',
+    description: 'The Master Blender\'s Reserve. Un blend luxueux aux notes de miel, crème et fruits mûrs. Sélection de whiskies des Highlands et Speyside pour une douceur dorée exceptionnelle.',
+    origin: 'Kilmarnock, Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Master Blender\'s Reserve', 'Miel & Crème', 'Highlands & Speyside'],
+    image: '/images/products/dadsons_spirits/jw-gold-label-front.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+  {
+    id: 'jw-blue-label',
+    name: 'Johnnie Walker Blue Label',
+    brand: 'Johnnie Walker — Écosse',
+    region: 'jw',
+    description: 'A Blend of Our Rarest whiskies, aged 30+ years. Le nec plus ultra de Johnnie Walker. Notes de miel, noix, chocolat noir et une fumée de tourbe veloutée. Une œuvre d\'art liquide.',
+    origin: 'Kilmarnock, Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Aged 30+ Years', 'Rare Blend', 'Ultra-Premium'],
+    image: '/images/products/dadsons_spirits/jw-blue-label-front.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+  {
+    id: 'jw-green-label',
+    name: 'Johnnie Walker Green Label 15 Years Old',
+    brand: 'Johnnie Walker — Écosse',
+    region: 'jw',
+    description: 'Blended Malt Scotch Whisky — un assemblage de purs whiskies de malt vieillis 15 ans. Notes de fruits tropicaux, poivre, vanille et tourbe douce. Complexe et équilibré.',
+    origin: 'Kilmarnock, Écosse',
+    format: '70cl - 43% vol',
+    price: 'Sur demande',
+    features: ['15 Years Old', 'Blended Malt', 'Complexe & Équilibré'],
+    image: '/images/products/dadsons_spirits/jw-green-label-bottle.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+
+  // ─── GRANT'S (Écosse) ───
+  {
+    id: 'grants-triple-wood',
+    name: 'Grant\'s Triple Wood',
+    brand: 'Grant\'s — Écosse',
+    region: 'grants',
+    description: 'Matured in 3 types of oak — fûts de bourbon américain, fûts de sherry espagnol et fûts de chêne neufs. Un blended Scotch whisky doux et équilibré aux notes de vanille, miel et fruits.',
+    origin: 'Dumbarton, Lowlands, Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Triple Maturation', 'Vanille & Miel', 'Blended Scotch'],
+    image: '/images/products/dadsons_spirits/grants-triple-wood.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+
+  // ─── BARONEYS (Irlande) ───
+  {
+    id: 'baroneys-irish-cream',
+    name: 'Baroneys Irish Cream Liqueur',
+    brand: 'Baroneys — Irlande',
+    region: 'irish',
+    description: 'Irish cream liqueur onctueuse et savoureuse. Préparée avec de la crème fraîche irlandaise et un subtil mélange de whisky. 17% vol, 70cl. Parfaite pour les cocktails et desserts.',
+    origin: 'Irlande',
+    format: '70cl - 17% vol',
+    price: 'Sur demande',
+    features: ['Irish Liqueur', 'Crème Irlandaise', '17% vol'],
+    image: '/images/products/dadsons_spirits/baroneys-irish-cream.jpg',
+    tag: '🇮🇪 Irish Liqueur'
+  },
+
+  // ─── NICOLAUS VODKA (Slovaquie) ───
+  {
+    id: 'nicolaus-extra-fine',
+    name: 'Nicolaus Extra Fine Vodka',
+    brand: 'Nicolaus — Slovaquie',
+    region: 'vodka',
+    description: 'Silver Filtered vodka d\'une pureté exceptionnelle. Filtrée sur argent pour une douceur incomparable. 37.5% vol. Distillation de grain de haute qualité slovaque.',
+    origin: 'Slovaquie',
+    format: '70cl - 37.5% vol',
+    price: 'Sur demande',
+    features: ['Silver Filtered', 'Extra Fine', 'Pureté Exceptionnelle'],
+    image: '/images/products/dadsons_spirits/nicolaus-extra-fine.jpg',
+    tag: '🇸🇰 Vodka'
+  },
+  {
+    id: 'nicolaus-peach',
+    name: 'Nicolaus Peach Vodka',
+    brand: 'Nicolaus — Slovaquie',
+    region: 'vodka',
+    description: 'Vodka aromatisée à la pêche juteuse. Saveur fruitée et rafraîchissante, parfaite pour les cocktails d\'été et les shots savoureux. Douce et fruitée.',
+    origin: 'Slovaquie',
+    format: '70cl - 37.5% vol',
+    price: 'Sur demande',
+    features: ['Peach Flavoured', 'Fruitée', 'Cocktails'],
+    image: '/images/products/dadsons_spirits/nicolaus-flavors-lineup.jpg',
+    tag: '🇸🇰 Vodka'
+  },
+  {
+    id: 'nicolaus-blackcurrant',
+    name: 'Nicolaus Blackcurrant Vodka',
+    brand: 'Nicolaus — Slovaquie',
+    region: 'vodka',
+    description: 'Vodka aromatisée au cassis. Riche en saveur de baies noires, intense et fruitée. Idéale pour les cocktails créatifs ou dégustation sur glace.',
+    origin: 'Slovaquie',
+    format: '70cl - 37.5% vol',
+    price: 'Sur demande',
+    features: ['Blackcurrant Flavoured', 'Baies Noires', 'Intense'],
+    image: '/images/products/dadsons_spirits/nicolaus-flavors-lineup.jpg',
+    tag: '🇸🇰 Vodka'
+  },
+  {
+    id: 'nicolaus-lime',
+    name: 'Nicolaus Lime Vodka',
+    brand: 'Nicolaus — Slovaquie',
+    region: 'vodka',
+    description: 'Vodka aromatisée au citron vert. Fraîche et acidulée, parfaite pour les cocktails rafraîchissants. Un zeste d\'agrumes qui éveille les sens.',
+    origin: 'Slovaquie',
+    format: '70cl - 37.5% vol',
+    price: 'Sur demande',
+    features: ['Lime Flavoured', 'Agrumes', 'Rafraîchissante'],
+    image: '/images/products/dadsons_spirits/nicolaus-flavors-lineup.jpg',
+    tag: '🇸🇰 Vodka'
+  },
+  {
+    id: 'nicolaus-cranberry',
+    name: 'Nicolaus Cranberry Vodka',
+    brand: 'Nicolaus — Slovaquie',
+    region: 'vodka',
+    description: 'Vodka aromatisée à la canneberge. Notes acidulées et légèrement sucrées de cranberry. Un classique des cocktails à la vodka.',
+    origin: 'Slovaquie',
+    format: '70cl - 37.5% vol',
+    price: 'Sur demande',
+    features: ['Cranberry Flavoured', 'Acidulé', 'Classique'],
+    image: '/images/products/dadsons_spirits/nicolaus-flavors-lineup.jpg',
+    tag: '🇸🇰 Vodka'
+  },
+  {
+    id: 'nicolaus-chocolate',
+    name: 'Nicolaus Chocolate Vodka',
+    brand: 'Nicolaus — Slovaquie',
+    region: 'vodka',
+    description: 'Vodka aromatisée au chocolat. Une indulgence gourmande alliant la pureté de la vodka à la richesse du cacao. Parfait pour les desserts et cocktails chocolatés.',
+    origin: 'Slovaquie',
+    format: '70cl - 37.5% vol',
+    price: 'Sur demande',
+    features: ['Chocolate Flavoured', 'Gourmande', 'Dessert'],
+    image: '/images/products/dadsons_spirits/nicolaus-flavors-lineup.jpg',
+    tag: '🇸🇰 Vodka'
+  },
+  {
+    id: 'nicolaus-pistachio',
+    name: 'Nicolaus Pistachio Vodka',
+    brand: 'Nicolaus — Slovaquie',
+    region: 'vodka',
+    description: 'Vodka aromatisée à la pistache. Saveur unique de noisette verte, douce et légèrement sucrée. Une expérience gustative originale et raffinée.',
+    origin: 'Slovaquie',
+    format: '70cl - 37.5% vol',
+    price: 'Sur demande',
+    features: ['Pistachio Flavoured', 'Originale', 'Notes de Noisette'],
+    image: '/images/products/dadsons_spirits/nicolaus-pistachio.jpg',
+    tag: '🇸🇰 Vodka'
+  },
+  {
+    id: 'nicolaus-cotton-candy',
+    name: 'Nicolaus Cotton Candy Vodka',
+    brand: 'Nicolaus — Slovaquie',
+    region: 'vodka',
+    description: 'Vodka aromatisée barbe à papa. Douce, sucrée et nostalgique. Une saveur ludique qui rappelle les foires et les souvenirs d\'enfance.',
+    origin: 'Slovaquie',
+    format: '70cl - 37.5% vol',
+    price: 'Sur demande',
+    features: ['Cotton Candy Flavoured', 'Douce & Sucrée', 'Ludique'],
+    image: '/images/products/dadsons_spirits/nicolaus-cotton-candy.jpg',
+    tag: '🇸🇰 Vodka'
+  },
+
+  // ─── WHISKIES DIVERS (Écosse) ───
+  {
+    id: 'glendale-reserve',
+    name: 'Glendale Reserve Blended Scotch Whisky',
+    brand: 'Glendale Reserve — Écosse',
+    region: 'whisky',
+    description: 'Blended Scotch Whisky d\'entrée de gamme premium. Notes douces de miel, fruits légers et une pointe de vanille. 40% vol. Parfait pour la découverte du whisky écossais.',
+    origin: 'Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Blended Scotch', '40% vol', 'Entrée de Gamme Premium'],
+    image: '/images/products/dadsons_spirits/mixed-whiskies-glendale.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+  {
+    id: 'bonnie-clyde',
+    name: 'Bonnie & Clyde Rare Blended Scotch Whisky',
+    brand: 'Bonnie & Clyde — Écosse',
+    region: 'whisky',
+    description: 'Rare Blended Scotch Whisky à la personnalité audacieuse. Un hommage aux célèbres hors-la-loi. Notes de caramel, épices et fruits secs. Caractère unique.',
+    origin: 'Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Rare Blend', 'Caractère Audacieux', 'Éditions Limitée'],
+    image: '/images/products/dadsons_spirits/mixed-whiskies-glendale.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+  {
+    id: 'barclays-extra-special',
+    name: 'Barclays Extra Special Blended Scotch Whisky',
+    brand: 'Barclays — Écosse',
+    region: 'whisky',
+    description: 'Extra Special Blended Scotch Whisky. Un blend soigné aux notes de miel de bruyère, fruits confits et épices douces. Un whisky accessible de qualité.',
+    origin: 'Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Extra Special', 'Miel & Fruits', 'Qualité Accessible'],
+    image: '/images/products/dadsons_spirits/mixed-whiskies-collection.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+  {
+    id: 'james-alexander',
+    name: 'James Alexander Blended Scotch Whisky',
+    brand: 'James Alexander — Écosse',
+    region: 'whisky',
+    description: 'Fine Aged Blended Scotch Whisky. Vieilli avec soin pour développer des arômes riches de miel, chêne et fruits mûrs. Un hommage à la tradition écossaise.',
+    origin: 'Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Fine Aged', 'Miel & Chêne', 'Tradition Écossaise'],
+    image: '/images/products/dadsons_spirits/james-alexander.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+  {
+    id: 'lucky-shuffle',
+    name: 'Lucky Shuffle Blended Malt Scotch Whisky',
+    brand: 'Lucky Shuffle — Écosse',
+    region: 'whisky',
+    description: 'Blended Malt Scotch Whisky matured in Oak Barrels. Un assemblage de purs whiskies de malt élevés en fûts de chêne. Notes de vanille, fruits secs et épices boisées.',
+    origin: 'Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Blended Malt', 'Oak Barrels', 'Vanille & Épices'],
+    image: '/images/products/dadsons_spirits/lucky-shuffle.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+  {
+    id: 'scottish-gold',
+    name: 'Scottish Gold Cask Reserve',
+    brand: 'Scottish Gold — Écosse',
+    region: 'whisky',
+    description: 'Cask Reserve Blended Scotch Whisky. Sélection spéciale de fûts pour une richesse aromatique incomparable. Notes de miel doré, épices nobles et chêne toasté.',
+    origin: 'Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Cask Reserve', 'Miel Doré', 'Sélection Spéciale'],
+    image: '/images/products/dadsons_spirits/scottish-gold.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  },
+  {
+    id: 'dalmahoy',
+    name: 'The Dalmahoy Finest Selection Single Malt',
+    brand: 'The Dalmahoy — Écosse',
+    region: 'whisky',
+    description: 'Single Malt Scotch Whisky with 3 cask finishes. Un single malt d\'exception vieilli dans trois types de fûts — bourbon, sherry et chêne neuf. Complexité et profondeur remarquables.',
+    origin: 'Écosse',
+    format: '70cl - 40% vol',
+    price: 'Sur demande',
+    features: ['Single Malt', '3 Cask Finishes', 'Triple Maturation'],
+    image: '/images/products/dadsons_spirits/the-dalmahoy-3.jpg',
+    tag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotch Whisky'
+  }
+];
+
+// ══════════════════════════════════════════════════════════════
+// ADMIN BRIDGE
+// ══════════════════════════════════════════════════════════════
+if (window.__adminBridge) {
+  window.__adminBridge.patchProducts(spirits, 'spiritueux');
+}
+
+// ══════════════════════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ══════════════════════════════════════════════════════════════
+
+function getProductImage(p) {
+  if (p.image) return p.image;
+  return null;
+}
+
+function renderProducts(filter) {
+  const grid = document.getElementById('productGrid');
+  if (!grid) return;
+
+  let filtered = spirits;
+  if (filter && filter !== 'all') {
+    filtered = spirits.filter(p => p.region === filter);
+  }
+
+  // Group by region
+  const groups = {};
+  const regionNames = {
+    jw: { label: '🥃 Johnnie Walker — Écosse', subtitle: 'Blended Scotch Whisky de renommée mondiale' },
+    grants: { label: '🥃 Grant\'s — Écosse', subtitle: 'Triple Wood Blended Scotch Whisky' },
+    irish: { label: '🇮🇪 Baroneys — Irlande', subtitle: 'Irish Cream Liqueur' },
+    vodka: { label: '🇸🇰 Nicolaus Vodka — Slovaquie', subtitle: 'Vodka premium et saveurs exquises' },
+    whisky: { label: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Whiskies Divers — Écosse', subtitle: 'Blended et single malts d\'exception' }
+  };
+
+  filtered.forEach(p => {
+    if (!groups[p.region]) groups[p.region] = [];
+    groups[p.region].push(p);
+  });
+
+  let html = '';
+
+  if (filter && filter !== 'all') {
+    const cat = filter;
+    const info = regionNames[cat];
+    if (info) {
+      html += '<div class="section-divider"><h2>' + info.label + '</h2><div class="subtitle">' + info.subtitle + '</div></div>';
+    }
+    if (groups[cat]) {
+      groups[cat].forEach(p => { html += renderCard(p); });
+    }
+  } else {
+    const order = ['jw', 'grants', 'irish', 'vodka', 'whisky'];
+    order.forEach(cat => {
+      if (!groups[cat] || groups[cat].length === 0) return;
+      const info = regionNames[cat];
+      if (info) {
+        html += '<div class="section-divider"><h2>' + info.label + '</h2><div class="subtitle">' + info.subtitle + '</div></div>';
+      }
+      groups[cat].forEach(p => { html += renderCard(p); });
+    });
+  }
+
+  grid.innerHTML = html;
+}
+
+function renderCard(p) {
+  const img = p.image
+    ? 'style="background-image:url(\'' + p.image + '\')"'
+    : '';
+  const imgClass = p.image ? 'product-image' : 'product-image product-image-placeholder';
+  const imgContent = p.image ? '' : '<i class="fas fa-wine-glass-alt"></i>';
+
+  const badge = p.tag ? '<div class="product-badge">' + p.tag + '</div>' : '';
+  const priceDisplay = p.price || 'Sur demande';
+
+  return '<div class="product-card" onclick="openModal(\'' + p.id + '\')">'
+    + badge
+    + '<div class="' + imgClass + '" ' + img + '>' + imgContent + '</div>'
+    + '<div class="product-body">'
+    + '<div class="product-brand">' + p.brand + '</div>'
+    + '<h3>' + p.name + '</h3>'
+    + '<p>' + p.description + '</p>'
+    + '<div class="product-origin"><i class="fas fa-globe-africa"></i> ' + p.origin + '</div>'
+    + '</div>'
+    + '<div class="product-footer">'
+    + '<span class="product-price">' + priceDisplay + '</span>'
+    + '<span class="product-format">' + p.format + '</span>'
+    + '</div>'
+    + '</div>';
+}
+
+// ══════════════════════════════════════════════════════════════
+// MODAL
+// ══════════════════════════════════════════════════════════════
+
+function openModal(id) {
+  const p = spirits.find(x => x.id === id);
+  if (!p) return;
+
+  const modal = document.getElementById('productModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  document.getElementById('modalBrand').textContent = p.brand;
+  document.getElementById('modalName').textContent = p.name;
+  document.getElementById('modalDesc').textContent = p.description;
+
+  // Details
+  const details = document.getElementById('modalDetails');
+  details.innerHTML = ''
+    + '<div class="modal-detail"><i class="fas fa-map-marker-alt"></i> <strong>Origine :</strong> ' + p.origin + '</div>'
+    + '<div class="modal-detail"><i class="fas fa-box"></i> <strong>Format :</strong> ' + p.format + '</div>'
+    + '<div class="modal-detail"><i class="fas fa-tag"></i> <strong>Marque :</strong> ' + p.brand + '</div>';
+
+  // Tags
+  const tagsEl = document.getElementById('modalTags');
+  let tagsHtml = p.features.map(function(f) {
+    return '<span class="modal-tag">' + f + '</span>';
+  }).join('');
+  if (p.tag) {
+    tagsHtml += '<span class="modal-tag" style="border-color:var(--gold);color:var(--gold);">' + p.tag + '</span>';
+  }
+  tagsEl.innerHTML = tagsHtml;
+
+  // Price
+  document.getElementById('modalPrice').textContent = p.price || 'Sur demande';
+
+  // Image
+  const imgEl = document.getElementById('modalImg');
+  if (p.image) {
+    imgEl.className = 'modal-img';
+    imgEl.style.backgroundImage = "url('" + p.image + "')";
+    imgEl.innerHTML = '';
+  } else {
+    imgEl.className = 'modal-img modal-img-placeholder';
+    imgEl.style.backgroundImage = '';
+    imgEl.innerHTML = '<i class="fas fa-wine-glass-alt"></i>';
+  }
+}
+
+function closeModal() {
+  document.getElementById('productModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// ══════════════════════════════════════════════════════════════
+// EVENT LISTENERS
+// ══════════════════════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderProducts('all');
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(function(b) {
+        b.classList.remove('active');
+      });
+      this.classList.add('active');
+      renderProducts(this.getAttribute('data-filter'));
+    });
+  });
+
+  // Modal close
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('productModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+});
+</script>
+</body>
+</html>

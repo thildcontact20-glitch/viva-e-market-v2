@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vins — VIVA E-MARKET</title>
+<meta name="description" content="Catalogue vins VIVA E-MARKET. Château Trianon (Saint-Émilion Grand Cru), Hope Family Wines (Californie), Kautz Family Vineyards, Dadson's UK Import Europe, Don Pedro. Distribution B2B Abidjan.">
+<link rel="icon" type="image/png" href="logo/logo.png">
+<link rel="apple-touch-icon" href="logo/logo.png">
+<meta property="og:image" content="logo/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+/* ═══════════════════════════════════════════
+   CSS VARIABLES — DARK MODE
+   ═══════════════════════════════════════════ */
+:root {
+  --gold: #D4AF37;
+  --gold-light: #F0D060;
+  --gold-dark: #B8942E;
+  --gold-glow: rgba(212, 175, 55, 0.3);
+  --gold-subtle: rgba(212, 175, 55, 0.08);
+  --gold-gradient: linear-gradient(135deg, #D4AF37, #F0D060, #B8942E);
+
+  --font-display: 'Playfair Display', serif;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Inter', sans-serif;
+  --nav-height: 72px;
+
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-card: #1A1A1A;
+  --bg-card-hover: #222222;
+  --text-primary: #F0EDE8;
+  --text-secondary: #A0988A;
+  --text-muted: #6B6360;
+  --border-light: rgba(212, 175, 55, 0.12);
+  --border-glow: rgba(212, 175, 55, 0.25);
+  --nav-bg: rgba(10, 10, 10, 0.85);
+  --shadow-card: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--gold) var(--bg-primary); }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+a { color: var(--gold); text-decoration: none; transition: color 0.3s; }
+a:hover { color: var(--gold-light); }
+::selection { background: var(--gold); color: #000; }
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 1000;
+  transition: all 0.3s;
+}
+.nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo i { font-size: 1.4rem; }
+.nav-logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+}
+.nav-links li a {
+  padding: 8px 18px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.3s;
+  position: relative;
+}
+.nav-links li a:hover,
+.nav-links li a.active {
+  color: var(--gold);
+  background: var(--gold-subtle);
+}
+.nav-links li a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px; left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+}
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+}
+
+/* ═══════════════════════════════════════════
+   HERO BANNER
+   ═══════════════════════════════════════════ */
+.hero {
+  margin-top: var(--nav-height);
+  position: relative;
+  height: 65vh;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('/images/products/hf_bottles/group-shot.jpg') center center / cover no-repeat;
+  filter: brightness(0.35) saturate(0.9);
+  transform: scale(1.02);
+  transition: filter 0.5s;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.7) 50%, var(--bg-primary) 100%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 20px;
+  max-width: 800px;
+}
+.hero-content h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  color: var(--gold);
+  text-shadow: 0 0 40px var(--gold-glow), 0 0 80px rgba(212, 175, 55, 0.15);
+  margin-bottom: 16px;
+  line-height: 1.15;
+}
+.hero-content p {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--text-secondary);
+  font-style: italic;
+  max-width: 600px;
+  margin: 0 auto 24px;
+}
+.hero-badges {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.hero-badge {
+  padding: 8px 20px;
+  border: 1px solid var(--border-glow);
+  border-radius: 50px;
+  font-size: 0.82rem;
+  color: var(--gold-dark);
+  background: rgba(212, 175, 55, 0.06);
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════════
+   FILTER BAR
+   ═══════════════════════════════════════════ */
+.filter-section {
+  padding: 40px 40px 0;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-light);
+}
+.filter-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-right: 8px;
+  font-weight: 600;
+}
+.filter-btn {
+  padding: 8px 22px;
+  border-radius: 50px;
+  border: 1px solid var(--border-light);
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.filter-btn:hover { border-color: var(--gold-dark); color: var(--gold); }
+.filter-btn.active {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════
+   PRODUCT GRID
+   ═══════════════════════════════════════════ */
+.section-products {
+  padding: 40px 40px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* ═══════════════════════════════════════════
+   PRODUCT CARD
+   ═══════════════════════════════════════════ */
+.product-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(212, 175, 55, 0.06);
+  border-color: var(--border-glow);
+  background: var(--bg-card-hover);
+}
+.product-badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  z-index: 5;
+  padding: 5px 14px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #000;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+}
+.product-img {
+  width: 100%;
+  height: 280px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--bg-secondary);
+  transition: transform 0.5s;
+}
+.product-card:hover .product-img { transform: scale(1.03); }
+.product-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+}
+.product-img-placeholder i {
+  font-size: 4rem;
+  color: var(--text-muted);
+  opacity: 0.4;
+}
+.product-info {
+  padding: 20px 20px 24px;
+}
+.product-brand {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold-dark);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+.product-name {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.product-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.product-origin {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.product-origin i { color: var(--gold-dark); font-size: 0.7rem; }
+.product-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+}
+.product-price {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+.product-format {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════
+   SECTION DIVIDERS
+   ═══════════════════════════════════════════ */
+.section-divider {
+  grid-column: 1 / -1;
+  padding: 24px 0 12px;
+  margin-bottom: 8px;
+  position: relative;
+}
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+}
+.section-divider h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--gold);
+  text-align: center;
+  background: var(--bg-primary);
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.section-divider .subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  margin-top: 4px;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════════════
+   MODAL
+   ═══════════════════════════════════════════ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  animation: modalFadeIn 0.3s;
+}
+.modal-overlay.active { display: flex; }
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal {
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-glow);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+  animation: modalSlideIn 0.3s;
+  position: relative;
+}
+@keyframes modalSlideIn {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  z-index: 10;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background: rgba(10,10,10,0.7);
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+.modal-close:hover {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+}
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.modal-img {
+  min-height: 400px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--bg-primary);
+  border-radius: 20px 0 0 20px;
+}
+.modal-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+}
+.modal-img-placeholder i {
+  font-size: 6rem;
+  color: var(--text-muted);
+  opacity: 0.3;
+}
+.modal-info {
+  padding: 32px;
+}
+.modal-brand {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+.modal-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 8px 0 16px;
+  line-height: 1.2;
+}
+.modal-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.modal-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.modal-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.modal-detail i {
+  width: 20px;
+  color: var(--gold-dark);
+  font-size: 0.8rem;
+}
+.modal-detail strong { color: var(--text-primary); }
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.modal-tag {
+  padding: 4px 14px;
+  border-radius: 50px;
+  border: 1px solid var(--border-light);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+}
+.modal-price {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.modal-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--gold);
+  color: #000;
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.modal-contact-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+.site-footer {
+  border-top: 1px solid var(--border-light);
+  padding: 40px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+.site-footer .footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.site-footer .footer-links a {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  transition: color 0.3s;
+}
+.site-footer .footer-links a:hover { color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .modal-body { grid-template-columns: 1fr; }
+  .modal-img {
+    min-height: 300px;
+    border-radius: 20px 20px 0 0;
+  }
+}
+@media (max-width: 768px) {
+  .nav { padding: 0 20px; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0; right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 16px;
+    border-bottom: 1px solid var(--border-light);
+    gap: 4px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li a { padding: 12px 16px; width: 100%; }
+  .nav-toggle { display: block; }
+  .filter-section { padding: 24px 20px 0; }
+  .section-products { padding: 24px 20px 60px; }
+  .product-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .hero { height: 50vh; min-height: 320px; }
+  .modal-info { padding: 24px; }
+  .modal-name { font-size: 1.3rem; }
+}
+@media (max-width: 480px) {
+  .product-grid { grid-template-columns: 1fr; }
+  .hero-badges { gap: 8px; }
+  .hero-badge { font-size: 0.72rem; padding: 6px 14px; }
+  .filter-btn { padding: 6px 16px; font-size: 0.78rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVIGATION ═══════════════ -->
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <img src="logo/logo-sm.png" alt="VIVALYS" class="nav-logo-img"> VIVA E-MARKET
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <i class="fas fa-bars"></i>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+    <li><a href="vins.html" class="active"><i class="fas fa-wine-bottle"></i> Vins</a></li>
+    <li><a href="spiritueux.html"><i class="fas fa-whiskey-glass"></i> Spiritueux</a></li>
+    <li><a href="epicerie.html"><i class="fas fa-apple-alt"></i> Épicerie</a></li>
+    <li><a href="#"><i class="fas fa-soap"></i> Ménager</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Notre Cave</h1>
+    <p>Cinq mondes viticoles réunis par l'excellence — Bordeaux, Californie, Kautz Family, Dadson's UK, et les trésors d'Europe</p>
+    <div class="hero-badges">
+      <span class="hero-badge">🍇 Saint-Émilion Grand Cru</span>
+      <span class="hero-badge">🌄 Paso Robles Californie</span>
+      <span class="hero-badge">🏔️ Kautz Family Vineyards</span>
+      <span class="hero-badge">🇬🇧 Dadson's UK Import</span>
+      <span class="hero-badge">🌍 Vins d'Europe</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FILTERS ═══════════════ -->
+<section class="filter-section">
+  <div class="filter-bar">
+    <span class="filter-label"><i class="fas fa-filter"></i> Filtre</span>
+    <button class="filter-btn active" data-filter="all">Tous</button>
+    <button class="filter-btn" data-filter="france">🇫🇷 France — Château Trianon</button>
+    <button class="filter-btn" data-filter="california">🇺🇸 Californie — Hope Family Wines</button>
+    <button class="filter-btn" data-filter="kautz">🇺🇸 Kautz Family</button>
+    <button class="filter-btn" data-filter="dadsons">🇬🇧 Dadson's UK</button>
+    <button class="filter-btn" data-filter="europe">🌍 Europe — Don Pedro</button>
+  </div>
+</section>
+
+<!-- ═══════════════ PRODUCTS ═══════════════ -->
+<section class="section-products">
+  <div class="product-grid" id="wineGrid">
+    <!-- PRODUCTS WILL BE RENDERED BY JAVASCRIPT -->
+  </div>
+</section>
+
+<!-- ═══════════════ MODAL ═══════════════ -->
+<div class="modal-overlay" id="wineModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+    <div class="modal-body" id="modalBody">
+      <div class="modal-img modal-img-placeholder" id="modalImg">
+        <i class="fas fa-wine-bottle"></i>
+      </div>
+      <div class="modal-info" id="modalInfo">
+        <div class="modal-brand" id="modalBrand"></div>
+        <h2 class="modal-name" id="modalName"></h2>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-details" id="modalDetails"></div>
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-footer">
+          <div class="modal-price" id="modalPrice"></div>
+          <a class="modal-contact-btn" href="index.html#contact">
+            <i class="fab fa-whatsapp"></i> Commander
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="vins.html">Vins</a>
+    <a href="spiritueux.html">Spiritueux</a>
+    <a href="epicerie.html">Épicerie</a>
+    <a href="#">Ménager</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+  <p>&copy; 2025 VIVA E-MARKET — Commerce International Africain. Tous droits réservés.</p>
+</footer>
+
+<script src="js/admin-bridge.js"></script>
+<script>
+// ══════════════════════════════════════════════════════════════
+// WINE PRODUCT DATA
+// ══════════════════════════════════════════════════════════════
+const wines = [
+  // ─── SECTION: CHÂTEAU TRIANON (FRANCE) ───
+  {
+    id: 'trianon-2020',
+    name: 'Château Trianon Saint-Émilion Grand Cru 2020',
+    brand: 'Château Trianon — Saint-Émilion Grand Cru',
+    region: 'france',
+    description: 'Grand Cru Classé. Millésime d\'exception. Notes : Decanter 93, James Suckling 92, Bernard Burtschy 93-94. Un Saint-Émilion d\'une élégance remarquable, tanins soyeux et finale persistante.',
+    origin: 'Saint-Émilion, Bordeaux, France',
+    format: '75cl / 1.5L / 37.5cl',
+    price: 'Sur demande',
+    features: ['Grand Cru Classé', '92-94 pts', 'Excellent millésime'],
+    tag: 'Grand Cru'
+  },
+  {
+    id: 'trianon-2021',
+    name: 'Château Trianon Saint-Émilion Grand Cru 2021',
+    brand: 'Château Trianon — Saint-Émilion Grand Cru',
+    region: 'france',
+    description: 'Grand Cru Classé 2021. Un millésime frais et élégant. Notes de fruits noirs, violette et sous-bois. Grande finesse et potentiel de garde.',
+    origin: 'Saint-Émilion, Bordeaux, France',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Grand Cru Classé', 'Élégant', 'Potentiel de garde'],
+    tag: 'Grand Cru'
+  },
+  {
+    id: 'haut-bergey-2020',
+    name: 'Château Haut-Bergey Pessac-Léognan 2020',
+    brand: 'Château Haut-Bergey — Pessac-Léognan',
+    region: 'france',
+    description: 'Grand Cru Classé de Graves. Un Pessac-Léognan racé, notes de cassis, cèdre et tabac. Élevage en fûts de chêne français. Un des fleurons de l\'appellation.',
+    origin: 'Pessac-Léognan, Bordeaux, France',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Grand Cru Classé de Graves', 'Pessac-Léognan', 'Cèdre & Tabac'],
+    tag: '⭐ Prestige'
+  },
+  {
+    id: 'labat-la-moureraie-2020',
+    name: 'Château Labat La Moureraie 2020',
+    brand: 'Château Labat La Moureraie',
+    region: 'france',
+    description: 'Bordeaux Supérieur d\'un excellent rapport qualité-prix. Notes de fruits rouges mûrs, épices douces et une touche de chêne. Élevage traditionnel bordelais.',
+    origin: 'Bordeaux, France',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Bordeaux Supérieur', 'Rapport Qualité-Prix', 'Fruits Rouges'],
+    tag: 'Bon Plan'
+  },
+  {
+    id: 'vieux-naulet-2024',
+    name: 'Château Vieux Naulet 2024',
+    brand: 'Château Vieux Naulet',
+    region: 'france',
+    description: 'Bordeaux rouge frais et fruité du millésime 2024. Un vin de soif élégant, parfait pour les palais en quête de découverte. Notes de cerise, framboise et garrigue.',
+    origin: 'Bordeaux, France',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Vins de Soif', 'Fruité', 'Millésime 2024'],
+    tag: 'Nouveau'
+  },
+  {
+    id: 'trianon-rose-2024',
+    name: 'Château Trianon Rosé 2024',
+    brand: 'Château Trianon',
+    region: 'france',
+    description: 'Rosé de Provence d\'une élégance rare. Andréas Larsson : 90/100. Notes de pêche, groseille et fleurs blanches. Un rosé de gastronomie.',
+    origin: 'Côtes de Provence, France',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Côtes de Provence', '90 pts Larsson', 'Rosé Gastronomique'],
+    tag: 'Recommandé'
+  },
+
+  // ─── SECTION: HOPE FAMILY WINES (CALIFORNIE) ───
+  {
+    id: 'treana-cabernet-2023',
+    name: 'Treana Cabernet Sauvignon 2023',
+    brand: 'Treana — Hope Family Wines',
+    region: 'california',
+    description: 'Vin californien premium de Hope Family Wines (Paso Robles). Notes intenses de cassis, mûre, chocolat noir et vanille. Élevé en fûts de chêne français et américain.',
+    origin: 'Paso Robles, Californie, États-Unis',
+    format: '75cl — 750ml — 14.5% vol',
+    price: 'Sur demande',
+    features: ['Hope Family Wines', 'Paso Robles', 'Élevé en fût de chêne'],
+    image: '/images/products/hf_bottles/treana-cabernet.webp',
+    tag: 'Premium USA'
+  },
+  {
+    id: 'treana-red-2024',
+    name: 'Treana Red 2024',
+    brand: 'Treana — Hope Family Wines',
+    region: 'california',
+    description: 'Assemblage rouge premium de Hope Family Wines. Riche, audacieux, avec des notes de fruits noirs mûrs, d\'épices et de chêne. Capture l\'essence de la Central Coast.',
+    origin: 'Paso Robles, Californie, États-Unis',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Hope Family Wines', 'Assemblage Rouge', 'Central Coast'],
+    image: '/images/products/hf_bottles/treana-red.webp',
+    tag: 'Premium USA'
+  },
+  {
+    id: 'treana-sauvignon-blanc-2024',
+    name: 'Treana Sauvignon Blanc 2024',
+    brand: 'Treana — Hope Family Wines',
+    region: 'california',
+    description: 'Sauvignon Blanc californien vif et aromatique. Notes d\'agrumes, fruit de la passion, herbe fraîche et une minéralité saline. Un blanc d\'été par excellence.',
+    origin: 'Californie, États-Unis — Hope Family Wines',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Sauvignon Blanc', 'Vif & Aromatique', 'Hope Family Wines'],
+    tag: 'Nouveau'
+  },
+  {
+    id: 'austin-hope-cabernet-2023',
+    name: 'Austin Hope Cabernet Sauvignon 2023',
+    brand: 'Austin Hope — Hope Family Wines',
+    region: 'california',
+    description: 'Le fleuron de Hope Family Wines. L\'un des Top 10 Cabernets du monde. Notes intenses de cassis, cerise noire, cèdre et chocolat. Élevé 18 mois en fûts de chêne.',
+    origin: 'Paso Robles, Californie, États-Unis',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Top 10 Cabernet Mondial', '18 mois fût de chêne', 'Paso Robles'],
+    tag: '⭐ Collection Prestige'
+  },
+  {
+    id: 'austin-hope-syrah-2023',
+    name: 'Austin Hope Syrah 2023',
+    brand: 'Austin Hope Cellar Select — Hope Family Wines',
+    region: 'california',
+    description: 'Syrah d\'exception de la gamme Cellar Select. Riche, épicé, avec des notes de violette, mûre et poivre noir. Élevage soigné pour une complexité remarquable.',
+    origin: 'Paso Robles, Californie, États-Unis',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Cellar Select', 'Syrah Premium', 'Notes épicées'],
+    tag: 'Cellar Select'
+  },
+  {
+    id: 'austin-hope-grenache-2023',
+    name: 'Austin Hope Grenache 2023',
+    brand: 'Austin Hope — Hope Family Wines',
+    region: 'california',
+    description: 'Grenache pur, frais et fruité. Notes de framboise, fraise des bois et épices douces. Un vin élégant de la Central Coast californienne.',
+    origin: 'Paso Robles, Californie, États-Unis',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Grenache Pur', 'Fruité & Élégant', 'Central Coast'],
+    tag: 'Premium USA'
+  },
+  {
+    id: 'austin-hope-graciano-2023',
+    name: 'Austin Hope Graciano 2023',
+    brand: 'Austin Hope Cellar Select — Hope Family Wines',
+    region: 'california',
+    description: 'Cépage rare Graciano en édition Cellar Select. Structure tannique puissante, notes de mûre, violette et réglisse. Un vin de garde d\'exception.',
+    origin: 'Paso Robles, Californie, États-Unis',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Cellar Select', 'Cépage Rare', 'Grande Garde'],
+    tag: '⭐ Collection Prestige'
+  },
+  {
+    id: 'austin-hope-mourvedre-2023',
+    name: 'Austin Hope Mourvèdre 2023',
+    brand: 'Austin Hope Cellar Select — Hope Family Wines',
+    region: 'california',
+    description: 'Mourvèdre premium de la gamme Cellar Select. Notes de fruits noirs, gibier et garrigue. Un vin puissant et complexe de la Central Coast.',
+    origin: 'Paso Robles, Californie, États-Unis',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Cellar Select', 'Mourvèdre Premium', 'Puissant & Complexe'],
+    tag: '⭐ Collection Prestige'
+  },
+  {
+    id: 'austin-hope-blanc-de-blancs-2024',
+    name: 'Austin Hope Blanc de Blancs 2024',
+    brand: 'Austin Hope — Hope Family Wines',
+    region: 'california',
+    description: 'Méthode traditionnelle californienne. 100% Chardonnay. Bulles fines et élégantes, notes d\'agrumes confits, brioche et fleurs blanches. Un sparkling wine d\'exception.',
+    origin: 'Paso Robles, Californie, États-Unis',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Méthode Traditionnelle', '100% Chardonnay', 'Sparkling Premium'],
+    tag: '✨ Sparkling'
+  },
+  {
+    id: 'austin-hope-sauvignon-blanc-2024',
+    name: 'Austin Hope Sauvignon Blanc 2024',
+    brand: 'Austin Hope — Hope Family Wines',
+    region: 'california',
+    description: 'Sauvignon Blanc frais et vibrant. Notes d\'agrumes, fruit de la passion et herbes fraîches. Une entrée en gamme Austin Hope accessible et délicieuse.',
+    origin: 'Santa Barbara County, Californie, États-Unis',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Sauvignon Blanc', 'Frais & Vibrant', 'Agrumes & Fruits'],
+    tag: 'Nouveau'
+  },
+  {
+    id: 'austin-paso-cabernet',
+    name: 'AUSTIN Paso Robles Cabernet Sauvignon',
+    brand: 'AUSTIN — Hope Family Wines',
+    region: 'california',
+    description: 'Le Cabernet accessible de Hope Family Wines. Hommage aux pionniers de Paso Robles. Notes de mûre juteuse, noix de muscade, café toasté et vanille.',
+    origin: 'Paso Robles, Californie, États-Unis — Hope Family Wines',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Entrée de Gamme', 'Paso Robles Cabernet', 'Quotidien'],
+    image: '/images/products/hf_bottles/austin-hope-cab.webp',
+    tag: '⭐ Meilleur Rapport'
+  },
+  {
+    id: 'austin-paso-chardonnay',
+    name: 'AUSTIN Paso Robles Chardonnay',
+    brand: 'AUSTIN — Hope Family Wines',
+    region: 'california',
+    description: 'Chardonnay californien de Paso Robles. Notes de melon tropical, zeste de citron et miel. Une découverte qui révèle le potentiel du Chardonnay de la Central Coast.',
+    origin: 'Paso Robles, Californie, États-Unis — Hope Family Wines',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Chardonnay', 'Tropical & Frais', 'Hope Family Wines'],
+    image: '/images/products/hf_bottles/austin-chardonnay.webp',
+    tag: 'Nouveau'
+  },
+  {
+    id: 'liberty-school-cabernet-2024',
+    name: 'Liberty School Cabernet Sauvignon 2024',
+    brand: 'Liberty School — Hope Family Wines',
+    region: 'california',
+    description: 'Le Cabernet abordable de Hope Family Wines. Notes de cerise, cassis et vanille. Un grand rapport qualité-prix californien. Parfait pour l\'initiation.',
+    origin: 'Californie, États-Unis — Hope Family Wines',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Liberty School', 'Rapport Qualité-Prix', 'Initiation Californie'],
+    image: '/images/products/hf_bottles/liberty-school.jpg',
+    tag: '⭐ Meilleur Rapport'
+  },
+  {
+    id: 'liberty-school-red-2024',
+    name: 'Liberty School Red 2024',
+    brand: 'Liberty School — Hope Family Wines',
+    region: 'california',
+    description: 'Assemblage rouge accessible et fruité de la gamme Liberty School. Parfait pour la découverte des vins californiens au quotidien.',
+    origin: 'Californie, États-Unis — Hope Family Wines',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Assemblage Rouge', 'Entrée de Gamme', 'Quotidien'],
+    image: '/images/products/hf_bottles/liberty-school.webp',
+    tag: 'Petit Prix'
+  },
+  {
+    id: 'quest-2024',
+    name: 'Quest 2024',
+    brand: 'Quest — Hope Family Wines',
+    region: 'california',
+    description: 'Assemblage rouge audacieux. Notes de fruits noirs, épices et chêne. Un vin californien moderne et accessible de Hope Family Wines.',
+    origin: 'Californie, États-Unis — Hope Family Wines',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Assemblage Rouge', 'Audacieux', 'Hope Family Wines'],
+    image: '/images/products/hf_bottles/quest.jpg',
+    tag: 'Nouveau'
+  },
+  {
+    id: 'quest-rose-2024',
+    name: 'Quest Rosé 2024',
+    brand: 'Quest — Hope Family Wines',
+    region: 'california',
+    description: 'Rosé californien frais et fruité de la gamme Quest. Notes de fraise, pastèque et fleurs. Parfait pour l\'apéritif et les journées ensoleillées.',
+    origin: 'Californie, États-Unis — Hope Family Wines',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Rosé', 'Frais & Fruité', 'Apéritif'],
+    image: '/images/products/hf_bottles/quest.webp',
+    tag: 'Nouveau'
+  },
+  {
+    id: 'troublemaker-red',
+    name: 'Troublemaker Red Blend 16',
+    brand: 'Troublemaker — Hope Family Wines',
+    region: 'california',
+    description: 'Assemblage audacieux multi-cépages : Syrah, Petite Sirah, Mourvèdre, Grenache, Zinfandel. Un vin rebelle qui casse les codes. Notes de boysenberry, mûre, poivre et café.',
+    origin: 'Central Coast, Californie, États-Unis',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Multi-cépages', 'Syrah & Petite Sirah', 'Rebelle & Audacieux'],
+    image: '/images/products/hf_bottles/troublemaker.webp',
+    tag: '⭐ Audacieux'
+  },
+
+  // ─── SECTION: DON PEDRO (EUROPE) ───
+  {
+    id: 'don-pedro-cabernet',
+    name: 'Don Pedro Cabernet Sauvignon',
+    brand: 'Don Pedro — Vins d\'Europe',
+    region: 'europe',
+    description: 'Vin rouge premium d\'Europe. Notes de fruits noirs et d\'épices. Élevage soigné pour une finale élégante. Un cabernet abordable et généreux.',
+    origin: 'Europe',
+    format: '75cl — 14% vol',
+    price: 'Sur demande',
+    features: ['Premium Quality', 'Cabernet Sauvignon', '14% Vol'],
+    image: '/images/products/dadsons_wines/don-pedro-front.jpg',
+    tag: 'Premium'
+  },
+
+  // ─── SECTION: KAUTZ FAMILY VINEYARDS (CALIFORNIE) ───
+  {
+    id: 'ironstone-old-vine-zinfandel',
+    name: 'Ironstone Old Vine Zinfandel',
+    brand: 'Ironstone Vineyards — Kautz Family',
+    region: 'kautz',
+    description: 'Old Vine Zinfandel de Californie. Notes intenses de mûre, cerise noire et épices. Un hommage aux vieilles vignes de la Sierra Foothills.',
+    origin: 'Murphys, Californie, États-Unis — Ironstone Vineyards',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Old Vine', 'Zinfandel', 'Sierra Foothills'],
+    tag: '🇺🇸 Californie'
+  },
+  {
+    id: 'ironstone-cabernet-sauvignon',
+    name: 'Ironstone Cabernet Sauvignon',
+    brand: 'Ironstone Vineyards — Kautz Family',
+    region: 'kautz',
+    description: 'Cabernet Sauvignon californien fruité et accessible. Notes de cassis, cerise et vanille. Un grand classique de la Central Coast.',
+    origin: 'Californie, États-Unis — Ironstone Vineyards',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Cabernet Sauvignon', 'Fruité', 'Central Coast'],
+    tag: '🇺🇸 Californie'
+  },
+  {
+    id: 'ironstone-reserve-cabernet',
+    name: 'Ironstone Reserve Cabernet Sauvignon',
+    brand: 'Ironstone Vineyards — Kautz Family',
+    region: 'kautz',
+    description: 'Réserve Cabernet Sauvignon d\'exception. Élevage prolongé en fûts de chêne pour une complexité remarquable. Notes de cassis, cèdre et chocolat noir.',
+    origin: 'Californie, États-Unis — Ironstone Vineyards',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Réserve', 'Élevé en fût', 'Complexe'],
+    tag: '🇺🇸 Californie'
+  },
+  {
+    id: 'ironstone-merlot',
+    name: 'Ironstone Merlot',
+    brand: 'Ironstone Vineyards — Kautz Family',
+    region: 'kautz',
+    description: 'Merlot californien rond et velouté. Notes de prune, cerise mûre et une touche de chêne. Un vin souple et élégant au quotidien.',
+    origin: 'Californie, États-Unis — Ironstone Vineyards',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Merlot', 'Rond & Velouté', 'Quotidien'],
+    tag: '🇺🇸 Californie'
+  },
+  {
+    id: 'ironstone-petite-sirah',
+    name: 'Ironstone Petite Sirah',
+    brand: 'Ironstone Vineyards — Kautz Family',
+    region: 'kautz',
+    description: 'Petite Sirah puissante aux arômes intenses de mûre, myrtille et poivre noir. Un vin de caractère de la Sierra Foothills.',
+    origin: 'Californie, États-Unis — Ironstone Vineyards',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Petite Sirah', 'Puissant', 'Sierra Foothills'],
+    tag: '🇺🇸 Californie'
+  },
+  {
+    id: 'ironstone-sauvignon-blanc',
+    name: 'Ironstone Sauvignon Blanc',
+    brand: 'Ironstone Vineyards — Kautz Family',
+    region: 'kautz',
+    description: 'Sauvignon Blanc vif et rafraîchissant. Notes d\'agrumes, fruit de la passion et herbe fraîche. Un blanc californien parfait pour l\'apéritif.',
+    origin: 'Californie, États-Unis — Ironstone Vineyards',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Sauvignon Blanc', 'Vif & Rafraîchissant', 'Apéritif'],
+    tag: '🇺🇸 Californie'
+  },
+  {
+    id: 'ironstone-chardonnay',
+    name: 'Ironstone Chardonnay',
+    brand: 'Ironstone Vineyards — Kautz Family',
+    region: 'kautz',
+    description: 'Chardonnay californien élégant. Notes de pomme, vanille et beurre. Élevage en fût de chêne pour une texture onctueuse.',
+    origin: 'Californie, États-Unis — Ironstone Vineyards',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Chardonnay', 'Onctueux', 'Élevé en fût'],
+    tag: '🇺🇸 Californie'
+  },
+  {
+    id: 'kautz-estate-cabernet',
+    name: 'Kautz Family Estate Cabernet Sauvignon',
+    brand: 'Kautz Family Vineyards — Collection Prestige',
+    region: 'kautz',
+    description: 'Le fleuron de Kautz Family. Cabernet Sauvignon d\'exception issu des meilleures parcelles du domaine. Notes de cassis, mûre, cèdre et tabac. Grande complexité et potentiel de garde.',
+    origin: 'Murphys, Californie, États-Unis — Kautz Family Vineyards',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Collection Prestige', 'Grande Garde', 'Parcelles Sélectionnées'],
+    tag: '⭐ Collection Prestige'
+  },
+  {
+    id: 'kautz-estate-zinfandel',
+    name: 'Kautz Family Estate Zinfandel',
+    brand: 'Kautz Family Vineyards — Collection Prestige',
+    region: 'kautz',
+    description: 'Zinfandel de prestige de Kautz Family. Notes intenses de fruits noirs, épices et réglisse. Un vin audacieux qui incarne l\'esprit de la Californie.',
+    origin: 'Murphys, Californie, États-Unis — Kautz Family Vineyards',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Collection Prestige', 'Audacieux', 'Fruits Noirs & Épices'],
+    tag: '⭐ Collection Prestige'
+  },
+  {
+    id: 'kautz-estate-merlot',
+    name: 'Kautz Family Estate Merlot',
+    brand: 'Kautz Family Vineyards — Collection Prestige',
+    region: 'kautz',
+    description: 'Merlot d\'exception de la gamme Estate. Rond, soyeux, avec des notes de prune, cerise noire et chocolat. Un vin élégant et généreux.',
+    origin: 'Murphys, Californie, États-Unis — Kautz Family Vineyards',
+    format: '75cl — 750ml',
+    price: 'Sur demande',
+    features: ['Collection Prestige', 'Rond & Soyeux', 'Élégant'],
+    tag: '⭐ Collection Prestige'
+  },
+
+  // ─── SECTION: DADSON\'S UK — IMPORT EUROPE ───
+  // Four Cousins (Afrique du Sud)
+  {
+    id: 'four-cousins-dry-red',
+    name: 'Four Cousins Smooth Dry Red',
+    brand: 'Four Cousins — Afrique du Sud',
+    region: 'dadsons',
+    description: 'Vin rouge sud-africain doux et fruité. Notes de fruits rouges mûrs avec une finale légèrement tannique. Parfait pour accompagner les grillades et les plats épicés.',
+    origin: 'Afrique du Sud — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Afrique du Sud', 'Rouge Fruité', 'Smooth Dry'],
+    image: '/images/products/dadsons_wines/four-cousins-dry-red.jpg',
+    tag: '🇿🇦 Afrique du Sud'
+  },
+  {
+    id: 'four-cousins-sweet-red',
+    name: 'Four Cousins Natural Sweet Red',
+    brand: 'Four Cousins — Afrique du Sud',
+    region: 'dadsons',
+    description: 'Vin rouge naturellement doux d\'Afrique du Sud. Notes de cerise, framboise et confiture. Un vin gourmand et accessible pour tous les moments.',
+    origin: 'Afrique du Sud — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Afrique du Sud', 'Rouge Doux', 'Naturel'],
+    image: '/images/products/dadsons_wines/four-cousins-sweet-red.jpg',
+    tag: '🇿🇦 Afrique du Sud'
+  },
+  {
+    id: 'four-cousins-white',
+    name: 'Four Cousins Natural Sweet White',
+    brand: 'Four Cousins — Afrique du Sud',
+    region: 'dadsons',
+    description: 'Vin blanc doux sud-africain. Arômes de pêche, abricot et fruits tropicaux. Une explosion de saveurs fruitées en bouche.',
+    origin: 'Afrique du Sud — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Afrique du Sud', 'Blanc Doux', 'Fruits Tropicaux'],
+    image: '/images/products/dadsons_wines/four-cousins-white.jpg',
+    tag: '🇿🇦 Afrique du Sud'
+  },
+  {
+    id: 'four-cousins-rose',
+    name: 'Four Cousins Natural Sweet Rosé',
+    brand: 'Four Cousins — Afrique du Sud',
+    region: 'dadsons',
+    description: 'Rosé doux sud-africain. Notes de fraise, framboise et fleurs. Un rosé gourmand et léger, parfait pour l\'apéritif et les soirées d\'été.',
+    origin: 'Afrique du Sud — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Afrique du Sud', 'Rosé Doux', 'Apéritif'],
+    image: '/images/products/dadsons_wines/four-cousins-rose.jpg',
+    tag: '🇿🇦 Afrique du Sud'
+  },
+
+  // 7Hills (Afrique du Sud)
+  {
+    id: '7hills-smooth-red',
+    name: '7Hills Smooth Red',
+    brand: '7Hills — Afrique du Sud',
+    region: 'dadsons',
+    description: 'Vin rouge sud-africain doux et fruité. Assemblage harmonieux aux notes de fruits rouges et d\'épices douces. Un vin facile à boire au quotidien.',
+    origin: 'Afrique du Sud — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Afrique du Sud', 'Rouge Fruité', 'Assemblage'],
+    image: '/images/products/dadsons_wines/7hills-smooth-red.jpg',
+    tag: '🇿🇦 Afrique du Sud'
+  },
+  {
+    id: '7hills-sweet-red',
+    name: '7Hills Natural Sweet Red',
+    brand: '7Hills — Afrique du Sud',
+    region: 'dadsons',
+    description: 'Vin rouge naturellement doux aux arômes intenses de cerise, mûre et confiture de fruits rouges. Une explosion de saveurs fruitées.',
+    origin: 'Afrique du Sud — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Afrique du Sud', 'Rouge Doux', 'Fruité'],
+    image: '/images/products/dadsons_wines/7hills-sweet-red.jpg',
+    tag: '🇿🇦 Afrique du Sud'
+  },
+  {
+    id: '7hills-rose',
+    name: '7Hills Natural Sweet Rosé',
+    brand: '7Hills — Afrique du Sud',
+    region: 'dadsons',
+    description: 'Rosé doux sud-africain. Notes de fraise des bois, framboise et fleurs blanches. Un rosé frais et fruité pour toutes les occasions.',
+    origin: 'Afrique du Sud — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Afrique du Sud', 'Rosé Doux', 'Frais & Fruité'],
+    image: '/images/products/dadsons_wines/7hills-rose.jpg',
+    tag: '🇿🇦 Afrique du Sud'
+  },
+  {
+    id: '7hills-johannisberger',
+    name: '7Hills Johannisberger',
+    brand: '7Hills — Afrique du Sud',
+    region: 'dadsons',
+    description: 'Vin blanc doux sud-africain de style Johannisberger. Notes de raisin muscat, miel et fleurs blanches. Un vin moelleux d\'une grande élégance.',
+    origin: 'Afrique du Sud — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Afrique du Sud', 'Johannisberger', 'Moelleux'],
+    image: '/images/products/dadsons_wines/7hills-johannisberger.jpg',
+    tag: '🇿🇦 Afrique du Sud'
+  },
+
+  // Papillon (Sparkling)
+  {
+    id: 'papillon-brut',
+    name: 'Papillon Brut',
+    brand: 'Papillon — Sparkling Wine',
+    region: 'dadsons',
+    description: 'Sparkling brut aux fines bulles. Notes d\'agrumes, pomme verte et brioche. Un effervescent élégant pour toutes les célébrations.',
+    origin: 'Europe — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Brut', 'Fines Bulles', 'Élégant'],
+    image: '/images/products/dadsons_wines/papillon-brut.jpg',
+    tag: '✨ Sparkling'
+  },
+  {
+    id: 'papillon-demi-sec',
+    name: 'Papillon Demi-Sec',
+    brand: 'Papillon — Sparkling Wine',
+    region: 'dadsons',
+    description: 'Sparkling demi-sec aux arômes de pêche, abricot et miel. Un équilibre parfait entre douceur et fraîcheur.',
+    origin: 'Europe — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Demi-Sec', 'Fruité', 'Douceur & Fraîcheur'],
+    image: '/images/products/dadsons_wines/papillon-demi-sec.jpg',
+    tag: '✨ Sparkling'
+  },
+  {
+    id: 'papillon-blush',
+    name: 'Papillon Non-Alcoholic Blush',
+    brand: 'Papillon — Sparkling Wine',
+    region: 'dadsons',
+    description: 'Sparkling non-alcoolisé rosé. Notes de fraise, framboise et fleurs. Pétillant et rafraîchissant, parfait pour tous les moments sans alcool.',
+    origin: 'Europe — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Non-Alcoolisé', 'Rosé', 'Pétillant'],
+    image: '/images/products/dadsons_wines/papillon-blush.jpg',
+    tag: '✨ Sparkling'
+  },
+  {
+    id: 'papillon-white',
+    name: 'Papillon Non-Alcoholic White',
+    brand: 'Papillon — Sparkling Wine',
+    region: 'dadsons',
+    description: 'Sparkling non-alcoolisé blanc. Notes de pomme, poire et fleurs blanches. Une alternative pétillante et raffinée sans alcool.',
+    origin: 'Europe — Importé par Dadson\'s UK',
+    format: '75cl',
+    price: 'Sur demande',
+    features: ['Non-Alcoolisé', 'Blanc', 'Raffiné'],
+    image: '/images/products/dadsons_wines/papillon-white.jpg',
+    tag: '✨ Sparkling'
+  }
+];
+
+// ══════════════════════════════════════════════════════════════
+// ADMIN BRIDGE
+// ══════════════════════════════════════════════════════════════
+if (window.__adminBridge) {
+  window.__adminBridge.patchProducts(wines, 'vins');
+}
+
+// ══════════════════════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ══════════════════════════════════════════════════════════════
+
+function getWineImage(wine) {
+  if (wine.image) return wine.image;
+  return null; // will use placeholder
+}
+
+function renderWines(filter = 'all') {
+  const grid = document.getElementById('wineGrid');
+  if (!grid) return;
+
+  let filtered = wines;
+  if (filter !== 'all') {
+    filtered = wines.filter(w => w.region === filter);
+  }
+
+  // Group by region for section dividers
+  const groups = {};
+  const regionNames = {
+    france: { label: '🇫🇷 France — Château Trianon & Bordeaux', subtitle: 'Saint-Émilion Grand Cru, Pessac-Léognan, Bordeaux Supérieur' },
+    california: { label: '🇺🇸 Californie — Hope Family Wines', subtitle: 'Paso Robles · Représenté par Meliza Jalbert' },
+    kautz: { label: '🇺🇸 Californie — Kautz Family Vineyards', subtitle: 'Ironstone Vineyards · Murphys, Californie · Représenté par Joan Kautz' },
+    dadsons: { label: '🇬🇧 Dadson\'s UK — Import Europe', subtitle: 'Vins d\'Afrique du Sud · Sparkling · Distribution Londres' },
+    europe: { label: '🌍 Europe — Don Pedro', subtitle: 'Vins premium d\'importation européenne' }
+  };
+
+  filtered.forEach(w => {
+    if (!groups[w.region]) groups[w.region] = [];
+    groups[w.region].push(w);
+  });
+
+  let html = '';
+
+  // If filter is applied, show only that region
+  if (filter !== 'all') {
+    const region = filter;
+    const info = regionNames[region];
+    html += `<div class="section-divider"><h2>${info.label}</h2><div class="subtitle">${info.subtitle}</div></div>`;
+    groups[region].forEach(w => { html += renderCard(w); });
+  } else {
+    // Show all regions with dividers
+    const order = ['france', 'california', 'kautz', 'dadsons', 'europe'];
+    order.forEach(region => {
+      if (!groups[region] || groups[region].length === 0) return;
+      const info = regionNames[region];
+      html += `<div class="section-divider"><h2>${info.label}</h2><div class="subtitle">${info.subtitle}</div></div>`;
+      groups[region].forEach(w => { html += renderCard(w); });
+    });
+  }
+
+  grid.innerHTML = html;
+}
+
+function renderCard(w) {
+  const img = w.image
+    ? `style="background-image:url('${w.image}')"`
+    : '';
+  const imgClass = w.image ? 'product-img' : 'product-img product-img-placeholder';
+  const imgContent = w.image ? '' : '<i class="fas fa-wine-bottle"></i>';
+
+  const badge = w.tag ? `<div class="product-badge">${w.tag}</div>` : '';
+  const tags = w.features.slice(0, 3).map(f => `<span class="modal-tag">${f}</span>`).join('');
+
+  // Price extraction for display
+  const priceDisplay = w.price || 'Sur demande';
+
+  return `
+  <div class="product-card" onclick="openModal('${w.id}')">
+    ${badge}
+    <div class="${imgClass}" ${img}>${imgContent}</div>
+    <div class="product-info">
+      <span class="product-brand">${w.brand}</span>
+      <h3 class="product-name">${w.name}</h3>
+      <p class="product-desc">${w.description}</p>
+      <div class="product-origin"><i class="fas fa-map-marker-alt"></i> ${w.origin}</div>
+      <div class="product-price-row">
+        <span class="product-price">${priceDisplay}</span>
+        <span class="product-format">${w.format}</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════════════
+// MODAL
+// ══════════════════════════════════════════════════════════════
+
+function openModal(id) {
+  const w = wines.find(x => x.id === id);
+  if (!w) return;
+
+  const modal = document.getElementById('wineModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  document.getElementById('modalBrand').textContent = w.brand;
+  document.getElementById('modalName').textContent = w.name;
+  document.getElementById('modalDesc').textContent = w.description;
+
+  // Details
+  const details = document.getElementById('modalDetails');
+  details.innerHTML = `
+    <div class="modal-detail"><i class="fas fa-map-marker-alt"></i> <strong>Origine :</strong> ${w.origin}</div>
+    <div class="modal-detail"><i class="fas fa-box"></i> <strong>Format :</strong> ${w.format}</div>
+    <div class="modal-detail"><i class="fas fa-tag"></i> <strong>Type :</strong> ${w.brand}</div>
+  `;
+
+  // Tags
+  const tagsEl = document.getElementById('modalTags');
+  tagsEl.innerHTML = w.features.map(f => `<span class="modal-tag">${f}</span>`).join('') +
+    (w.tag ? `<span class="modal-tag" style="border-color:var(--gold);color:var(--gold);">${w.tag}</span>` : '');
+
+  // Price
+  document.getElementById('modalPrice').textContent = w.price || 'Sur demande';
+
+  // Image
+  const imgEl = document.getElementById('modalImg');
+  if (w.image) {
+    imgEl.className = 'modal-img';
+    imgEl.style.backgroundImage = `url('${w.image}')`;
+    imgEl.innerHTML = '';
+  } else {
+    imgEl.className = 'modal-img modal-img-placeholder';
+    imgEl.style.backgroundImage = '';
+    imgEl.innerHTML = '<i class="fas fa-wine-bottle"></i>';
+  }
+}
+
+function closeModal() {
+  document.getElementById('wineModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// ══════════════════════════════════════════════════════════════
+// EVENT LISTENERS
+// ══════════════════════════════════════════════════════════════
+
+// DOM Ready
+document.addEventListener('DOMContentLoaded', function() {
+  renderWines('all');
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      renderWines(this.dataset.filter);
+    });
+  });
+
+  // Modal close
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('wineModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Nav toggle (mobile)
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+    const icon = this.querySelector('i');
+    icon.classList.toggle('fa-bars');
+    icon.classList.toggle('fa-times');
+  });
+
+  // Nav scroll effect
+  window.addEventListener('scroll', function() {
+    const nav = document.getElementById('mainNav');
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+});
+</script>
+</body>
+</html>

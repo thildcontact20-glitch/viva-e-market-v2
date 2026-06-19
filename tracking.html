@@ -1068,9 +1068,8 @@ nav {
   'use strict';
 
   /* ─── BACKEND PROXY CONFIG ─── */
-  const BACKEND_URL = 'https://viva-tracking-proxy.onrender.com';
-  // For local dev: 'http://localhost:3001'
-  // The backend is on Render, CORS-enabled for vercel.app origins.
+  const BACKEND_URL = 'https://viva-tracking-proxy.onrender.com'; // Backend Express sur Render
+  // Pour activer l'API : 1. Déployer api/server.js sur Render  2. Configurer DHL_API_KEY dans Render
 
   /* ─── SIMULATED DATA ─── */
   const SIMULATED_SHIPMENTS = [
@@ -1253,8 +1252,7 @@ nav {
 
     fetch(apiUrl, {
       method: 'GET',
-      headers: { 'Accept': 'application/json' },
-      mode: 'cors'
+      headers: { 'Accept': 'application/json' }
     })
     .then(function(response) {
       clearTimeout(fetchTimeout);
