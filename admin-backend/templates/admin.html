@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Viva E-Market</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --gold: #d4a853;
+      --gold-dark: #b8943e;
+      --gold-light: #e8c76a;
+      --bg-dark: #0a0a1a;
+      --bg-card: #12122a;
+      --bg-sidebar: #0d0d20;
+      --bg-surface: #1a1a2e;
+      --border: rgba(255,255,255,0.06);
+      --border-light: rgba(255,255,255,0.1);
+      --text: #ffffff;
+      --text-dim: rgba(255,255,255,0.5);
+      --text-muted: rgba(255,255,255,0.35);
+      --danger: #ff6b6b;
+      --success: #4ecdc4;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ═══════════════════════════════════════════
+       SIDEBAR
+    ═══════════════════════════════════════════ */
+    .sidebar {
+      width: 260px;
+      min-width: 260px;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 200;
+      transition: transform 0.3s ease;
+    }
+    .sidebar-brand {
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sidebar-brand .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--bg-dark);
+      flex-shrink: 0;
+    }
+    .sidebar-brand h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1.2;
+    }
+    .sidebar-brand .sub {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 16px 12px;
+      overflow-y: auto;
+    }
+    .sidebar-nav .nav-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+      padding: 16px 12px 8px;
+      font-weight: 600;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 2px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+    .nav-item i {
+      width: 20px;
+      text-align: center;
+      font-size: 1rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .nav-item:hover {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+    .nav-item:hover i { color: var(--gold); }
+    .nav-item.active {
+      background: rgba(212,168,83,0.1);
+      color: var(--gold);
+    }
+    .nav-item.active i { color: var(--gold); }
+    .nav-item .badge {
+      margin-left: auto;
+      background: rgba(255,255,255,0.06);
+      color: var(--text-dim);
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .sidebar-footer {
+      padding: 16px 12px;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-footer .nav-item {
+      color: var(--danger);
+      font-size: 0.82rem;
+    }
+    .sidebar-footer .nav-item i { color: var(--danger); }
+    .sidebar-footer .nav-item:hover { background: rgba(255,107,107,0.08); }
+
+    /* ═══════════════════════════════════════════
+       MAIN CONTENT
+    ═══════════════════════════════════════════ */
+    .main-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top bar */
+    .topbar {
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+    }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .topbar-left .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .topbar-left h1 {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .topbar-left h1 .page-title { color: var(--text); }
+    .topbar-left h1 .page-sub {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 0.85rem;
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .topbar-right .stat-pill {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+    .topbar-right .stat-pill i { color: var(--gold); margin-right: 4px; }
+
+    /* Container */
+    .container {
+      padding: 24px 28px;
+      max-width: 1500px;
+      width: 100%;
+    }
+
+    /* ═══════════════════════════════════════════
+       STATS CARDS
+    ═══════════════════════════════════════════ */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: rgba(212,168,83,0.2); }
+    .stat-card .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .stat-card .icon.gold { background: rgba(212,168,83,0.12); color: var(--gold); }
+    .stat-card .icon.green { background: rgba(78,205,196,0.12); color: var(--success); }
+    .stat-card .icon.red { background: rgba(255,107,107,0.12); color: var(--danger); }
+    .stat-card .icon.blue { background: rgba(100,149,237,0.12); color: #6495ed; }
+    .stat-card .info { flex: 1; min-width: 0; }
+    .stat-card .num {
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .stat-card .num.gold { color: var(--gold); }
+    .stat-card .num.green { color: var(--success); }
+    .stat-card .num.red { color: var(--danger); }
+    .stat-card .num.blue { color: #6495ed; }
+    .stat-card .label {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-top: 3px;
+    }
+
+    /* Progress bar */
+    .progress-wrapper {
+      grid-column: 1 / -1;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .progress-header .label {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+    .progress-header .pct {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .progress-bar {
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .progress-bar .fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+      border-radius: 20px;
+      transition: width 0.6s ease;
+    }
+
+    /* ═══════════════════════════════════════════
+       FILTERS
+    ═══════════════════════════════════════════ */
+    .filters-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 14px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    .filters-bar .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .filters-bar .filter-group label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .filters-bar select,
+    .filters-bar input[type="text"] {
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font-size: 0.8rem;
+      outline: none;
+      min-width: 120px;
+      appearance: none;
+      cursor: pointer;
+    }
+    .filters-bar select:hover,
+    .filters-bar input[type="text"]:hover { border-color: rgba(255,255,255,0.2); }
+    .filters-bar select:focus,
+    .filters-bar input[type="text"]:focus { border-color: var(--gold); }
+    .filters-bar select option { background: var(--bg-surface); color: var(--text); }
+    .filters-bar .filter-check {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+      background: rgba(255,255,255,0.02);
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .filters-bar .filter-check:hover { border-color: rgba(255,255,255,0.2); }
+    .filters-bar .filter-check.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(212,168,83,0.08);
+    }
+    .filters-bar .filter-check input { display: none; }
+    .filters-bar .filter-check i { font-size: 0.7rem; }
+    .filters-bar .clear-filters {
+      margin-left: auto;
+      padding: 7px 14px;
+      border: none;
+      background: rgba(255,255,255,0.05);
+      color: var(--text-dim);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.78rem;
+      transition: all 0.2s;
+    }
+    .filters-bar .clear-filters:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+    }
+
+    /* ═══════════════════════════════════════════
+       PRODUCT GRID
+    ═══════════════════════════════════════════ */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .section-header h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-dim);
+    }
+    .section-header .count-badge {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.04);
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px;
+    }
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      transition: all 0.25s;
+      position: relative;
+      display: flex;
+      gap: 14px;
+    }
+    .product-card:hover {
+      border-color: rgba(212,168,83,0.25);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transform: translateY(-1px);
+    }
+    .product-card .thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-card .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .product-card .thumb .no-thumb {
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      opacity: 0.4;
+    }
+    .product-card .info {
+      flex: 1;
+      min-width: 0;
+    }
+    .product-card .info .prod-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .product-card .info .prod-brand {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+    .product-card .info .prod-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    .product-card .info .prod-meta span {
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      color: var(--text-muted);
+    }
+    .product-card .info .prod-meta span.region {
+      background: rgba(212,168,83,0.08);
+      color: var(--gold);
+    }
+    .product-card .info .prod-meta span.page-tag {
+      background: rgba(100,149,237,0.1);
+      color: #7eb8ff;
+    }
+    .product-card .info .prod-id {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      margin-bottom: 6px;
+    }
+    .product-card .actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .product-card .actions .btn-action {
+      padding: 5px 10px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.7rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-action.gold {
+      background: rgba(212,168,83,0.12);
+      color: var(--gold);
+    }
+    .btn-action.gold:hover {
+      background: rgba(212,168,83,0.22);
+    }
+    .btn-action.danger {
+      background: rgba(255,107,107,0.1);
+      color: var(--danger);
+    }
+    .btn-action.danger:hover {
+      background: rgba(255,107,107,0.2);
+    }
+    .btn-action.green {
+      background: rgba(78,205,196,0.1);
+      color: var(--success);
+    }
+    .btn-action.green:hover {
+      background: rgba(78,205,196,0.2);
+    }
+    .btn-action:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .no-products {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+    .no-products i {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      opacity: 0.4;
+    }
+    .no-products p {
+      font-size: 0.9rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       UPLOAD MODAL (drag & drop)
+    ═══════════════════════════════════════════ */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.show { display: flex; }
+
+    .modal-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow);
+      animation: modalIn 0.2s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-box .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .modal-box .modal-header h2 {
+      font-size: 1.1rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .modal-box .modal-header h2 i { margin-right: 8px; }
+    .modal-box .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.2rem;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-box .modal-close:hover {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+    }
+
+    .modal-box .modal-product-info {
+      background: rgba(255,255,255,0.03);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+    }
+    .modal-box .modal-product-info strong { color: var(--gold); }
+    .modal-box .modal-product-info .mpi-label {
+      color: var(--text-dim);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    /* Drop zone */
+    .drop-zone {
+      border: 2px dashed rgba(255,255,255,0.15);
+      border-radius: var(--radius-lg);
+      padding: 36px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .drop-zone:hover,
+    .drop-zone.dragover {
+      border-color: var(--gold);
+      background: rgba(212,168,83,0.05);
+    }
+    .drop-zone.dragover {
+      border-color: var(--gold-light);
+      background: rgba(212,168,83,0.1);
+    }
+    .drop-zone.dropped {
+      border-style: solid;
+      border-color: var(--success);
+      background: rgba(78,205,196,0.05);
+    }
+    .drop-zone .dz-icon {
+      font-size: 2.5rem;
+      color: var(--gold);
+      margin-bottom: 10px;
+      transition: all 0.25s;
+    }
+    .drop-zone.dragover .dz-icon {
+      transform: translateY(-4px);
+    }
+    .drop-zone .dz-text {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+    }
+    .drop-zone .dz-text strong { color: var(--gold); }
+    .drop-zone .dz-hint {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      margin-top: 6px;
+    }
+    .drop-zone input[type="file"] { display: none; }
+
+    /* Preview */
+    .preview-area {
+      display: none;
+      margin-bottom: 16px;
+    }
+    .preview-area.show { display: block; }
+    .preview-area .preview-container {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      background: rgba(0,0,0,0.3);
+    }
+    .preview-area .preview-container img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: contain;
+      display: block;
+    }
+    .preview-area .preview-remove {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: white;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .preview-area .preview-remove:hover {
+      background: var(--danger);
+    }
+    .preview-area .preview-name {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      padding: 6px 0 0;
+      text-align: center;
+      word-break: break-all;
+    }
+
+    /* Upload progress */
+    .upload-progress {
+      display: none;
+      margin-bottom: 16px;
+    }
+    .upload-progress.show { display: block; }
+    .upload-progress .bar-track {
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .upload-progress .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+    .upload-progress .bar-text {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* Upload result */
+    .upload-result {
+      display: none;
+      margin-bottom: 16px;
+    }
+    .upload-result.show { display: block; }
+    .upload-result .success-box {
+      background: rgba(78,205,196,0.08);
+      border: 1px solid rgba(78,205,196,0.2);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+    .upload-result .success-box p {
+      font-size: 0.85rem;
+    }
+    .upload-result .success-box p i { color: var(--success); }
+    .upload-result .success-box .url-display {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+      word-break: break-all;
+    }
+    .upload-result .success-box .url-display code {
+      color: var(--gold);
+      background: rgba(212,168,83,0.08);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .modal-box .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+    .modal-box .btn {
+      padding: 10px 22px;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .modal-box .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--bg-dark);
+    }
+    .modal-box .btn-primary:hover {
+      box-shadow: 0 4px 16px rgba(212,168,83,0.3);
+      transform: translateY(-1px);
+    }
+    .modal-box .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .modal-box .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      color: var(--text-dim);
+    }
+    .modal-box .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+    }
+
+    /* ═══════════════════════════════════════════
+       TOAST
+    ═══════════════════════════════════════════ */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .toast {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      color: var(--text);
+      font-size: 0.85rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 240px;
+      max-width: 400px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: var(--success); }
+    .toast.success i { color: var(--success); }
+    .toast.error { border-color: var(--danger); }
+    .toast.error i { color: var(--danger); }
+    .toast.info { border-color: #6495ed; }
+    .toast.info i { color: #6495ed; }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      }
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        transform: translateX(-100%);
+        box-shadow: 4px 0 40px rgba(0,0,0,0.6);
+      }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 150;
+      }
+      .sidebar-overlay.show { display: block; }
+      .topbar-left .menu-toggle { display: block; }
+      .topbar { padding: 12px 16px; }
+      .container { padding: 16px; }
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .stat-card .icon { width: 36px; height: 36px; font-size: 1rem; }
+      .stat-card .num { font-size: 1.4rem; }
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+      .filters-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filters-bar .clear-filters { margin-left: 0; }
+      .modal-box {
+        padding: 20px;
+        margin: 10px;
+      }
+    }
+    @media (max-width: 480px) {
+      .stats-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .stat-card { padding: 14px; }
+      .stat-card .num { font-size: 1.2rem; }
+      .topbar-right .stat-pill { display: none; }
+      .product-card {
+        flex-direction: column;
+      }
+      .product-card .thumb {
+        width: 100%;
+        height: 120px;
+      }
+    }
+
+    /* ─── Loading spinner ─── */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ Sidebar overlay (mobile) ═══ -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <!-- ═══ Sidebar ═══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo-icon"><i class="fas fa-wine-bottle"></i></div>
+      <div>
+        <h2>Viva Market</h2>
+        <div class="sub">Back Office</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-label">Navigation</div>
+      <button class="nav-item active" data-section="dashboard" onclick="switchSection('dashboard')">
+        <i class="fas fa-chart-pie"></i> Dashboard
+      </button>
+      <button class="nav-item" data-section="vins" onclick="switchSection('vins')">
+        <i class="fas fa-wine-glass-alt"></i> Vins
+        <span class="badge" id="count-vins">0</span>
+      </button>
+      <button class="nav-item" data-section="epicerie" onclick="switchSection('epicerie')">
+        <i class="fas fa-carrot"></i> Épicerie
+        <span class="badge" id="count-epicerie">0</span>
+      </button>
+      <button class="nav-item" data-section="spiritueux" onclick="switchSection('spiritueux')">
+        <i class="fas fa-glass-whiskey"></i> Spiritueux
+        <span class="badge" id="count-spiritueux">0</span>
+      </button>
+      <div class="nav-label">Gestion</div>
+      <button class="nav-item" onclick="showToast('Paramètres disponibles prochainement', 'info')">
+        <i class="fas fa-cog"></i> Paramètres
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="/logout" class="nav-item">
+        <i class="fas fa-sign-out-alt"></i> Déconnexion
+      </a>
+    </div>
+  </aside>
+
+  <!-- ═══ Main content ═══ -->
+  <div class="main-content">
+
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1>
+          <span class="page-title" id="pageTitle">Dashboard</span>
+          <span class="page-sub" id="pageSub">Vue d'ensemble</span>
+        </h1>
+      </div>
+      <div class="topbar-right">
+        <span class="stat-pill"><i class="fas fa-database"></i> <span id="totalCount">0</span> produits</span>
+        <span class="stat-pill"><i class="fas fa-image"></i> <span id="withImgCount">0</span> images</span>
+      </div>
+    </header>
+
+    <!-- Container -->
+    <div class="container">
+
+      <!-- ═══ SECTION: Dashboard ═══ -->
+      <div class="section-content" id="section-dashboard">
+
+        <!-- Stats -->
+        <div class="stats-row" id="statsRow">
+          <div class="stat-card">
+            <div class="icon gold"><i class="fas fa-box"></i></div>
+            <div class="info">
+              <div class="num gold"><span id="statTotal">0</span></div>
+              <div class="label">Total Produits</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="icon green"><i class="fas fa-check-circle"></i></div>
+            <div class="info">
+              <div class="num green"><span id="statWithImg">0</span></div>
+              <div class="label">Avec image</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="icon red"><i class="fas fa-times-circle"></i></div>
+            <div class="info">
+              <div class="num red"><span id="statWithoutImg">0</span></div>
+              <div class="label">Sans image</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="icon blue"><i class="fas fa-layer-group"></i></div>
+            <div class="info">
+              <div class="num blue"><span id="statPages">3</span></div>
+              <div class="label">Catégories</div>
+            </div>
+          </div>
+
+          <!-- Progress bar -->
+          <div class="progress-wrapper">
+            <div class="progress-header">
+              <span class="label"><i class="fas fa-images" style="color:var(--gold);margin-right:6px;"></i>Progression des images</span>
+              <span class="pct" id="progressPct">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="fill" id="progressFill" style="width:0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-bar">
+          <div class="filter-group">
+            <label><i class="fas fa-tag"></i></label>
+            <select id="filterCategory" onchange="applyFilters()">
+              <option value="all">Toutes catégories</option>
+              <option value="vins.html">Vins</option>
+              <option value="epicerie.html">Épicerie</option>
+              <option value="spiritueux.html">Spiritueux</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label><i class="fas fa-map-marker-alt"></i></label>
+            <select id="filterRegion" onchange="applyFilters()">
+              <option value="all">Toutes régions</option>
+            </select>
+          </div>
+          <label class="filter-check" id="filterNoImg" onclick="toggleNoImageFilter()">
+            <input type="checkbox">
+            <i class="fas fa-image"></i> Sans image uniquement
+          </label>
+          <button class="clear-filters" onclick="clearFilters()"><i class="fas fa-undo"></i> Réinitialiser</button>
+        </div>
+
+        <!-- Products grid -->
+        <div class="section-header">
+          <h3><i class="fas fa-cube" style="color:var(--gold);margin-right:6px;"></i>Tous les produits</h3>
+          <span class="count-badge" id="productsCount">0 produits affichés</span>
+        </div>
+        <div class="product-grid" id="productGrid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- ═══ SECTION: Vins (filtered view) ═══ -->
+      <div class="section-content" id="section-vins" style="display:none;">
+        <div class="filters-bar" style="margin-bottom:16px;">
+          <div class="filter-group">
+            <label><i class="fas fa-map-marker-alt"></i></label>
+            <select id="filterRegionVins" onchange="applyFilters()">
+              <option value="all">Toutes régions</option>
+            </select>
+          </div>
+          <label class="filter-check" id="filterNoImgVins" onclick="toggleNoImageFilter()">
+            <input type="checkbox">
+            <i class="fas fa-image"></i> Sans image uniquement
+          </label>
+        </div>
+        <div class="product-grid" id="productGrid-vins"></div>
+      </div>
+
+      <!-- ═══ SECTION: Épicerie ═══ -->
+      <div class="section-content" id="section-epicerie" style="display:none;">
+        <div class="filters-bar" style="margin-bottom:16px;">
+          <div class="filter-group">
+            <label><i class="fas fa-map-marker-alt"></i></label>
+            <select id="filterRegionEpicerie" onchange="applyFilters()">
+              <option value="all">Toutes régions</option>
+            </select>
+          </div>
+          <label class="filter-check" id="filterNoImgEpicerie" onclick="toggleNoImageFilter()">
+            <input type="checkbox">
+            <i class="fas fa-image"></i> Sans image uniquement
+          </label>
+        </div>
+        <div class="product-grid" id="productGrid-epicerie"></div>
+      </div>
+
+      <!-- ═══ SECTION: Spiritueux ═══ -->
+      <div class="section-content" id="section-spiritueux" style="display:none;">
+        <div class="filters-bar" style="margin-bottom:16px;">
+          <div class="filter-group">
+            <label><i class="fas fa-map-marker-alt"></i></label>
+            <select id="filterRegionSpiritueux" onchange="applyFilters()">
+              <option value="all">Toutes régions</option>
+            </select>
+          </div>
+          <label class="filter-check" id="filterNoImgSpiritueux" onclick="toggleNoImageFilter()">
+            <input type="checkbox">
+            <i class="fas fa-image"></i> Sans image uniquement
+          </label>
+        </div>
+        <div class="product-grid" id="productGrid-spiritueux"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       UPLOAD MODAL
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="uploadModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2><i class="fas fa-cloud-upload-alt"></i> Upload d'image</h2>
+        <button class="modal-close" onclick="closeUploadModal()"><i class="fas fa-times"></i></button>
+      </div>
+
+      <!-- Product info -->
+      <div class="modal-product-info" id="modalProductInfo">
+        <div class="mpi-label">Assigné à</div>
+        <strong id="modalProductName">—</strong>
+        <span style="color:var(--text-dim);font-size:0.8rem;" id="modalProductPage"></span>
+      </div>
+
+      <!-- Drop zone -->
+      <div class="drop-zone" id="dropZone">
+        <div class="dz-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <div class="dz-text">
+          <strong>Cliquez</strong> ou <strong>glissez-déposez</strong> une image ici
+        </div>
+        <div class="dz-hint">JPG, PNG, WebP, GIF — Max 10 MB</div>
+        <input type="file" id="fileInput" accept="image/*">
+      </div>
+
+      <!-- Preview -->
+      <div class="preview-area" id="previewArea">
+        <div class="preview-container">
+          <img id="previewImg" src="" alt="Aperçu">
+          <button class="preview-remove" onclick="removePreview()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="preview-name" id="previewName"></div>
+      </div>
+
+      <!-- Upload progress -->
+      <div class="upload-progress" id="uploadProgress">
+        <div class="bar-track"><div class="bar-fill" id="progressFillBar"></div></div>
+        <div class="bar-text" id="progressText">Upload en cours...</div>
+      </div>
+
+      <!-- Upload result -->
+      <div class="upload-result" id="uploadResult">
+        <div class="success-box">
+          <p><i class="fas fa-check-circle"></i> Image uploadée !</p>
+          <div class="url-display">URL: <code id="uploadedUrl"></code></div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="modal-actions">
+        <button class="btn btn-secondary" onclick="closeUploadModal()">Annuler</button>
+        <button class="btn btn-primary" id="btnUpload" onclick="startUpload()" disabled>
+          <i class="fas fa-upload"></i> Upload & Assigner
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Toast container ═══ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ═══════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════ -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ─── State ───
+      let allProducts = [{% for p in products %} {
+        id: '{{ p.id|e }}',
+        name: '{{ p.name|e }}',
+        brand: '{{ p.brand|e }}',
+        region: '{{ p.region|e if p.region else '' }}',
+        page: '{{ p.page|e }}',
+        category: '{{ p.category|e if p.category else '' }}'
+      },{% endfor %}];
+
+      // Load image assignments from server-rendered data
+      let imageAssignments = [{% for img in images %} {
+        product_id: '{{ img.product_id|e }}',
+        page: '{{ img.page|e }}',
+        image_url: '{{ img.image_url|e }}'
+      },{% endfor %}];
+
+      // Derived map: page -> product_id -> url
+      let imageMap = {};
+      function buildImageMap() {
+        imageMap = {};
+        imageAssignments.forEach(a => {
+          if (!imageMap[a.page]) imageMap[a.page] = {};
+          imageMap[a.page][a.product_id] = a.image_url;
+        });
+      }
+      buildImageMap();
+
+      let currentSection = 'dashboard';
+      let targetProductId = null;
+      let targetProductPage = null;
+      let selectedFile = null;
+
+      // ─── Initialisation ───
+      function init() {
+        updateCounts();
+        populateRegionFilters();
+        renderProducts();
+        updateStats();
+        setupDropZone();
+        initMenuToggle();
+      }
+
+      // ─── Sidebar / Section switching ───
+      function switchSection(section) {
+        currentSection = section;
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.querySelector(`.nav-item[data-section="${section}"]`)?.classList.add('active');
+        document.querySelectorAll('.section-content').forEach(s => s.style.display = 'none');
+        const el = document.getElementById('section-' + section);
+        if (el) el.style.display = 'block';
+
+        const titles = {
+          dashboard: ['Dashboard', 'Vue d\'ensemble'],
+          vins: ['Vins', 'Catalogue des vins'],
+          epicerie: ['Épicerie', 'Catalogue épicerie fine'],
+          spiritueux: ['Spiritueux', 'Catalogue spiritueux']
+        };
+        const t = titles[section] || ['Dashboard', ''];
+        document.getElementById('pageTitle').textContent = t[0];
+        document.getElementById('pageSub').textContent = t[1];
+
+        renderProducts();
+        // Close sidebar on mobile
+        document.getElementById('sidebar').classList.remove('open');
+        document.getElementById('sidebarOverlay').classList.remove('show');
+      }
+      window.switchSection = switchSection;
+
+      function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+        document.getElementById('sidebarOverlay').classList.toggle('show');
+      }
+      window.toggleSidebar = toggleSidebar;
+
+      function initMenuToggle() {
+        // no-op, toggleSidebar handles it
+      }
+
+      // ─── Image helpers ───
+      function getImage(product) {
+        const pageMap = imageMap[product.page];
+        if (pageMap && pageMap[product.id]) return pageMap[product.id];
+        return null;
+      }
+
+      function hasImage(product) { return !!getImage(product); }
+
+      // ─── Counts ───
+      function updateCounts() {
+        const pages = {};
+        allProducts.forEach(p => {
+          pages[p.page] = (pages[p.page] || 0) + 1;
+        });
+        document.getElementById('count-vins').textContent = pages['vins.html'] || 0;
+        document.getElementById('count-epicerie').textContent = pages['epicerie.html'] || 0;
+        document.getElementById('count-spiritueux').textContent = pages['spiritueux.html'] || 0;
+      }
+
+      // ─── Stats ───
+      function updateStats() {
+        const total = allProducts.length;
+        const withImg = allProducts.filter(p => hasImage(p)).length;
+        const withoutImg = total - withImg;
+        const pct = total > 0 ? Math.round((withImg / total) * 100) : 0;
+
+        document.getElementById('statTotal').textContent = total;
+        document.getElementById('statWithImg').textContent = withImg;
+        document.getElementById('statWithoutImg').textContent = withoutImg;
+        document.getElementById('totalCount').textContent = total;
+        document.getElementById('withImgCount').textContent = withImg;
+        document.getElementById('progressPct').textContent = pct + '%';
+        document.getElementById('progressFill').style.width = pct + '%';
+      }
+
+      // ─── Region filter population ───
+      function populateRegionFilters() {
+        const regions = [...new Set(allProducts.map(p => p.region).filter(Boolean))].sort();
+        const selects = ['filterRegion', 'filterRegionVins', 'filterRegionEpicerie', 'filterRegionSpiritueux'];
+        selects.forEach(id => {
+          const sel = document.getElementById(id);
+          if (!sel) return;
+          // Keep first option
+          sel.innerHTML = '<option value="all">Toutes régions</option>';
+          regions.forEach(r => {
+            const opt = document.createElement('option');
+            opt.value = r;
+            opt.textContent = r;
+            sel.appendChild(opt);
+          });
+        });
+      }
+
+      // ─── Filtering ───
+      let noImageOnly = false;
+
+      function toggleNoImageFilter() {
+        // Determine which "no image" filter was clicked based on current section
+        const map = {
+          'dashboard': 'filterNoImg',
+          'vins': 'filterNoImgVins',
+          'epicerie': 'filterNoImgEpicerie',
+          'spiritueux': 'filterNoImgSpiritueux'
+        };
+        const id = map[currentSection] || 'filterNoImg';
+        const el = document.getElementById(id);
+        if (!el) return;
+        const cb = el.querySelector('input[type="checkbox"]');
+        cb.checked = !cb.checked;
+        el.classList.toggle('active', cb.checked);
+        // Sync global noImageOnly — we derive from the active section's checkbox
+        applyFilters();
+      }
+      window.toggleNoImageFilter = toggleNoImageFilter;
+
+      function getActiveFilters() {
+        const map = {
+          'dashboard': { cat: 'filterCategory', region: 'filterRegion', noimg: 'filterNoImg' },
+          'vins': { cat: null, region: 'filterRegionVins', noimg: 'filterNoImgVins' },
+          'epicerie': { cat: null, region: 'filterRegionEpicerie', noimg: 'filterNoImgEpicerie' },
+          'spiritueux': { cat: null, region: 'filterRegionSpiritueux', noimg: 'filterNoImgSpiritueux' }
+        };
+        const ids = map[currentSection] || map.dashboard;
+        let category = 'all';
+        if (ids.cat) {
+          const sel = document.getElementById(ids.cat);
+          if (sel) category = sel.value;
+        } else {
+          // Map current section to page
+          const pageMap = { vins: 'vins.html', epicerie: 'epicerie.html', spiritueux: 'spiritueux.html' };
+          category = pageMap[currentSection] || 'all';
+        }
+        let region = 'all';
+        if (ids.region) {
+          const sel = document.getElementById(ids.region);
+          if (sel) region = sel.value;
+        }
+        let noimg = false;
+        if (ids.noimg) {
+          const el = document.getElementById(ids.noimg);
+          if (el) {
+            const cb = el.querySelector('input[type="checkbox"]');
+            noimg = cb && cb.checked;
+          }
+        }
+        return { category, region, noimg };
+      }
+
+      function syncNoImageCheckboxes() {
+        // Sync all no-image checkboxes to the same state
+        const map = {
+          'dashboard': 'filterNoImg',
+          'vins': 'filterNoImgVins',
+          'epicerie': 'filterNoImgEpicerie',
+          'spiritueux': 'filterNoImgSpiritueux'
+        };
+        const activeId = map[currentSection] || 'filterNoImg';
+        const activeEl = document.getElementById(activeId);
+        const activeChecked = activeEl ? activeEl.querySelector('input[type="checkbox"]')?.checked : false;
+
+        Object.values(map).forEach(id => {
+          const el = document.getElementById(id);
+          if (el && id !== activeId) {
+            const cb = el.querySelector('input[type="checkbox"]');
+            if (cb) cb.checked = activeChecked;
+            el.classList.toggle('active', activeChecked);
+          }
+        });
+      }
+
+      function applyFilters() {
+        syncNoImageCheckboxes();
+        renderProducts();
+        updateStats();
+      }
+      window.applyFilters = applyFilters;
+
+      function clearFilters() {
+        document.querySelectorAll('.filters-bar select').forEach(s => s.value = 'all');
+        document.querySelectorAll('.filter-check').forEach(el => {
+          const cb = el.querySelector('input[type="checkbox"]');
+          if (cb) cb.checked = false;
+          el.classList.remove('active');
+        });
+        applyFilters();
+      }
+      window.clearFilters = clearFilters;
+
+      // ─── Render products ───
+      function renderProducts() {
+        const { category, region, noimg } = getActiveFilters();
+
+        let filtered = allProducts;
+        if (category !== 'all') {
+          filtered = filtered.filter(p => p.page === category);
+        }
+        if (region !== 'all') {
+          filtered = filtered.filter(p => p.region === region);
+        }
+        if (noimg) {
+          filtered = filtered.filter(p => !hasImage(p));
+        }
+
+        // Determine which grid to render into
+        const gridMap = {
+          'dashboard': 'productGrid',
+          'vins': 'productGrid-vins',
+          'epicerie': 'productGrid-epicerie',
+          'spiritueux': 'productGrid-spiritueux'
+        };
+        const gridId = gridMap[currentSection] || 'productGrid';
+        const grid = document.getElementById(gridId);
+
+        // Update the count badge on dashboard
+        if (currentSection === 'dashboard') {
+          document.getElementById('productsCount').textContent =
+            filtered.length + ' produit' + (filtered.length > 1 ? 's' : '') + ' affiché' + (filtered.length > 1 ? 's' : '');
+        }
+
+        if (!grid) return;
+
+        if (filtered.length === 0) {
+          grid.innerHTML = '<div class="no-products"><i class="fas fa-box-open"></i><p>Aucun produit trouvé</p></div>';
+          return;
+        }
+
+        let html = '';
+        filtered.forEach(p => {
+          const img = getImage(p);
+          html += renderProductCard(p, img);
+        });
+        grid.innerHTML = html;
+      }
+
+      function renderProductCard(p, imgUrl) {
+        const pageLabel = p.page.replace('.html', '');
+        const regionLabel = p.region || '';
+        const hasImg = !!imgUrl;
+
+        let thumbHtml = '';
+        if (hasImg) {
+          thumbHtml = `<img src="${imgUrl}" alt="${p.name}" loading="lazy">`;
+        } else {
+          thumbHtml = `<div class="no-thumb"><i class="fas fa-image"></i></div>`;
+        }
+
+        let actionsHtml = '';
+        if (hasImg) {
+          actionsHtml = `
+            <button class="btn-action gold" onclick="openUploadModal('${p.id}', '${p.page}', '${p.name}')">
+              <i class="fas fa-sync-alt"></i> Changer photo
+            </button>
+            <button class="btn-action danger" onclick="deleteImage('${p.id}', '${p.page}')">
+              <i class="fas fa-trash-alt"></i> Supprimer
+            </button>
+          `;
+        } else {
+          actionsHtml = `
+            <button class="btn-action gold" onclick="openUploadModal('${p.id}', '${p.page}', '${p.name}')">
+              <i class="fas fa-cloud-upload-alt"></i> Ajouter photo
+            </button>
+          `;
+        }
+
+        return `
+          <div class="product-card" data-id="${p.id}" data-page="${p.page}">
+            <div class="thumb">${thumbHtml}</div>
+            <div class="info">
+              <div class="prod-name">${p.name}</div>
+              <div class="prod-brand">${p.brand}</div>
+              <div class="prod-meta">
+                <span class="page-tag">${pageLabel}</span>
+                ${regionLabel ? `<span class="region">${regionLabel}</span>` : ''}
+              </div>
+              <div class="prod-id">${p.id}</div>
+              <div class="actions">${actionsHtml}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      // ─── Upload Modal ───
+      function openUploadModal(productId, page, productName) {
+        targetProductId = productId;
+        targetProductPage = page;
+        selectedFile = null;
+
+        document.getElementById('modalProductName').textContent = productName || productId;
+        document.getElementById('modalProductPage').textContent = ' (' + page.replace('.html', '') + ')';
+        document.getElementById('modalProductInfo').style.display = 'block';
+
+        // Reset UI
+        resetUploadUI();
+
+        document.getElementById('uploadModal').classList.add('show');
+      }
+      window.openUploadModal = openUploadModal;
+
+      function closeUploadModal() {
+        document.getElementById('uploadModal').classList.remove('show');
+        targetProductId = null;
+        targetProductPage = null;
+        selectedFile = null;
+      }
+      window.closeUploadModal = closeUploadModal;
+
+      function resetUploadUI() {
+        document.getElementById('dropZone').style.display = '';
+        document.getElementById('dropZone').classList.remove('dropped');
+        document.getElementById('previewArea').classList.remove('show');
+        document.getElementById('uploadProgress').classList.remove('show');
+        document.getElementById('uploadResult').classList.remove('show');
+        document.getElementById('btnUpload').disabled = true;
+        document.getElementById('fileInput').value = '';
+      }
+
+      function removePreview() {
+        selectedFile = null;
+        document.getElementById('previewArea').classList.remove('show');
+        document.getElementById('dropZone').style.display = '';
+        document.getElementById('dropZone').classList.remove('dropped');
+        document.getElementById('btnUpload').disabled = true;
+        document.getElementById('fileInput').value = '';
+      }
+      window.removePreview = removePreview;
+
+      // ─── Drop Zone setup ───
+      function setupDropZone() {
+        const zone = document.getElementById('dropZone');
+        const input = document.getElementById('fileInput');
+
+        zone.addEventListener('click', () => input.click());
+
+        zone.addEventListener('dragover', e => {
+          e.preventDefault();
+          zone.classList.add('dragover');
+        });
+        zone.addEventListener('dragleave', () => {
+          zone.classList.remove('dragover');
+        });
+        zone.addEventListener('drop', e => {
+          e.preventDefault();
+          zone.classList.remove('dragover');
+          if (e.dataTransfer.files.length > 0) {
+            handleFileSelected(e.dataTransfer.files[0]);
+          }
+        });
+        input.addEventListener('change', () => {
+          if (input.files.length > 0) {
+            handleFileSelected(input.files[0]);
+          }
+        });
+      }
+
+      function handleFileSelected(file) {
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          showToast('Veuillez sélectionner une image', 'error');
+          return;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+          showToast('Fichier trop volumineux (max 10 MB)', 'error');
+          return;
+        }
+
+        selectedFile = file;
+
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('previewImg').src = e.target.result;
+          document.getElementById('previewName').textContent = file.name + ' (' + formatSize(file.size) + ')';
+          document.getElementById('previewArea').classList.add('show');
+          document.getElementById('dropZone').style.display = 'none';
+          document.getElementById('dropZone').classList.add('dropped');
+          document.getElementById('btnUpload').disabled = false;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function formatSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+      }
+
+      // ─── Upload ───
+      async function startUpload() {
+        if (!selectedFile) {
+          showToast('Sélectionnez d\'abord une image', 'error');
+          return;
+        }
+
+        const btn = document.getElementById('btnUpload');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Upload...';
+
+        document.getElementById('uploadProgress').classList.add('show');
+        document.getElementById('uploadResult').classList.remove('show');
+
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+
+        // Simulate progress
+        let progressVal = 0;
+        const fillBar = document.getElementById('progressFillBar');
+        const progressText = document.getElementById('progressText');
+        const progressInterval = setInterval(() => {
+          if (progressVal < 80) {
+            progressVal += Math.random() * 15;
+            fillBar.style.width = Math.min(progressVal, 80) + '%';
+          }
+        }, 200);
+
+        try {
+          const res = await fetch('/api/admin/upload', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+          });
+
+          clearInterval(progressInterval);
+          fillBar.style.width = '100%';
+          progressText.textContent = 'Finalisation...';
+
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            throw new Error(err.detail || 'Erreur lors de l\'upload');
+          }
+
+          const data = await res.json();
+          const url = data.url;
+
+          // Now assign the image to the target product
+          const assignRes = await fetch('/api/admin/assign', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              product_id: targetProductId,
+              page: targetProductPage,
+              image_url: url
+            }),
+            credentials: 'include'
+          });
+
+          if (!assignRes.ok) {
+            const err = await assignRes.json().catch(() => ({}));
+            throw new Error(err.detail || 'Erreur lors de l\'assignation');
+          }
+
+          // Success
+          document.getElementById('uploadProgress').classList.remove('show');
+          document.getElementById('uploadResult').classList.add('show');
+          document.getElementById('uploadedUrl').textContent = url;
+          document.getElementById('btnUpload').style.display = 'none';
+
+          // Update local state
+          imageAssignments.push({
+            product_id: targetProductId,
+            page: targetProductPage,
+            image_url: url
+          });
+          buildImageMap();
+
+          showToast('Image uploadée et assignée à ' + targetProductId, 'success');
+
+          // Re-render after a moment
+          setTimeout(() => {
+            closeUploadModal();
+            renderProducts();
+            updateStats();
+          }, 1200);
+
+        } catch (err) {
+          clearInterval(progressInterval);
+          document.getElementById('uploadProgress').classList.remove('show');
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-upload"></i> Upload & Assigner';
+          showToast('Erreur : ' + err.message, 'error');
+        }
+      }
+      window.startUpload = startUpload;
+
+      // ─── Delete image ───
+      async function deleteImage(productId, page) {
+        if (!confirm('Supprimer l\'image de ' + productId + ' ?')) return;
+
+        const imgUrl = imageMap[page] && imageMap[page][productId];
+        try {
+          const res = await fetch('/api/admin/image', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              product_id: productId,
+              page: page,
+              image_url: imgUrl || ''
+            }),
+            credentials: 'include'
+          });
+
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            throw new Error(err.detail || 'Erreur suppression');
+          }
+
+          // Update local state
+          imageAssignments = imageAssignments.filter(a =>
+            !(a.product_id === productId && a.page === page)
+          );
+          buildImageMap();
+
+          showToast('Image supprimée', 'success');
+          renderProducts();
+          updateStats();
+        } catch (err) {
+          showToast('Erreur : ' + err.message, 'error');
+        }
+      }
+      window.deleteImage = deleteImage;
+
+      // ─── Toast ───
+      function showToast(msg, type) {
+        const container = document.getElementById('toastContainer');
+        const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
+        const icon = icons[type] || 'fa-info-circle';
+
+        const toast = document.createElement('div');
+        toast.className = 'toast ' + (type || '');
+        toast.innerHTML = '<i class="fas ' + icon + '"></i> ' + msg;
+        container.appendChild(toast);
+
+        // Trigger animation
+        requestAnimationFrame(() => toast.classList.add('show'));
+
+        setTimeout(() => {
+          toast.classList.remove('show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+      window.showToast = showToast;
+
+      // ─── Refresh data from API (for dynamic updates) ───
+      async function refreshFromAPI() {
+        try {
+          const res = await fetch('/api/admin/images', { credentials: 'include' });
+          if (res.ok) {
+            const data = await res.json();
+            imageAssignments = data;
+            buildImageMap();
+            renderProducts();
+            updateStats();
+          }
+        } catch (e) {
+          // silent
+        }
+      }
+
+      // ─── Auto-refresh every 30s ───
+      setInterval(refreshFromAPI, 30000);
+
+      // ─── Initialize ───
+      // Close modal on overlay click
+      document.getElementById('uploadModal').addEventListener('click', function(e) {
+        if (e.target === this) closeUploadModal();
+      });
+
+      // Keyboard escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (document.getElementById('uploadModal').classList.contains('show')) closeUploadModal();
+        }
+      });
+
+      // Init
+      init();
+
+    })();
+  </script>
+
+</body>
+</html>
