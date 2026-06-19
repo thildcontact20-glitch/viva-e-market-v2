@@ -1,0 +1,35 @@
+# ═══════════════════════════════════════════════════════════
+# VIVA E-MARKET — Render Deployment Configuration
+# ═══════════════════════════════════════════════════════════
+# Ce fichier est utilisé par Render pour déployer
+# automatiquement le backend Express de tracking.
+#
+# Déploiement :
+#   1. Connecter le repo GitHub à Render
+#   2. Render détecte automatiquement ce fichier
+#   3. Les variables d'environnement sont configurées dans le dashboard Render
+#
+# Variables d'environnement optionnelles :
+#   DHL_API_KEY      : Clé API DHL (https://developer.dhl.com)
+#   FEDEX_API_KEY    : Clé API FedEx (https://developer.fedex.com)
+#
+# Si aucune clé n'est définie, le serveur utilise
+# des données simulées (fallback).
+# ═══════════════════════════════════════════════════════════
+
+services:
+  - type: web
+    name: viva-tracking-proxy
+    env: node
+    region: frankfurt  # Proximité Afrique de l'Ouest
+    plan: free
+    buildCommand: cd api && npm install
+    startCommand: cd api && node server.js
+    healthCheckPath: /api/status
+    envVars:
+      - key: NODE_VERSION
+        value: 18.18.0
+      - key: DHL_API_KEY
+        sync: false   # À configurer dans le dashboard Render
+      - key: FEDEX_API_KEY
+        sync: false   # À configurer dans le dashboard Render

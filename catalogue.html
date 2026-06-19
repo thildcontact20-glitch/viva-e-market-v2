@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notre Catalogue — Viva Import Export</title>
+<meta name="description" content="Catalogue premium de vins, champagnes, whiskies, spiritueux et services de dégustation — Viva Import Export, Abidjan.">
+<link rel="icon" type="image/png" href="logo/logo.png">
+<link rel="apple-touch-icon" href="logo/logo.png">
+<meta property="og:image" content="logo/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ═══════════════════════════════════════════
+   VIVA E-MARKET — STYLE SHEET (CATALOGUE)
+   Palette : beige #F5F0EB, or #C8A45C, marron #5C3D2E, blanc #FFFFFF, texte #2C2420
+   Tytpo : Playfair Display (titres), Inter (corps)
+   ═══════════════════════════════════════════ */
+
+/* ─── RESET & BASE ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F5F0EB;
+  color: #2C2420;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── ADINKRA PATTERN OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 8% 15%, rgba(200,164,92,0.04) 0, transparent 50%),
+    radial-gradient(circle at 92% 30%, rgba(200,164,92,0.04) 0, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(200,164,92,0.03) 0, transparent 50%),
+    repeating-linear-gradient(45deg, transparent, transparent 80px, rgba(200,164,92,0.015) 80px, rgba(200,164,92,0.015) 81px),
+    repeating-linear-gradient(-45deg, transparent, transparent 80px, rgba(200,164,92,0.015) 80px, rgba(200,164,92,0.015) 81px);
+}
+
+/* ─── ADINKRA SYMBOLS ─── */
+.adinkra-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.adinkra-symbol {
+  position: absolute;
+  font-size: 120px;
+  color: rgba(200,164,92,0.035);
+  font-family: serif;
+  line-height: 1;
+  user-select: none;
+}
+.adinkra-symbol:nth-child(1) { top: 5%; left: 3%; transform: rotate(15deg); font-size: 140px; }
+.adinkra-symbol:nth-child(2) { top: 20%; right: 8%; transform: rotate(-10deg); }
+.adinkra-symbol:nth-child(3) { top: 50%; left: 5%; transform: rotate(5deg); font-size: 100px; }
+.adinkra-symbol:nth-child(4) { bottom: 25%; right: 4%; transform: rotate(-25deg); font-size: 130px; }
+.adinkra-symbol:nth-child(5) { bottom: 8%; left: 50%; transform: rotate(8deg); font-size: 90px; }
+.adinkra-symbol:nth-child(6) { top: 75%; left: 15%; transform: rotate(-12deg); font-size: 80px; }
+
+/* ─── TYPOGRAPHY ─── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  color: #5C3D2E;
+  line-height: 1.2;
+}
+h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; }
+h2 { font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 600; }
+h3 { font-size: clamp(1.3rem, 2vw, 1.8rem); font-weight: 600; }
+p  { font-family: 'Inter', sans-serif; font-weight: 400; color: #2C2420; }
+
+a { color: #C8A45C; text-decoration: none; transition: color 0.3s ease; }
+a:hover { color: #5C3D2E; }
+
+/* ─── SECTION UTILITY ─── */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 100px 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.section-title h2 {
+  margin-bottom: 16px;
+}
+.section-title .subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: #5C3D2E;
+  opacity: 0.7;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+.section-divider {
+  width: 60px;
+  height: 2px;
+  background: #C8A45C;
+  margin: 20px auto 24px;
+}
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(245,240,235,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(200,164,92,0.15);
+  transition: all 0.4s ease;
+}
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-left { display: flex; align-items: center; gap: 12px; }
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo img {
+  height: 40px;
+  width: auto;
+}
+.nav-logo span {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #5C3D2E;
+  letter-spacing: 0.5px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #2C2420;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.3s ease;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1.5px;
+  background: #C8A45C;
+  transition: width 0.35s ease;
+}
+.nav-links a:hover { color: #C8A45C; }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: #C8A45C; }
+.nav-links a.active::after { width: 100%; }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 5px;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #5C3D2E;
+  transition: all 0.3s ease;
+}
+
+/* ─── CATALOGUE HERO ─── */
+.catalogue-hero {
+  position: relative;
+  z-index: 1;
+  padding: 140px 24px 60px;
+  text-align: center;
+  background: #F5F0EB;
+}
+.catalogue-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  margin-bottom: 12px;
+}
+.catalogue-hero p {
+  font-size: 1.05rem;
+  color: #5C3D2E;
+  opacity: 0.7;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 300;
+}
+
+/* ─── FILTRE BUTTONS ─── */
+.filtres {
+  position: relative;
+  z-index: 1;
+  padding: 0 24px 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.filtre-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border: 1px solid rgba(200,164,92,0.3);
+  background: #FFFFFF;
+  color: #5C3D2E;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 30px;
+}
+.filtre-btn:hover {
+  border-color: #C8A45C;
+  background: rgba(200,164,92,0.06);
+}
+.filtre-btn.active {
+  background: #C8A45C;
+  color: #FFFFFF;
+  border-color: #C8A45C;
+}
+
+/* ─── CATALOGUE GRID ─── */
+.catalogue-section {
+  position: relative;
+  z-index: 1;
+  padding: 0 24px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.catalogue-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* ─── PRODUCT CARD ─── */
+.produit-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(92,61,46,0.06);
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.produit-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.produit-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(200,164,92,0.15);
+}
+.produit-card:hover .produit-overlay {
+  opacity: 1;
+}
+
+.produit-image-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* square aspect */
+  overflow: hidden;
+  background: #F5F0EB;
+}
+.produit-image-wrap img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.produit-card:hover .produit-image-wrap img {
+  transform: scale(1.05);
+}
+.produit-placeholder {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  color: #C8A45C;
+  background: #F5F0EB;
+}
+.produit-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(200,164,92,0.85), rgba(92,61,46,0.7));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.produit-overlay .btn-add {
+  padding: 12px 28px;
+  background: #FFFFFF;
+  color: #5C3D2E;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.produit-overlay .btn-add:hover {
+  background: #F5F0EB;
+  transform: scale(1.04);
+}
+
+.produit-info {
+  padding: 18px 16px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.produit-categorie {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #C8A45C;
+  margin-bottom: 6px;
+}
+.produit-nom {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #5C3D2E;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.produit-millesime {
+  font-size: 0.75rem;
+  color: #2C2420;
+  opacity: 0.4;
+  margin-bottom: 10px;
+}
+.produit-prix {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #C8A45C;
+  margin-top: auto;
+}
+
+/* ─── CART FLOATING ─── */
+.cart-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cart-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #5C3D2E;
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 24px rgba(92,61,46,0.2);
+  transition: all 0.3s ease;
+  position: relative;
+}
+.cart-btn:hover {
+  background: #C8A45C;
+  transform: scale(1.05);
+}
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #C8A45C;
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  box-shadow: 0 2px 8px rgba(200,164,92,0.3);
+  transition: transform 0.3s ease;
+}
+.cart-badge.pulse {
+  animation: badgePulse 0.4s ease;
+}
+@keyframes badgePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+/* ─── TOAST NOTIFICATION ─── */
+.toast-container {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  z-index: 998;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+.toast {
+  background: #5C3D2E;
+  color: #FFFFFF;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  box-shadow: 0 6px 24px rgba(92,61,46,0.15);
+  opacity: 0;
+  transform: translateX(40px);
+  animation: toastIn 0.4s ease forwards, toastOut 0.4s ease 2.5s forwards;
+  max-width: 280px;
+  pointer-events: auto;
+}
+.toast i { color: #C8A45C; margin-right: 8px; }
+@keyframes toastIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes toastOut {
+  to { opacity: 0; transform: translateX(40px); }
+}
+
+/* ─── CONTACT / FOOTER ─── */
+#contact {
+  position: relative;
+  z-index: 1;
+  background: #5C3D2E;
+  color: #FFFFFF;
+  padding: 80px 24px 40px;
+}
+#contact .section-title h2 { color: #FFFFFF; }
+#contact .section-title .subtitle { color: rgba(255,255,255,0.6); }
+#contact .section-divider { background: #C8A45C; }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  max-width: 1000px;
+  margin: 0 auto 60px;
+}
+.contact-item {
+  text-align: center;
+}
+.contact-item .icon {
+  font-size: 1.8rem;
+  color: #C8A45C;
+  margin-bottom: 16px;
+}
+.contact-item h3 {
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+.contact-item p {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+.contact-item a {
+  color: #C8A45C;
+  font-weight: 400;
+}
+.contact-item a:hover { color: #FFFFFF; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 24px;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.footer-bottom p {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+.footer-bottom .footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .catalogue-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+}
+@media (max-width: 768px) {
+  .catalogue-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .nav-links {
+    position: fixed;
+    top: 0; right: -100%;
+    width: 280px;
+    height: 100vh;
+    flex-direction: column;
+    background: #FFFFFF;
+    padding: 100px 40px 40px;
+    gap: 24px;
+    transition: right 0.4s ease;
+    box-shadow: -8px 0 30px rgba(0,0,0,0.05);
+    align-items: flex-start;
+  }
+  .nav-links.open { right: 0; }
+  .nav-toggle { display: flex; z-index: 1001; }
+  .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  .section { padding: 60px 20px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 480px) {
+  .catalogue-grid { grid-template-columns: 1fr; gap: 16px; }
+  .nav-logo span { display: none; }
+  .cart-float { bottom: 20px; right: 20px; }
+  .cart-btn { width: 50px; height: 50px; font-size: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ ADINKRA PATTERNS ═══ -->
+<div class="adinkra-bg" aria-hidden="true">
+  <div class="adinkra-symbol">◈</div>
+  <div class="adinkra-symbol">◇</div>
+  <div class="adinkra-symbol">◈</div>
+  <div class="adinkra-symbol">◈</div>
+  <div class="adinkra-symbol">◇</div>
+  <div class="adinkra-symbol">◈</div>
+</div>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav id="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">
+        <img src="logo/logo_transparent.png" alt="Viva Import Export" onerror="this.src='logo/logo.png'">
+        <span>VIVA</span>
+      </a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="catalogue.html" class="active">Catalogue</a></li>
+      <li><a href="tracking.html">Suivi</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══ CATALOGUE HERO ═══ -->
+<section class="catalogue-hero">
+  <h1>Notre Catalogue</h1>
+  <div class="section-divider"></div>
+  <p>Une sélection d'exception — vins, champagnes, whiskies, spiritueux et services de dégustation.</p>
+</section>
+
+<!-- ═══ FILTRES ═══ -->
+<div class="filtres" id="filtresContainer">
+  <button class="filtre-btn active" data-categorie="tous">Tous</button>
+  <button class="filtre-btn" data-categorie="Vins Rouges">Vins Rouges</button>
+  <button class="filtre-btn" data-categorie="Vins Blancs">Vins Blancs</button>
+  <button class="filtre-btn" data-categorie="Champagne">Champagne</button>
+  <button class="filtre-btn" data-categorie="Whisky">Whisky</button>
+  <button class="filtre-btn" data-categorie="Spiritueux">Spiritueux</button>
+  <button class="filtre-btn" data-categorie="Services">Services</button>
+</div>
+
+<!-- ═══ CATALOGUE GRID ═══ -->
+<section class="catalogue-section">
+  <div class="catalogue-grid" id="catalogueGrid"></div>
+</section>
+
+<!-- ═══ CART FLOATING ═══ -->
+<div class="cart-float">
+  <div class="toast-container" id="toastContainer"></div>
+  <button class="cart-btn" id="cartBtn" aria-label="Panier">
+    <i class="fas fa-shopping-bag"></i>
+    <span class="cart-badge" id="cartBadge">0</span>
+  </button>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<section id="contact">
+  <div class="section-title">
+    <h2>Prenons Contact</h2>
+    <div class="section-divider"></div>
+    <p class="subtitle">Une question, un projet ? Notre équipe vous répond sous 24h.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+      <h3>Notre Bureau</h3>
+      <p>Abidjan, Côte d'Ivoire<br>Plateau — Zone administrative</p>
+    </div>
+    <div class="contact-item">
+      <div class="icon"><i class="fas fa-envelope"></i></div>
+      <h3>Email</h3>
+      <p><a href="mailto:contact@vivalyscompagny.com">contact@vivalyscompagny.com</a></p>
+    </div>
+    <div class="contact-item">
+      <div class="icon"><i class="fas fa-phone-alt"></i></div>
+      <h3>Téléphone</h3>
+      <p><a href="tel:+2250707000000">+225 07 07 00 00 00</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-logo">✦ VIVA IMPORT EXPORT ✦</p>
+    <p>&copy; 2025 Viva E-Market — Tous droits réservés. Opérateur panafricain d'import-export.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════ -->
+
+<script>
+/* ═══════════════════════════════════════════
+   CATALOGUE DATA
+   ═══════════════════════════════════════════ */
+var produits = [
+  // ─── Vins Rouges ───
+  { nom: 'Château Margaux', millesime: '2015', categorie: 'Vins Rouges', prix: 350000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Domaine de la Romanée-Conti', millesime: '2018', categorie: 'Vins Rouges', prix: 850000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Château Lafite Rothschild', millesime: '2016', categorie: 'Vins Rouges', prix: 420000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Sassicaia', millesime: '2017', categorie: 'Vins Rouges', prix: 290000, icon: 'fa-wine-bottle', image: '' },
+
+  // ─── Vins Blancs ───
+  { nom: 'Château d\'Yquem', millesime: '2014', categorie: 'Vins Blancs', prix: 380000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Puligny-Montrachet', millesime: '2019', categorie: 'Vins Blancs', prix: 220000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Sancerre', millesime: '2020', categorie: 'Vins Blancs', prix: 85000, icon: 'fa-wine-bottle', image: '' },
+
+  // ─── Champagne ───
+  { nom: 'Dom Pérignon', millesime: '2012', categorie: 'Champagne', prix: 250000, icon: 'fa-champagne-glasses', image: '' },
+  { nom: 'Cristal Roederer', millesime: '2014', categorie: 'Champagne', prix: 320000, icon: 'fa-champagne-glasses', image: '' },
+  { nom: 'Bollinger R.D.', millesime: '2007', categorie: 'Champagne', prix: 180000, icon: 'fa-champagne-glasses', image: '' },
+
+  // ─── Whisky ───
+  { nom: 'Macallan 18 ans', millesime: '', categorie: 'Whisky', prix: 350000, icon: 'fa-whiskey-glass', image: '' },
+  { nom: 'Johnnie Walker Blue Label', millesime: '', categorie: 'Whisky', prix: 280000, icon: 'fa-whiskey-glass', image: '' },
+  { nom: 'Glenfiddich 21 ans', millesime: '', categorie: 'Whisky', prix: 220000, icon: 'fa-whiskey-glass', image: '' },
+
+  // ─── Gin ───
+  { nom: 'Hendrick\'s Gin', millesime: '', categorie: 'Spiritueux', prix: 45000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Monkey 47', millesime: '', categorie: 'Spiritueux', prix: 55000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'The Botanist', millesime: '', categorie: 'Spiritueux', prix: 42000, icon: 'fa-wine-bottle', image: '' },
+
+  // ─── Rhum ───
+  { nom: 'Diplomático Reserva Exclusiva', millesime: '', categorie: 'Spiritueux', prix: 65000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Zacapa 23', millesime: '', categorie: 'Spiritueux', prix: 78000, icon: 'fa-wine-bottle', image: '' },
+
+  // ─── Vodka ───
+  { nom: 'Grey Goose', millesime: '', categorie: 'Spiritueux', prix: 60000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Belvedere', millesime: '', categorie: 'Spiritueux', prix: 55000, icon: 'fa-wine-bottle', image: '' },
+
+  // ─── Services ───
+  { nom: 'Caisse Bois Personnalisée', millesime: '', categorie: 'Services', prix: 50000, icon: 'fa-gem', image: '' },
+  { nom: 'Coffret Dégustation 6 vins', millesime: '', categorie: 'Services', prix: 150000, icon: 'fa-gem', image: '' },
+  { nom: 'Abonnement Wine Club', millesime: 'par mois', categorie: 'Services', prix: 250000, icon: 'fa-gem', image: '' },
+  { nom: 'Cours d\'Œnologie', millesime: '', categorie: 'Services', prix: 75000, icon: 'fa-gem', image: '' }
+];
+
+/* ─── FORMAT PRIX ─── */
+function formatPrix(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' FCFA';
+}
+
+/* ─── RENDER CATALOGUE ─── */
+function renderCatalogue(categorie) {
+  var grid = document.getElementById('catalogueGrid');
+  var filtered = categorie === 'tous' ? produits : produits.filter(function(p) { return p.categorie === categorie; });
+
+  var html = '';
+  for (var i = 0; i < filtered.length; i++) {
+    var p = filtered[i];
+    var icone = p.icon;
+    var millText = p.millesime ? '<p class="produit-millesime">' + p.millesime + '</p>' : '';
+    html += '<div class="produit-card" data-categorie="' + p.categorie + '" data-index="' + i + '">';
+    html += '<div class="produit-image-wrap">';
+    if (p.image) {
+      html += '<img src="' + p.image + '" alt="' + p.nom + '" loading="lazy">';
+    } else {
+      html += '<div class="produit-placeholder"><i class="fas ' + icone + '"></i></div>';
+    }
+    html += '<div class="produit-overlay"><button class="btn-add" data-nom="' + p.nom.replace(/'/g, '\\\'') + '" data-prix="' + p.prix + '"><i class="fas fa-plus"></i> Ajouter</button></div>';
+    html += '</div>';
+    html += '<div class="produit-info">';
+    html += '<div><p class="produit-categorie">' + p.categorie + '</p>';
+    html += '<h3 class="produit-nom">' + p.nom + '</h3>';
+    html += millText + '</div>';
+    html += '<p class="produit-prix">' + formatPrix(p.prix) + '</p>';
+    html += '</div></div>';
+  }
+
+  grid.innerHTML = html;
+
+  // Attach add-to-cart events
+  grid.querySelectorAll('.btn-add').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var nom = this.getAttribute('data-nom');
+      var prix = parseInt(this.getAttribute('data-prix'), 10);
+      ajouterPanier(nom, prix);
+    });
+  });
+
+  // Animate cards in
+  var cards = grid.querySelectorAll('.produit-card');
+  cards.forEach(function(card, idx) {
+    setTimeout(function() {
+      card.classList.add('visible');
+    }, idx * 60);
+  });
+}
+
+/* ─── FILTRES ─── */
+var filtreActif = 'tous';
+document.querySelectorAll('.filtre-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filtre-btn').forEach(function(b) { b.classList.remove('active'); });
+    this.classList.add('active');
+    filtreActif = this.getAttribute('data-categorie');
+    renderCatalogue(filtreActif);
+  });
+});
+
+/* ─── PANIER ─── */
+var panier = [];
+var badge = document.getElementById('cartBadge');
+
+function ajouterPanier(nom, prix) {
+  panier.push({ nom: nom, prix: prix });
+  mettreAJourBadge();
+  showToast(nom + ' ajouté au panier');
+}
+
+function mettreAJourBadge() {
+  var count = panier.length;
+  badge.textContent = count;
+  badge.classList.remove('pulse');
+  // Force reflow
+  void badge.offsetWidth;
+  badge.classList.add('pulse');
+}
+
+function showToast(msg) {
+  var container = document.getElementById('toastContainer');
+  var toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = '<i class="fas fa-check-circle"></i> ' + msg;
+  container.appendChild(toast);
+  setTimeout(function() {
+    if (toast.parentNode) toast.parentNode.removeChild(toast);
+  }, 3000);
+}
+
+// Panier click — show summary
+document.getElementById('cartBtn').addEventListener('click', function() {
+  if (panier.length === 0) {
+    showToast('Votre panier est vide');
+    return;
+  }
+  var total = 0;
+  var msg = '🛒 Panier (' + panier.length + ' articles) :\n';
+  for (var i = 0; i < panier.length; i++) {
+    msg += '• ' + panier[i].nom + ' — ' + formatPrix(panier[i].prix) + '\n';
+    total += panier[i].prix;
+  }
+  msg += '\nTotal : ' + formatPrix(total);
+  showToast(msg.replace(/\n/g, ' · '));
+});
+
+/* ─── MOBILE NAV ─── */
+var navToggle = document.getElementById('navToggle');
+var navLinks = document.getElementById('navLinks');
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', function() {
+    navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+    });
+  });
+}
+
+/* ─── INIT ─── */
+renderCatalogue('tous');
+</script>
+</body>
+</html>

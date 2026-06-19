@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viva Import Export — L'Afrique qu'on construit ensemble</title>
+<meta name="description" content="Opérateur panafricain d'import-export de produits de grande consommation. Distribution B2B premium, logistique intégrée, partenaires d'exception. Basé à Abidjan.">
+<link rel="icon" type="image/png" href="logo/logo.png">
+<link rel="apple-touch-icon" href="logo/logo.png">
+<meta property="og:image" content="logo/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ═══════════════════════════════════════════
+   VIVA E-MARKET — STYLE SHEET
+   Palette : beige #F5F0EB, or #C8A45C, marron #5C3D2E, blanc #FFFFFF, texte #2C2420
+   Tytpo : Playfair Display (titres), Inter (corps)
+   ═══════════════════════════════════════════ */
+
+/* ─── RESET & BASE ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F5F0EB;
+  color: #2C2420;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── ADINKRA PATTERN OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 8% 15%, rgba(200,164,92,0.04) 0, transparent 50%),
+    radial-gradient(circle at 92% 30%, rgba(200,164,92,0.04) 0, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(200,164,92,0.03) 0, transparent 50%),
+    repeating-linear-gradient(45deg, transparent, transparent 80px, rgba(200,164,92,0.015) 80px, rgba(200,164,92,0.015) 81px),
+    repeating-linear-gradient(-45deg, transparent, transparent 80px, rgba(200,164,92,0.015) 80px, rgba(200,164,92,0.015) 81px);
+}
+
+/* ─── ADINKRA SYMBOLS (subtle background) ─── */
+.adinkra-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.adinkra-symbol {
+  position: absolute;
+  font-size: 120px;
+  color: rgba(200,164,92,0.035);
+  font-family: serif;
+  line-height: 1;
+  user-select: none;
+}
+.adinkra-symbol:nth-child(1) { top: 5%; left: 3%; transform: rotate(15deg); font-size: 140px; }
+.adinkra-symbol:nth-child(2) { top: 20%; right: 8%; transform: rotate(-10deg); }
+.adinkra-symbol:nth-child(3) { top: 50%; left: 5%; transform: rotate(5deg); font-size: 100px; }
+.adinkra-symbol:nth-child(4) { bottom: 25%; right: 4%; transform: rotate(-25deg); font-size: 130px; }
+.adinkra-symbol:nth-child(5) { bottom: 8%; left: 50%; transform: rotate(8deg); font-size: 90px; }
+.adinkra-symbol:nth-child(6) { top: 75%; left: 15%; transform: rotate(-12deg); font-size: 80px; }
+
+/* ─── TYPOGRAPHY ─── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  color: #5C3D2E;
+  line-height: 1.2;
+}
+h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; }
+h2 { font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 600; }
+h3 { font-size: clamp(1.3rem, 2vw, 1.8rem); font-weight: 600; }
+p  { font-family: 'Inter', sans-serif; font-weight: 400; color: #2C2420; }
+
+a { color: #C8A45C; text-decoration: none; transition: color 0.3s ease; }
+a:hover { color: #5C3D2E; }
+
+/* ─── SECTION UTILITY ─── */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 100px 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.section-title h2 {
+  margin-bottom: 16px;
+}
+.section-title .subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: #5C3D2E;
+  opacity: 0.7;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+.section-divider {
+  width: 60px;
+  height: 2px;
+  background: #C8A45C;
+  margin: 20px auto 24px;
+}
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(245,240,235,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(200,164,92,0.15);
+  transition: all 0.4s ease;
+}
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-left { display: flex; align-items: center; gap: 12px; }
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo img {
+  height: 40px;
+  width: auto;
+}
+.nav-logo span {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #5C3D2E;
+  letter-spacing: 0.5px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #2C2420;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.3s ease;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1.5px;
+  background: #C8A45C;
+  transition: width 0.35s ease;
+}
+.nav-links a:hover { color: #C8A45C; }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: #C8A45C; }
+.nav-links a.active::after { width: 100%; }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 5px;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #5C3D2E;
+  transition: all 0.3s ease;
+}
+
+/* ─── HERO ─── */
+#hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  background: #F5F0EB;
+}
+#hero .hero-content {
+  max-width: 820px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+#hero .hero-logo {
+  margin-bottom: 32px;
+}
+#hero .hero-logo img {
+  height: 100px;
+  width: auto;
+  filter: drop-shadow(0 2px 8px rgba(92,61,46,0.08));
+}
+#hero h1 {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+#hero h1 .highlight {
+  color: #C8A45C;
+  font-style: italic;
+}
+#hero .hero-tagline {
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  font-weight: 300;
+  color: #5C3D2E;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+#hero .hero-desc {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: #2C2420;
+  opacity: 0.8;
+  max-width: 680px;
+  margin: 0 auto 40px;
+  line-height: 1.8;
+  font-weight: 300;
+}
+#hero .hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 40px;
+  background: #C8A45C;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-decoration: none;
+}
+#hero .hero-cta:hover {
+  background: #5C3D2E;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(92,61,46,0.15);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #5C3D2E;
+  opacity: 0.4;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: scrollBounce 2.5s ease-in-out infinite;
+}
+.hero-scroll i { font-size: 1rem; }
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ─── GLOBE SECTION ─── */
+#globe-section {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  padding: 100px 0;
+  overflow: hidden;
+}
+#globe-section .globe-container {
+  position: relative;
+  width: 100%;
+  height: 560px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+#globe-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.globe-label {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #5C3D2E;
+  opacity: 0.5;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+
+/* ─── MISSION SECTION ─── */
+#mission {
+  position: relative;
+  z-index: 1;
+  background: #F5F0EB;
+  padding: 100px 24px;
+}
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.mission-card {
+  text-align: center;
+  padding: 48px 32px;
+  background: #FFFFFF;
+  border: 1px solid rgba(200,164,92,0.12);
+  transition: all 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+.mission-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(92,61,46,0.06);
+  border-color: rgba(200,164,92,0.3);
+}
+.mission-card .icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(200,164,92,0.08);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  color: #C8A45C;
+}
+.mission-card h3 {
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+}
+.mission-card p {
+  font-size: 0.95rem;
+  opacity: 0.75;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* ─── CHIFFRES SECTION ─── */
+#chiffres {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  padding: 100px 24px;
+}
+.chiffres-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.chiffre-item {
+  text-align: center;
+  padding: 40px 20px;
+  border: 1px solid rgba(200,164,92,0.1);
+  transition: all 0.4s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  background: #F5F0EB;
+}
+.chiffre-item:hover {
+  border-color: #C8A45C;
+  transform: translateY(-4px);
+}
+.chiffre-number {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: #C8A45C;
+  margin-bottom: 8px;
+}
+.chiffre-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #5C3D2E;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ─── CONTACT / FOOTER ─── */
+#contact {
+  position: relative;
+  z-index: 1;
+  background: #5C3D2E;
+  color: #FFFFFF;
+  padding: 80px 24px 40px;
+}
+#contact .section-title h2 { color: #FFFFFF; }
+#contact .section-title .subtitle { color: rgba(255,255,255,0.6); }
+#contact .section-divider { background: #C8A45C; }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  max-width: 1000px;
+  margin: 0 auto 60px;
+}
+.contact-item {
+  text-align: center;
+}
+.contact-item .icon {
+  font-size: 1.8rem;
+  color: #C8A45C;
+  margin-bottom: 16px;
+}
+.contact-item h3 {
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+.contact-item p {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+.contact-item a {
+  color: #C8A45C;
+  font-weight: 400;
+}
+.contact-item a:hover { color: #FFFFFF; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 24px;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.footer-bottom p {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+.footer-bottom .footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .mission-grid { grid-template-columns: 1fr; gap: 24px; }
+  .mission-card { padding: 36px 24px; }
+  .chiffres-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  #globe-section .globe-container { height: 400px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 0; right: -100%;
+    width: 280px;
+    height: 100vh;
+    flex-direction: column;
+    background: #FFFFFF;
+    padding: 100px 40px 40px;
+    gap: 24px;
+    transition: right 0.4s ease;
+    box-shadow: -8px 0 30px rgba(0,0,0,0.05);
+    align-items: flex-start;
+  }
+  .nav-links.open { right: 0; }
+  .nav-toggle { display: flex; z-index: 1001; }
+  .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  #hero .hero-logo img { height: 70px; }
+  .chiffres-grid { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 60px 20px; }
+}
+
+@media (max-width: 480px) {
+  .chiffres-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .chiffre-item { padding: 24px 12px; }
+  #globe-section .globe-container { height: 320px; }
+  .nav-logo span { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ ADINKRA PATTERNS (subtle background) ═══ -->
+<div class="adinkra-bg" aria-hidden="true">
+  <div class="adinkra-symbol">◈</div>
+  <div class="adinkra-symbol">◇</div>
+  <div class="adinkra-symbol">◈</div>
+  <div class="adinkra-symbol">◈</div>
+  <div class="adinkra-symbol">◇</div>
+  <div class="adinkra-symbol">◈</div>
+</div>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav id="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="#hero" class="nav-logo">
+        <img src="logo/logo_transparent.png" alt="Viva Import Export" onerror="this.src='logo/logo.png'">
+        <span>VIVA</span>
+      </a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" class="active">Accueil</a></li>
+      <li><a href="catalogue.html">Catalogue</a></li>
+      <li><a href="tracking.html">Suivi</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-content" id="heroContent">
+    <div class="hero-logo">
+      <img src="logo/logo_transparent.png" alt="Viva Import Export" onerror="this.src='logo/logo.png'" loading="lazy">
+    </div>
+    <p class="hero-tagline">Opérateur Panafricain d'Import-Export</p>
+    <h1>L'Afrique <span class="highlight">qu'on construit</span> ensemble</h1>
+    <p class="hero-desc">
+      Viva E-Market est votre partenaire B2B premium pour l'import-export,
+      la distribution de produits de grande consommation et la logistique intégrée
+      à travers toute l'Afrique. Basés à Abidjan, nous connectons les continents.
+    </p>
+    <a href="#globe-section" class="hero-cta">
+      Découvrir notre réseau <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <span>Découvrir</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- ═══ GLOBE 3D SECTION ═══ -->
+<section id="globe-section">
+  <div class="section" style="padding-top:0;padding-bottom:0;max-width:100%;">
+    <div class="section-title">
+      <h2>Notre Empreinte Mondiale</h2>
+      <div class="section-divider"></div>
+      <p class="subtitle">Un réseau logistique qui relie l'Afrique aux quatre coins du monde</p>
+    </div>
+  </div>
+  <div class="globe-container" id="globeContainer">
+    <div id="globe-canvas"></div>
+    <p class="globe-label">✦ Abidjan — Hub Panafricain ✦</p>
+  </div>
+</section>
+
+<!-- ═══ MISSION SECTION ═══ -->
+<section id="mission">
+  <div class="section">
+    <div class="section-title">
+      <h2>Ce Qui Nous Anime</h2>
+      <div class="section-divider"></div>
+      <p class="subtitle">Une vision, une rigueur, un engagement sans compromis</p>
+    </div>
+    <div class="mission-grid">
+      <div class="mission-card">
+        <div class="icon"><i class="fas fa-handshake"></i></div>
+        <h3>Partenariats d'Exception</h3>
+        <p>Nous sélectionnons les meilleurs producteurs mondiaux pour offrir à nos clients africains des produits d'une qualité irréprochable, à des conditions compétitives.</p>
+      </div>
+      <div class="mission-card">
+        <div class="icon"><i class="fas fa-truck"></i></div>
+        <h3>Logistique Intégrée</h3>
+        <p>De l'acheminement maritime à la livraison finale, notre chaîne logistique maîtrise chaque maillon pour garantir des délais et une traçabilité exemplaires.</p>
+      </div>
+      <div class="mission-card">
+        <div class="icon"><i class="fas fa-globe-africa"></i></div>
+        <h3>Rayonnement Panafricain</h3>
+        <p>Présents dans plus de 150 pays, nous tissons des liens durables et contribuons activement au développement du commerce intra-africain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CHIFFRES SECTION ═══ -->
+<section id="chiffres">
+  <div class="section">
+    <div class="section-title">
+      <h2>Viva en Chiffres</h2>
+      <div class="section-divider"></div>
+      <p class="subtitle">La mesure de notre engagement et de notre envergure</p>
+    </div>
+    <div class="chiffres-grid">
+      <div class="chiffre-item">
+        <div class="chiffre-number" data-target="150">0</div>
+        <div class="chiffre-label">Pays desservis</div>
+      </div>
+      <div class="chiffre-item">
+        <div class="chiffre-number" data-target="45">0</div>
+        <div class="chiffre-label">Ports partenaires</div>
+      </div>
+      <div class="chiffre-item">
+        <div class="chiffre-number" data-target="12">0</div>
+        <div class="chiffre-label">Routes maritimes</div>
+      </div>
+      <div class="chiffre-item">
+        <div class="chiffre-number" data-target="3500">0</div>
+        <div class="chiffre-label">Conteneurs / an</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT / FOOTER ═══ -->
+<section id="contact">
+  <div class="section-title">
+    <h2>Prenons Contact</h2>
+    <div class="section-divider"></div>
+    <p class="subtitle">Une question, un projet ? Notre équipe vous répond sous 24h.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+      <h3>Notre Bureau</h3>
+      <p>Abidjan, Côte d'Ivoire<br>Plateau — Zone administrative</p>
+    </div>
+    <div class="contact-item">
+      <div class="icon"><i class="fas fa-envelope"></i></div>
+      <h3>Email</h3>
+      <p><a href="mailto:contact@vivalyscompagny.com">contact@vivalyscompagny.com</a></p>
+    </div>
+    <div class="contact-item">
+      <div class="icon"><i class="fas fa-phone-alt"></i></div>
+      <h3>Téléphone</h3>
+      <p><a href="tel:+225****0000">+225 07 07 00 00 00</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-logo">✦ VIVA IMPORT EXPORT ✦</p>
+    <p>&copy; 2025 Viva E-Market — Tous droits réservés. Opérateur panafricain d'import-export.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════ -->
+
+<!-- Three.js r128 (CDN) -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+  onerror="console.warn('Three.js CDN failed to load; globe will be skipped')">
+</script>
+
+<!-- GSAP (CDN) -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+  onerror="console.warn('GSAP CDN failed to load')">
+</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+  onerror="console.warn('GSAP ScrollTrigger failed to load')">
+</script>
+
+<script>
+/* ═══════════════════════════════════════════
+   MAIN APPLICATION SCRIPT
+   ═══════════════════════════════════════════ */
+(function() {
+  'use strict';
+
+  /* ─── MOBILE NAV TOGGLE ─── */
+  const navToggle = document.getElementById('navToggle');
+  const navLinks  = document.getElementById('navLinks');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open');
+    });
+    // Close on link click
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+      });
+    });
+  }
+
+  /* ─── NAV ACTIVE STATE ON SCROLL ─── */
+  function updateActiveNav() {
+    var sections = document.querySelectorAll('section[id]');
+    var scrollPos = window.scrollY + 150;
+    sections.forEach(function(section) {
+      var offsetTop = section.offsetTop;
+      var offsetBottom = offsetTop + section.offsetHeight;
+      var id = section.getAttribute('id');
+      var link = document.querySelector('.nav-links a[href="#' + id + '"]');
+      if (link) {
+        if (scrollPos >= offsetTop && scrollPos < offsetBottom) {
+          document.querySelectorAll('.nav-links a').forEach(function(l) { l.classList.remove('active'); });
+          link.classList.add('active');
+        }
+      }
+    });
+  }
+  window.addEventListener('scroll', updateActiveNav);
+  window.addEventListener('load', updateActiveNav);
+
+  /* ─── HERO ENTRANCE ANIMATION (GSAP or fallback) ─── */
+  function animateHero() {
+    var hero = document.getElementById('heroContent');
+    if (!hero) return;
+    if (window.gsap) {
+      gsap.to(hero, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' });
+    } else {
+      hero.style.opacity = '1';
+      hero.style.transform = 'translateY(0)';
+      hero.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
+    }
+  }
+
+  /* ─── SCROLL ANIMATIONS (GSAP ScrollTrigger or Intersection Observer) ─── */
+  function initScrollAnimations() {
+    var elements = document.querySelectorAll('.mission-card, .chiffre-item');
+    if (!elements.length) return;
+
+    if (window.gsap && window.ScrollTrigger) {
+      elements.forEach(function(el) {
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+    } else {
+      // Fallback: Intersection Observer
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      elements.forEach(function(el) { observer.observe(el); });
+    }
+  }
+
+  /* ─── COUNTER ANIMATION ─── */
+  function animateCounters() {
+    var counters = document.querySelectorAll('.chiffre-number');
+    if (!counters.length) return;
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var target = parseInt(el.getAttribute('data-target'), 10);
+          var suffix = target >= 1000 ? '+' : '+';
+          var duration = 2000;
+          var startTime = null;
+
+          function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            var progress = Math.min((timestamp - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+            var current = Math.floor(eased * target);
+            el.textContent = current.toLocaleString() + suffix;
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            } else {
+              el.textContent = target.toLocaleString() + suffix;
+            }
+          }
+          requestAnimationFrame(step);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function(el) { observer.observe(el); });
+  }
+
+  /* ─── THREE.JS GLOBE ─── */
+  function initGlobe() {
+    if (typeof THREE === 'undefined') {
+      console.warn('Three.js not loaded, skipping globe');
+      document.getElementById('globe-canvas').innerHTML = '<div style="text-align:center;padding:80px 20px;color:#5C3D2E;opacity:.5;font-family:Inter,sans-serif;font-size:.9rem;">🌍 Carte interactive non disponible</div>';
+      return;
+    }
+
+    var container = document.getElementById('globe-canvas');
+    var width = container.clientWidth || 800;
+    var height = container.clientHeight || 500;
+
+    // Scene setup
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    camera.position.set(0, 0.5, 3.5);
+
+    var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0xffffff, 0);
+    container.appendChild(renderer.domElement);
+
+    // Globe
+    var radius = 1.2;
+    var geometry = new THREE.SphereGeometry(radius, 64, 64);
+    var textureLoader = new THREE.TextureLoader();
+    var textureUrl = 'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg';
+    var material = new THREE.MeshPhongMaterial({
+      map: textureLoader.load(textureUrl),
+      transparent: true,
+      opacity: 0.95
+    });
+    var globe = new THREE.Mesh(geometry, material);
+    scene.add(globe);
+
+    // Atmosphere glow
+    var glowGeom = new THREE.SphereGeometry(radius * 1.015, 64, 64);
+    var glowMat = new THREE.MeshPhongMaterial({
+      color: 0xC8A45C,
+      transparent: true,
+      opacity: 0.08,
+      side: THREE.BackSide
+    });
+    var glow = new THREE.Mesh(glowGeom, glowMat);
+    scene.add(glow);
+
+    // Grid lines (subtle latitude/longitude)
+    var gridMat = new THREE.LineBasicMaterial({ color: 0xC8A45C, transparent: true, opacity: 0.08 });
+    for (var lat = -80; lat <= 80; lat += 20) {
+      var points = [];
+      for (var lon = 0; lon <= 360; lon += 2) {
+        var phi = (90 - lat) * Math.PI / 180;
+        var theta = lon * Math.PI / 180;
+        points.push(new THREE.Vector3(
+          radius * 1.001 * Math.sin(phi) * Math.cos(theta),
+          radius * 1.001 * Math.cos(phi),
+          radius * 1.001 * Math.sin(phi) * Math.sin(theta)
+        ));
+      }
+      var gridGeom = new THREE.BufferGeometry().setFromPoints(points);
+      scene.add(new THREE.Line(gridGeom, gridMat));
+    }
+    for (var lon = 0; lon < 360; lon += 20) {
+      var points = [];
+      for (var lat2 = -90; lat2 <= 90; lat2 += 2) {
+        var phi2 = (90 - lat2) * Math.PI / 180;
+        var theta2 = lon * Math.PI / 180;
+        points.push(new THREE.Vector3(
+          radius * 1.001 * Math.sin(phi2) * Math.cos(theta2),
+          radius * 1.001 * Math.cos(phi2),
+          radius * 1.001 * Math.sin(phi2) * Math.sin(theta2)
+        ));
+      }
+      var gridGeom2 = new THREE.BufferGeometry().setFromPoints(points);
+      scene.add(new THREE.Line(gridGeom2, gridMat));
+    }
+
+    // Lights
+    var ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+    var dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
+    dirLight.position.set(2, 2, 3);
+    scene.add(dirLight);
+    var dirLight2 = new THREE.DirectionalLight(0xF5F0EB, 0.3);
+    dirLight2.position.set(-2, -1, -2);
+    scene.add(dirLight2);
+
+    // ─── PORTS ───
+    var ports = [
+      { name: 'Abidjan',   lat: 5.3097,  lon: -4.0127, color: 0xC8A45C, size: 0.045, highlight: true },
+      { name: 'Shanghai',  lat: 31.2304, lon: 121.4737, color: 0xC8A45C, size: 0.03 },
+      { name: 'Rotterdam', lat: 51.9244, lon: 4.4777,  color: 0xC8A45C, size: 0.03 },
+      { name: 'Durban',    lat: -29.8587,lon: 31.0218, color: 0xC8A45C, size: 0.025 },
+      { name: 'Lagos',     lat: 6.4281,  lon: 3.4218,  color: 0xC8A45C, size: 0.025 },
+      { name: 'Mombasa',   lat: -4.0435, lon: 39.6682, color: 0xC8A45C, size: 0.025 },
+      { name: 'Casablanca',lat: 33.5731, lon: -7.5898, color: 0xC8A45C, size: 0.025 },
+      { name: 'Dubai',     lat: 25.2048, lon: 55.2708, color: 0xC8A45C, size: 0.025 },
+      { name: 'New York',  lat: 40.7128, lon: -74.0060,color: 0xC8A45C, size: 0.025 },
+    ];
+
+    function latLonToVec3(lat, lon, r) {
+      var phi = (90 - lat) * Math.PI / 180;
+      var theta = (lon + 180) * Math.PI / 180;
+      return new THREE.Vector3(
+        -r * Math.sin(phi) * Math.cos(theta),
+        r * Math.cos(phi),
+        r * Math.sin(phi) * Math.sin(theta)
+      );
+    }
+
+    ports.forEach(function(port) {
+      var pos = latLonToVec3(port.lat, port.lon, radius);
+      var markerGeom = new THREE.SphereGeometry(port.size, 16, 16);
+      var markerMat = new THREE.MeshBasicMaterial({ color: port.color });
+      var marker = new THREE.Mesh(markerGeom, markerMat);
+      marker.position.copy(pos);
+      scene.add(marker);
+
+      if (port.highlight) {
+        // Pulsing ring around Abidjan
+        var ringGeom = new THREE.RingGeometry(0.05, 0.07, 32);
+        var ringMat = new THREE.MeshBasicMaterial({
+          color: 0xC8A45C,
+          transparent: true,
+          opacity: 0.7,
+          side: THREE.DoubleSide
+        });
+        var ring = new THREE.Mesh(ringGeom, ringMat);
+        ring.position.copy(pos);
+        ring.lookAt(new THREE.Vector3(0, 0, 0));
+        scene.add(ring);
+
+        // Store ring for animation
+        marker.userData.ring = ring;
+        marker.userData.ringPhase = 0;
+
+        // Label — we use a small glow sphere cluster
+        for (var i = 0; i < 6; i++) {
+          var sparkle = new THREE.Mesh(
+            new THREE.SphereGeometry(0.008, 8, 8),
+            new THREE.MeshBasicMaterial({ color: 0xC8A45C, transparent: true, opacity: 0.5 })
+          );
+          sparkle.position.copy(pos);
+          sparkle.position.x += (Math.random() - 0.5) * 0.1;
+          sparkle.position.y += (Math.random() - 0.5) * 0.1;
+          sparkle.position.z += (Math.random() - 0.5) * 0.1;
+          scene.add(sparkle);
+        }
+      }
+    });
+
+    // ─── ROUTES ───
+    function createArc(p1, p2, numPoints, height) {
+      var points = [];
+      for (var i = 0; i <= numPoints; i++) {
+        var t = i / numPoints;
+        var pos = new THREE.Vector3().lerpVectors(p1, p2, t);
+        var midPt = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
+        var dist = pos.distanceTo(midPt);
+        var maxDist = p1.distanceTo(p2) / 2;
+        var arc = Math.sin(t * Math.PI) * height;
+        var dir = pos.clone().normalize();
+        pos.add(dir.multiplyScalar(arc));
+        points.push(pos);
+      }
+      return points;
+    }
+
+    var routes = [
+      { from: 'Shanghai',  to: 'Abidjan' },
+      { from: 'Rotterdam', to: 'Abidjan' },
+      { from: 'Abidjan',   to: 'Lagos' },
+      { from: 'Abidjan',   to: 'Durban' },
+      { from: 'Abidjan',   to: 'Mombasa' },
+      { from: 'Abidjan',   to: 'Casablanca' },
+      { from: 'Abidjan',   to: 'Dubai' },
+      { from: 'Abidjan',   to: 'New York' },
+    ];
+
+    function getPortCoords(name) {
+      var port = ports.find(function(p) { return p.name === name; });
+      return port ? latLonToVec3(port.lat, port.lon, radius) : null;
+    }
+
+    var routeLines = [];
+    routes.forEach(function(route) {
+      var p1 = getPortCoords(route.from);
+      var p2 = getPortCoords(route.to);
+      if (!p1 || !p2) return;
+
+      var arcPoints = createArc(p1, p2, 50, 0.35);
+
+      // Main arc
+      var arcGeom = new THREE.BufferGeometry().setFromPoints(arcPoints);
+      var arcMat = new THREE.LineBasicMaterial({
+        color: 0xC8A45C,
+        transparent: true,
+        opacity: 0.15
+      });
+      var arcLine = new THREE.Line(arcGeom, arcMat);
+      scene.add(arcLine);
+      routeLines.push(arcLine);
+
+      // Dashed animated path (dots)
+      var dotMat = new THREE.PointsMaterial({
+        color: 0xC8A45C,
+        size: 0.015,
+        transparent: true,
+        opacity: 0.6
+      });
+      var dotPositions = new Float32Array(arcPoints.length * 3);
+      arcPoints.forEach(function(p, idx) {
+        dotPositions[idx*3] = p.x;
+        dotPositions[idx*3+1] = p.y;
+        dotPositions[idx*3+2] = p.z;
+      });
+      var dotGeom = new THREE.BufferGeometry();
+      dotGeom.setAttribute('position', new THREE.BufferAttribute(dotPositions, 3));
+      var dots = new THREE.Points(dotGeom, dotMat);
+      scene.add(dots);
+      routeLines.push(dots);
+
+      // Store for animation
+      dots.userData.routeIndex = routeLines.length;
+    });
+
+    // ─── STARFIELD ───
+    var starsGeom = new THREE.BufferGeometry();
+    var starCount = 400;
+    var starPos = new Float32Array(starCount * 3);
+    for (var i = 0; i < starCount * 3; i++) {
+      starPos[i] = (Math.random() - 0.5) * 20;
+    }
+    starsGeom.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    var starsMat = new THREE.PointsMaterial({
+      color: 0xC8A45C,
+      size: 0.008,
+      transparent: true,
+      opacity: 0.2
+    });
+    var stars = new THREE.Points(starsGeom, starsMat);
+    scene.add(stars);
+
+    // ─── INTERACTION ───
+    var isDragging = false;
+    var prevMouseX = 0;
+    var prevMouseY = 0;
+    var rotVelocityX = 0;
+    var rotVelocityY = 0;
+
+    renderer.domElement.addEventListener('mousedown', function(e) {
+      isDragging = true;
+      prevMouseX = e.clientX;
+      prevMouseY = e.clientY;
+    });
+
+    window.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      var dx = e.clientX - prevMouseX;
+      var dy = e.clientY - prevMouseY;
+      rotVelocityX = dx * 0.005;
+      rotVelocityY = dy * 0.005;
+      globe.rotation.y += rotVelocityX;
+      globe.rotation.x += rotVelocityY;
+      glow.rotation.copy(globe.rotation);
+      prevMouseX = e.clientX;
+      prevMouseY = e.clientY;
+    });
+
+    window.addEventListener('mouseup', function() { isDragging = false; });
+
+    // Touch support
+    var touchStartX, touchStartY;
+    renderer.domElement.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        isDragging = true;
+      }
+    }, { passive: true });
+
+    renderer.domElement.addEventListener('touchmove', function(e) {
+      if (!isDragging || e.touches.length !== 1) return;
+      var dx = e.touches[0].clientX - touchStartX;
+      var dy = e.touches[0].clientY - touchStartY;
+      rotVelocityX = dx * 0.005;
+      rotVelocityY = dy * 0.005;
+      globe.rotation.y += rotVelocityX;
+      globe.rotation.x += rotVelocityY;
+      glow.rotation.copy(globe.rotation);
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    renderer.domElement.addEventListener('touchend', function() { isDragging = false; }, { passive: true });
+
+    // ─── RESIZE ───
+    function onResize() {
+      var w = container.clientWidth || 800;
+      var h = container.clientHeight || 500;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    }
+    window.addEventListener('resize', onResize);
+
+    // ─── ANIMATION LOOP ───
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Auto-rotation (slower when dragging)
+      if (!isDragging) {
+        globe.rotation.y += 0.002;
+        glow.rotation.copy(globe.rotation);
+      } else {
+        // Apply inertia decay
+        rotVelocityX *= 0.95;
+        rotVelocityY *= 0.95;
+      }
+
+      // Animate Abidjan ring pulse
+      ports.forEach(function(port) {
+        if (port.highlight && port.userData && port.userData.ring) {
+          port.userData.ringPhase = (port.userData.ringPhase || 0) + 0.03;
+          var scale = 1 + 0.5 * Math.sin(port.userData.ringPhase);
+          port.userData.ring.scale.set(scale, scale, scale);
+          port.userData.ring.material.opacity = 0.3 + 0.4 * Math.sin(port.userData.ringPhase + 1.5);
+        }
+      });
+
+      // Animate route dots (move along arcs)
+      // (simplified: just pulse opacity of route lines)
+
+      stars.rotation.y += 0.0001;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  }
+
+  /* ─── INIT ON LOAD ─── */
+  function init() {
+    animateHero();
+    // Check if GSAP loaded, give it a moment
+    setTimeout(function() {
+      initScrollAnimations();
+    }, 100);
+    animateCounters();
+
+    // Wait a bit for Three.js to load, then init globe
+    function tryGlobe() {
+      if (typeof THREE !== 'undefined') {
+        initGlobe();
+      } else {
+        setTimeout(tryGlobe, 200);
+      }
+    }
+    setTimeout(tryGlobe, 500);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+</script>
+</body>
+</html>
