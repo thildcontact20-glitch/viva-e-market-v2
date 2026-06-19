@@ -671,7 +671,12 @@ nav {
     <div class="contact-item">
       <div class="icon"><i class="fas fa-phone-alt"></i></div>
       <h3>Téléphone</h3>
-      <p><a href="tel:+2250707000000">+225 07 07 00 00 00</a></p>
+      <p><a href="tel:+2250171404059">+225 01 71 40 40 59</a></p>
+    </div>
+    <div class="contact-item">
+      <div class="icon"><i class="fab fa-whatsapp"></i></div>
+      <h3>WhatsApp</h3>
+      <p><a href="https://wa.me/2250171404059" target="_blank" rel="noopener">+225 01 71 40 40 59</a></p>
     </div>
   </div>
   <div class="footer-bottom">
@@ -686,9 +691,105 @@ nav {
 
 <script>
 /* ═══════════════════════════════════════════
-   CATALOGUE DATA
+   CATALOGUE DATA — loaded from API with fallback
    ═══════════════════════════════════════════ */
+// URL de l'API admin (backend Render)
+var API_URL = 'https://viva-e-market-admin.onrender.com';
+// Fallback local si l'API n'est pas accessible
+var FALLBACK_API_URL = 'http://localhost:8000';
+
 var produits = [
+  { nom: 'Château Margaux', millesime: '2015', categorie: 'Vins Rouges', prix: 350000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Domaine de la Romanée-Conti', millesime: '2018', categorie: 'Vins Rouges', prix: 850000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Château Lafite Rothschild', millesime: '2016', categorie: 'Vins Rouges', prix: 420000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Sassicaia', millesime: '2017', categorie: 'Vins Rouges', prix: 290000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Château d\'Yquem', millesime: '2014', categorie: 'Vins Blancs', prix: 380000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Puligny-Montrachet', millesime: '2019', categorie: 'Vins Blancs', prix: 220000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Sancerre', millesime: '2020', categorie: 'Vins Blancs', prix: 85000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Dom Pérignon', millesime: '2012', categorie: 'Champagne', prix: 250000, icon: 'fa-champagne-glasses', image: '' },
+  { nom: 'Cristal Roederer', millesime: '2014', categorie: 'Champagne', prix: 320000, icon: 'fa-champagne-glasses', image: '' },
+  { nom: 'Bollinger R.D.', millesime: '2007', categorie: 'Champagne', prix: 180000, icon: 'fa-champagne-glasses', image: '' },
+  { nom: 'Macallan 18 ans', millesime: '', categorie: 'Whisky', prix: 350000, icon: 'fa-whiskey-glass', image: '' },
+  { nom: 'Johnnie Walker Blue Label', millesime: '', categorie: 'Whisky', prix: 280000, icon: 'fa-whiskey-glass', image: '' },
+  { nom: 'Glenfiddich 21 ans', millesime: '', categorie: 'Whisky', prix: 220000, icon: 'fa-whiskey-glass', image: '' },
+  { nom: 'Hendrick\'s Gin', millesime: '', categorie: 'Spiritueux', prix: 45000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Monkey 47', millesime: '', categorie: 'Spiritueux', prix: 55000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'The Botanist', millesime: '', categorie: 'Spiritueux', prix: 42000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Diplomático Reserva Exclusiva', millesime: '', categorie: 'Spiritueux', prix: 65000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Zacapa 23', millesime: '', categorie: 'Spiritueux', prix: 78000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Grey Goose', millesime: '', categorie: 'Spiritueux', prix: 60000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Belvedere', millesime: '', categorie: 'Spiritueux', prix: 55000, icon: 'fa-wine-bottle', image: '' },
+  { nom: 'Caisse Bois Personnalisée', millesime: '', categorie: 'Services', prix: 50000, icon: 'fa-gem', image: '' },
+  { nom: 'Coffret Dégustation 6 vins', millesime: '', categorie: 'Services', prix: 150000, icon: 'fa-gem', image: '' },
+  { nom: 'Abonnement Wine Club', millesime: 'par mois', categorie: 'Services', prix: 250000, icon: 'fa-gem', image: '' },
+  { nom: 'Cours d\'Œnologie', millesime: '', categorie: 'Services', prix: 75000, icon: 'fa-gem', image: '' },
+];
+var filtreActif = 'tous';
+
+// Tentative de chargement depuis l'API
+function chargerProduitsDepuisAPI() {
+  // Essayer d'abord l'API Render, puis le fallback local
+  var triedUrls = [API_URL, FALLBACK_API_URL];
+  var tried = 0;
+
+  function tryNext() {
+    if (tried >= triedUrls.length) {
+      // Fallback: utiliser les données inline
+      console.warn('⚠️ API inaccessible, utilisation des données locales');
+      produits = getInlineProduits();
+      renderCatalogue(filtreActif || 'tous');
+      return;
+    }
+    var baseUrl = triedUrls[tried];
+    tried++;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', baseUrl + '/api/produits', true);
+    xhr.timeout = 5000; // 5 secondes max
+    xhr.onload = function() {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          var data = JSON.parse(xhr.responseText);
+          if (Array.isArray(data) && data.length > 0) {
+            // Convertir le format API (nom, millesime, categorie, prix, icon, image)
+            // en format compatible avec l'ancien code
+            produits = data.map(function(p) {
+              return {
+                nom: p.nom || p.name || '',
+                millesime: p.millesime || '',
+                categorie: p.categorie || p.category || 'Autres',
+                prix: p.prix || p.price || 0,
+                icon: p.icon || 'fa-wine-bottle',
+                image: p.image || ''
+              };
+            });
+            console.log('✅ Produits chargés depuis API:', baseUrl);
+            renderCatalogue(filtreActif || 'tous');
+            return;
+          }
+        } catch(e) {
+          console.warn('❌ Erreur parsing JSON:', e);
+        }
+      }
+      // Essayer l'URL suivante
+      tryNext();
+    };
+    xhr.onerror = function() {
+      console.warn('❌ API inaccessible:', baseUrl);
+      tryNext();
+    };
+    xhr.ontimeout = function() {
+      console.warn('⏱ Timeout API:', baseUrl);
+      tryNext();
+    };
+    xhr.send();
+  }
+
+  tryNext();
+}
+
+// Données inline de secours (24 produits par défaut)
+function getInlineProduits() {
+  return [
   // ─── Vins Rouges ───
   { nom: 'Château Margaux', millesime: '2015', categorie: 'Vins Rouges', prix: 350000, icon: 'fa-wine-bottle', image: '' },
   { nom: 'Domaine de la Romanée-Conti', millesime: '2018', categorie: 'Vins Rouges', prix: 850000, icon: 'fa-wine-bottle', image: '' },
@@ -710,16 +811,12 @@ var produits = [
   { nom: 'Johnnie Walker Blue Label', millesime: '', categorie: 'Whisky', prix: 280000, icon: 'fa-whiskey-glass', image: '' },
   { nom: 'Glenfiddich 21 ans', millesime: '', categorie: 'Whisky', prix: 220000, icon: 'fa-whiskey-glass', image: '' },
 
-  // ─── Gin ───
+  // ─── Spiritueux ───
   { nom: 'Hendrick\'s Gin', millesime: '', categorie: 'Spiritueux', prix: 45000, icon: 'fa-wine-bottle', image: '' },
   { nom: 'Monkey 47', millesime: '', categorie: 'Spiritueux', prix: 55000, icon: 'fa-wine-bottle', image: '' },
   { nom: 'The Botanist', millesime: '', categorie: 'Spiritueux', prix: 42000, icon: 'fa-wine-bottle', image: '' },
-
-  // ─── Rhum ───
   { nom: 'Diplomático Reserva Exclusiva', millesime: '', categorie: 'Spiritueux', prix: 65000, icon: 'fa-wine-bottle', image: '' },
   { nom: 'Zacapa 23', millesime: '', categorie: 'Spiritueux', prix: 78000, icon: 'fa-wine-bottle', image: '' },
-
-  // ─── Vodka ───
   { nom: 'Grey Goose', millesime: '', categorie: 'Spiritueux', prix: 60000, icon: 'fa-wine-bottle', image: '' },
   { nom: 'Belvedere', millesime: '', categorie: 'Spiritueux', prix: 55000, icon: 'fa-wine-bottle', image: '' },
 
@@ -728,7 +825,8 @@ var produits = [
   { nom: 'Coffret Dégustation 6 vins', millesime: '', categorie: 'Services', prix: 150000, icon: 'fa-gem', image: '' },
   { nom: 'Abonnement Wine Club', millesime: 'par mois', categorie: 'Services', prix: 250000, icon: 'fa-gem', image: '' },
   { nom: 'Cours d\'Œnologie', millesime: '', categorie: 'Services', prix: 75000, icon: 'fa-gem', image: '' }
-];
+  ];
+}
 
 /* ─── FORMAT PRIX ─── */
 function formatPrix(n) {
@@ -784,7 +882,6 @@ function renderCatalogue(categorie) {
 }
 
 /* ─── FILTRES ─── */
-var filtreActif = 'tous';
 document.querySelectorAll('.filtre-btn').forEach(function(btn) {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.filtre-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -857,7 +954,8 @@ if (navToggle && navLinks) {
 }
 
 /* ─── INIT ─── */
-renderCatalogue('tous');
+// Charger depuis l'API d'abord, fallback vers les données locales
+chargerProduitsDepuisAPI();
 </script>
 </body>
 </html>
