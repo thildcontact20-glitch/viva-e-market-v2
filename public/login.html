@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Connexion - Viva E-Market</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .login-box {
+      background: rgba(255,255,255,0.95);
+      padding: 40px; border-radius: 16px; width: 380px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .login-box h1 { font-size: 24px; color: #1a1a2e; margin-bottom: 8px; text-align: center; }
+    .login-box p { color: #666; text-align: center; margin-bottom: 24px; font-size: 14px; }
+    .login-box input { 
+      width: 100%; padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 8px;
+      font-size: 15px; margin-bottom: 16px; transition: border-color 0.2s;
+    }
+    .login-box input:focus { outline: none; border-color: #0f3460; }
+    .login-box button {
+      width: 100%; padding: 14px; background: #0f3460; color: white; border: none;
+      border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: 600;
+      transition: background 0.2s;
+    }
+    .login-box button:hover { background: #1a4a7a; }
+    .error { color: #e74c3c; text-align: center; margin-top: 12px; display: none; font-size: 14px; }
+    .logo { text-align: center; margin-bottom: 24px; }
+    .logo img { height: 48px; }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <div class="logo">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" stroke="#D4AF37" stroke-width="3"/>
+        <path d="M24 8 L28 20 L40 20 L30 28 L34 40 L24 32 L14 40 L18 28 L8 20 L20 20 Z" fill="#D4AF37" opacity="0.8"/>
+      </svg>
+    </div>
+    <h1>Viva E-Market</h1>
+    <p>Administration du catalogue</p>
+    <input type="password" id="password" placeholder="Mot de passe" onkeydown="if(event.key==='Enter') login()">
+    <button onclick="login()">Se connecter</button>
+    <div class="error" id="error">Mot de passe incorrect</div>
+  </div>
+  <script>
+    function login() {
+      const pwd = document.getElementById('password').value;
+      fetch('/api/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ password: pwd })
+      }).then(r => {
+        if (r.ok) { window.location.href = '/admin'; }
+        else { document.getElementById('error').style.display = 'block'; }
+      }).catch(() => {
+        document.getElementById('error').style.display = 'block';
+      });
+    }
+  </script>
+</body>
+</html>

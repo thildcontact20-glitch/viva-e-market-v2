@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Viva E-Market</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #f5f5f0;
+      min-height: 100vh;
+    }
+    header {
+      background: #1a1a2e;
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 { font-size: 20px; font-weight: 600; }
+    header .actions { display: flex; gap: 12px; align-items: center; }
+    header .actions button, header .actions a {
+      padding: 8px 16px; background: #0f3460; color: white; border: none;
+      border-radius: 6px; cursor: pointer; font-size: 14px; text-decoration: none;
+    }
+    header .actions button:hover, header .actions a:hover { background: #1a4a7a; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card {
+      background: white; border-radius: 12px; padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .stat-card h3 { font-size: 28px; color: #0f3460; margin-bottom: 4px; }
+    .stat-card p { color: #666; font-size: 13px; }
+    .toolbar { display: flex; gap: 12px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
+    .toolbar input, .toolbar select {
+      padding: 10px 14px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;
+    }
+    .toolbar input:focus, .toolbar select:focus { outline: none; border-color: #0f3460; }
+    .toolbar input { flex: 1; min-width: 200px; }
+    .toolbar .btn-add {
+      padding: 10px 20px; background: #27ae60; color: white; border: none;
+      border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px;
+      white-space: nowrap;
+    }
+    .toolbar .btn-add:hover { background: #219a52; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .product-card {
+      background: white; border-radius: 12px; padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: box-shadow 0.2s;
+    }
+    .product-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+    .product-card .top { display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px; }
+    .product-card .nom { font-weight: 600; font-size: 16px; color: #1a1a2e; }
+    .product-card .categorie { font-size: 12px; color: #0f3460; background: #e8f0fe; padding: 2px 8px; border-radius: 4px; }
+    .product-card .details { display: flex; justify-content: space-between; align-items: center; }
+    .product-card .prix { font-weight: 700; font-size: 18px; color: #0f3460; }
+    .product-card .stock { font-size: 13px; color: #666; }
+    .product-card .actions { display: flex; gap: 8px; margin-top: 12px; }
+    .product-card .actions button {
+      padding: 6px 14px; border-radius: 6px; border: none; cursor: pointer; font-size: 13px; font-weight: 500;
+    }
+    .product-card .btn-edit { background: #f0f0f0; color: #333; }
+    .product-card .btn-edit:hover { background: #e0e0e0; }
+    .product-card .btn-delete { background: #fde8e8; color: #e74c3c; }
+    .product-card .btn-delete:hover { background: #fcd5d5; }
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: white; border-radius: 16px; padding: 32px; width: 500px; max-width: 90vw;
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal h2 { margin-bottom: 20px; font-size: 22px; color: #1a1a2e; }
+    .modal label { display: block; font-size: 13px; color: #666; margin-bottom: 4px; margin-top: 12px; }
+    .modal input, .modal select, .modal textarea {
+      width: 100%; padding: 10px 12px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 14px;
+    }
+    .modal input:focus, .modal select:focus { outline: none; border-color: #0f3460; }
+    .modal .form-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+    .modal .form-actions button { padding: 10px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; }
+    .modal .btn-cancel { background: #f0f0f0; color: #333; }
+    .modal .btn-save { background: #0f3460; color: white; }
+    .modal .btn-save:hover { background: #1a4a7a; }
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: #27ae60; color: white;
+      padding: 12px 24px; border-radius: 8px; font-size: 14px; z-index: 2000;
+      display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .deco { text-align: right; font-size: 11px; color: #D4AF37; margin-top: 24px; }
+    .empty-state { text-align: center; padding: 60px 20px; color: #999; }
+    .empty-state h3 { font-size: 20px; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Viva E-Market — Admin</h1>
+  <div class="actions">
+    <a href="https://viva-e-market-v2.vercel.app/catalogue.html" target="_blank">Voir le site</a>
+    <button onclick="sauvegarder()">💾 Sauvegarder</button>
+    <button onclick="logout()" style="background:#e74c3c;">Déconnexion</button>
+  </div>
+</header>
+<div class="container">
+  <div class="stats" id="stats"></div>
+  <div class="toolbar">
+    <input type="text" id="search" placeholder="Rechercher un produit..." oninput="renderProduits()">
+    <select id="filterCat" onchange="renderProduits()">
+      <option value="tous">Toutes catégories</option>
+    </select>
+    <button class="btn-add" onclick="ouvrirModal()">+ Nouveau produit</button>
+  </div>
+  <div class="product-grid" id="grid"></div>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h2 id="modalTitle">Nouveau produit</h2>
+    <label>Nom du produit</label>
+    <input type="text" id="fNom" placeholder="ex: Château Margaux 2015">
+    <label>Catégorie</label>
+    <select id="fCategorie"></select>
+    <label>Prix (FCFA)</label>
+    <input type="number" id="fPrix" placeholder="ex: 450000">
+    <label>Stock</label>
+    <input type="number" id="fStock" placeholder="ex: 12">
+    <label>URL Image</label>
+    <input type="text" id="fImage" placeholder="/img/vins/margaux.jpg">
+    <div class="form-actions">
+      <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
+      <button class="btn-save" onclick="sauverProduit()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">✅ Enregistré</div>
+<div class="container"><div class="deco">Vivalys Compagny © 2026</div></div>
+
+<script>
+const CATEGORIES = ['Vins', 'Champagnes', 'Whisky', 'Cognac', 'Spiritueux', 'Épicerie Fine'];
+let produits = [];
+let editId = null;
+
+function charger() {
+  fetch('/api/produits')
+    .then(r => r.json())
+    .then(data => { produits = data; renderProduits(); })
+    .catch(() => { toast('Erreur chargement'); });
+}
+
+function renderProduits() {
+  const search = document.getElementById('search').value.toLowerCase();
+  const cat = document.getElementById('filterCat').value;
+  let filtered = produits.filter(p => {
+    if (cat !== 'tous' && p.categorie !== cat) return false;
+    if (search && !p.nom.toLowerCase().includes(search)) return false;
+    return true;
+  });
+  
+  // Stats
+  const total = produits.length;
+  const totalStock = produits.reduce((a, b) => a + (b.stock || 0), 0);
+  const totalValue = produits.reduce((a, b) => a + (b.prix || 0) * (b.stock || 0), 0);
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-card"><h3>${total}</h3><p>Produits</p></div>
+    <div class="stat-card"><h3>${totalStock}</h3><p>Articles en stock</p></div>
+    <div class="stat-card"><h3>${(totalValue/1000000).toFixed(1)}M</h3><p>Valeur stock (FCFA)</p></div>
+    <div class="stat-card"><h3>${CATEGORIES.length}</h3><p>Catégories</p></div>
+  `;
+
+  const grid = document.getElementById('grid');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty-state"><h3>Aucun produit trouvé</h3><p>Modifiez vos filtres ou ajoutez un nouveau produit.</p></div>';
+    return;
+  }
+  
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card">
+      <div class="top">
+        <span class="nom">${p.nom}</span>
+        <span class="categorie">${p.categorie}</span>
+      </div>
+      <div class="details">
+        <span class="prix">${(p.prix || 0).toLocaleString()} FCFA</span>
+        <span class="stock">Stock: ${p.stock || 0}</span>
+      </div>
+      <div class="actions">
+        <button class="btn-edit" onclick="ouvrirModal(${p.id})">✏️ Modifier</button>
+        <button class="btn-delete" onclick="supprimer(${p.id})">🗑 Supprimer</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function ouvrirModal(id) {
+  editId = id || null;
+  document.getElementById('modalTitle').textContent = id ? 'Modifier le produit' : 'Nouveau produit';
+  
+  // Remplir catégories
+  const selCat = document.getElementById('fCategorie');
+  selCat.innerHTML = CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join('');
+  
+  if (id) {
+    const p = produits.find(x => x.id === id);
+    if (p) {
+      document.getElementById('fNom').value = p.nom;
+      document.getElementById('fCategorie').value = p.categorie;
+      document.getElementById('fPrix').value = p.prix;
+      document.getElementById('fStock').value = p.stock;
+      document.getElementById('fImage').value = p.image || '';
+    }
+  } else {
+    document.getElementById('fNom').value = '';
+    document.getElementById('fCategorie').value = 'Vins';
+    document.getElementById('fPrix').value = '';
+    document.getElementById('fStock').value = '1';
+    document.getElementById('fImage').value = '';
+  }
+  document.getElementById('modal').classList.add('active');
+}
+
+function fermerModal() { document.getElementById('modal').classList.remove('active'); }
+
+function sauverProduit() {
+  const nom = document.getElementById('fNom').value.trim();
+  const categorie = document.getElementById('fCategorie').value;
+  const prix = parseInt(document.getElementById('fPrix').value);
+  const stock = parseInt(document.getElementById('fStock').value);
+  const image = document.getElementById('fImage').value.trim();
+
+  if (!nom || !prix) { toast('⚠️ Nom et prix requis'); return; }
+
+  if (editId) {
+    const idx = produits.findIndex(x => x.id === editId);
+    if (idx >= 0) produits[idx] = { ...produits[idx], nom, categorie, prix, stock, image };
+  } else {
+    const maxId = produits.reduce((a, b) => Math.max(a, b.id || 0), 0);
+    produits.push({ id: maxId + 1, nom, categorie, prix, stock, image });
+  }
+  
+  fermerModal();
+  renderProduits();
+  toast('✅ Produit ' + (editId ? 'modifié' : 'ajouté'));
+}
+
+function supprimer(id) {
+  if (!confirm('Supprimer ce produit ?')) return;
+  produits = produits.filter(p => p.id !== id);
+  renderProduits();
+  toast('🗑 Produit supprimé');
+}
+
+function sauvegarder() {
+  fetch('/api/produits', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(produits)
+  }).then(r => {
+    if (r.ok) toast('💾 Sauvegardé sur le serveur');
+    else toast('⚠️ Erreur sauvegarde');
+  }).catch(() => toast('⚠️ Erreur réseau'));
+}
+
+function logout() { window.location.href = '/admin/login'; }
+function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2000); }
+
+function initSelect() {
+  const selCat = document.getElementById('filterCat');
+  selCat.innerHTML = '<option value="tous">Toutes catégories</option>' + CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join('');
+}
+
+initSelect();
+charger();
+</script>
+</body>
+</html>
